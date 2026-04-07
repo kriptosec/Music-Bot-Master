@@ -9,6 +9,22 @@ export function registerLavalinkEvents(client: Client): void {
 
   // ── Node events ───────────────────────────────────────────────────────────
   lavalink.nodeManager.on("connect", (node) => {
+    // When youtube: false in application.yml the built-in Lavaplayer source is
+    // disabled (it's broken for new YT ciphers), but the YouTube plugin still
+    // handles all YouTube playback. However lavalink-client validates that
+    // "youtube" appears in node.info.sourceManagers before allowing ytsearch.
+    // Fix: if the YouTube plugin is loaded, inject "youtube" into sourceManagers
+    // so the client's validation passes without enabling the broken source.
+    if (node.info && !node.info.sourceManagers.includes("youtube")) {
+      const hasPlugin = node.info.plugins?.some(
+        (p: { name: string }) => p.name === "youtube-plugin" || p.name === "youtube"
+      );
+      if (hasPlugin) {
+        node.info.sourceManagers.push("youtube");
+        logger.info('YouTube plugin detectado — "youtube" añadido a sourceManagers (built-in desactivado).');
+      }
+    }
+
     logger.separator(`LAVALINK CONECTADO — nodo "${node.id}"`);
     logger.info(`Host: ${node.options.host}:${node.options.port}`);
     logger.info("El bot ya puede reproducir música.");

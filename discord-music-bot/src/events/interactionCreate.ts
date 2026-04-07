@@ -45,16 +45,23 @@ async function handlePlay(interaction: ChatInputCommandInteraction, client: Clie
 
   let player = client.lavalink.getPlayer(guild.id);
   if (!player) {
-    player = await client.lavalink.createPlayer({
-      guildId: guild.id,
-      voiceChannelId: voiceChannel.id,
-      textChannelId: interaction.channelId,
-      selfDeaf: true,
-      selfMute: false,
-      volume: 80,
-      instaUpdateFiltersFix: true,
-      applyVolumeAsFilter: false,
-    });
+    try {
+      player = await client.lavalink.createPlayer({
+        guildId: guild.id,
+        voiceChannelId: voiceChannel.id,
+        textChannelId: interaction.channelId,
+        selfDeaf: true,
+        selfMute: false,
+        volume: 80,
+        instaUpdateFiltersFix: true,
+        applyVolumeAsFilter: false,
+      });
+    } catch {
+      await reply(interaction, {
+        embeds: [errorEmbed("⏳ Lavalink aún está iniciando. Espera unos segundos e intentá de nuevo.")],
+      });
+      return;
+    }
   }
 
   if (!player.connected) await player.connect();

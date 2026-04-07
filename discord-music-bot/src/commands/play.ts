@@ -26,16 +26,21 @@ export const play: Command = {
     let player = client.lavalink.getPlayer(guild.id);
 
     if (!player) {
-      player = await client.lavalink.createPlayer({
-        guildId: guild.id,
-        voiceChannelId: voiceChannel.id,
-        textChannelId: message.channel.id,
-        selfDeaf: true,
-        selfMute: false,
-        volume: 80,
-        instaUpdateFiltersFix: true,
-        applyVolumeAsFilter: false,
-      });
+      try {
+        player = await client.lavalink.createPlayer({
+          guildId: guild.id,
+          voiceChannelId: voiceChannel.id,
+          textChannelId: message.channel.id,
+          selfDeaf: true,
+          selfMute: false,
+          volume: 80,
+          instaUpdateFiltersFix: true,
+          applyVolumeAsFilter: false,
+        });
+      } catch {
+        await message.reply({ embeds: [errorEmbed("⏳ Lavalink aún está iniciando. Espera unos segundos e intentá de nuevo.")] });
+        return;
+      }
     }
 
     if (!player.connected) {

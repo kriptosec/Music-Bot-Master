@@ -1,0 +1,106 @@
+── BOT LOG ──────────────────────────────────────────
+2026-04-07T08:24:44.851Z [INFO ] Lavalink:     127.0.0.1:2333
+2026-04-07T08:24:45.349Z [INFO ] 7 slash commands registrados globalmente.
+2026-04-07T08:24:45.349Z [INFO ] Iniciando conexión con Lavalink...
+2026-04-07T08:24:45.349Z [INFO ] 7 slash commands registrados globalmente.
+2026-04-07T08:24:45.351Z [INFO ] LavalinkManager iniciado. Esperando conexión del nodo...
+2026-04-07T08:24:45.349Z [INFO ] Iniciando conexión con Lavalink...
+2026-04-07T08:24:45.351Z [INFO ] LavalinkManager iniciado. Esperando conexión del nodo...
+2026-04-07T08:24:47.351Z [INFO ] Slash /play — kaito1703 en Gamelead
+2026-04-07T08:24:47.351Z [INFO ] Slash /play — kaito1703 en Gamelead
+2026-04-07T08:24:47.352Z [ERROR] Error en slash /play:
+[LAVA]   Error: No available Node was found, please add a LavalinkNode to the Manager via Manager.NodeManager#createNode
+[LAVA]     at new Player (/home/r2dd2/Music-Bot-Master/discord-music-bot/node_modules/lavalink-client/dist/index.cjs:5403:13)
+[LAVA]     at _LavalinkManager.createPlayer (/home/r2dd2/Music-Bot-Master/discord-music-bot/node_modules/lavalink-client/dist/index.cjs:6489:23)
+[LAVA]     at handlePlay (/home/r2dd2/Music-Bot-Master/discord-music-bot/dist/events/interactionCreate.js:31:40)
+[LAVA]     at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+[LAVA]     at async Client.<anonymous> (/home/r2dd2/Music-Bot-Master/discord-music-bot/dist/events/interactionCreate.js:205:21)
+2026-04-07T08:24:47.352Z [ERROR] Error en slash /play:
+[LAVA]   Error: No available Node was found, please add a LavalinkNode to the Manager via Manager.NodeManager#createNode
+[LAVA]     at new Player (/home/r2dd2/Music-Bot-Master/discord-music-bot/node_modules/lavalink-client/dist/index.cjs:5403:13)
+[LAVA]     at _LavalinkManager.createPlayer (/home/r2dd2/Music-Bot-Master/discord-music-bot/node_modules/lavalink-client/dist/index.cjs:6489:23)
+[LAVA]     at handlePlay (/home/r2dd2/Music-Bot-Master/discord-music-bot/dist/events/interactionCreate.js:31:40)
+[LAVA]     at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+[LAVA]     at async Client.<anonymous> (/home/r2dd2/Music-Bot-Master/discord-music-bot/dist/events/interactionCreate.js:205:21)
+2026-04-07T08:24:50.954Z [INFO ] Slash /play — kaito1703 en Gamelead
+2026-04-07T08:24:50.954Z [INFO ] Slash /play — kaito1703 en Gamelead
+2026-04-07T08:24:51.547Z [ERROR] Error en /play:
+[LAVA]   Error: No Lavalink Node was provided
+[LAVA]     at ManagerUtils.validateQueryString (/home/r2dd2/Music-Bot-Master/discord-music-bot/node_modules/lavalink-client/dist/index.cjs:845:27)
+[LAVA]     at _LavalinkNode.search (/home/r2dd2/Music-Bot-Master/discord-music-bot/node_modules/lavalink-client/dist/index.cjs:1475:26)
+[LAVA]     at Player.search (/home/r2dd2/Music-Bot-Master/discord-music-bot/node_modules/lavalink-client/dist/index.cjs:5775:22)
+[LAVA]     at handlePlay (/home/r2dd2/Music-Bot-Master/discord-music-bot/dist/events/interactionCreate.js:51:37)
+[LAVA]     at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+[LAVA]     at async Client.<anonymous> (/home/r2dd2/Music-Bot-Master/discord-music-bot/dist/events/interactionCreate.js:205:21)
+2026-04-07T08:24:51.547Z [ERROR] Error en /play:
+[LAVA]   Error: No Lavalink Node was provided
+[LAVA]     at ManagerUtils.validateQueryString (/home/r2dd2/Music-Bot-Master/discord-music-bot/node_modules/lavalink-client/dist/index.cjs:845:27)
+[LAVA]     at _LavalinkNode.search (/home/r2dd2/Music-Bot-Master/discord-music-bot/node_modules/lavalink-client/dist/index.cjs:1475:26)
+[LAVA]     at Player.search (/home/r2dd2/Music-Bot-Master/discord-music-bot/node_modules/lavalink-client/dist/index.cjs:5775:22)
+[LAVA]     at handlePlay (/home/r2dd2/Music-Bot-Master/discord-music-bot/dist/events/interactionCreate.js:51:37)
+[LAVA]     at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+[LAVA]     at async Client.<anonymous> (/home/r2dd2/Music-Bot-Master/discord-music-bot/dist/events/interactionCreate.js:205:21)
+2026-04-07T08:24:56.255Z [INFO ] ──────────────────────────────────────────────────
+[LAVA]   LAVALINK CONECTADO — nodo "main-node"
+[LAVA] ──────────────────────────────────────────────────
+2026-04-07T08:24:56.255Z [INFO ] Host: 127.0.0.1:2333
+2026-04-07T08:24:56.255Z [INFO ] El bot ya puede reproducir música.
+2026-04-07T08:24:56.255Z [INFO ] ──────────────────────────────────────────────────
+[LAVA]   LAVALINK CONECTADO — nodo "main-node"
+[LAVA] ──────────────────────────────────────────────────
+2026-04-07T08:24:56.255Z [INFO ] Host: 127.0.0.1:2333
+2026-04-07T08:24:56.255Z [INFO ] El bot ya puede reproducir música.
+[LAVA]
+
+── LAVALINK LOG ─────────────────────────────────────
+[LAVA] 2026-04-07T08:22:33.252Z  INFO 1636622 --- [Lavalink] [           main] l.server.bootstrap.PluginManager         : Found plugin 'youtube-plugin' version '1.18.0'
+[LAVA] 2026-04-07T08:22:50.954Z  INFO 1636622 --- [Lavalink] [           main] l.server.bootstrap.PluginManager         : Loaded 'youtube-plugin-1.18.0.jar' (17 classes)
+[LAVA] 2026-04-07T08:23:03.557Z  INFO 1636622 --- [Lavalink] [           main] lavalink.server.Launcher                 : Started Launcher in 94.903 seconds (process running for 114.604)
+[LAVA] 2026-04-07T08:23:07.748Z  INFO 1636622 --- [Lavalink] [           main] lavalink.server.Launcher                 :
+[LAVA]
+[LAVA]        .   _                  _ _       _    __ _ _
+[LAVA]       /\ | | __ ___   ____ _| (_)_ __ | | __\ \ \ \033[0m
+[LAVA]      ( ( )| |/ _` \ \ / / _` | | | '_ \| |/ / \ \ \ \033[0m
+[LAVA]       \/ | | (_| |\ V / (_| | | | | | |   <   ) ) ) )
+[LAVA]        '  |_|\__,_| \_/ \__,_|_|_|_| |_|_|\_\ / / / /
+[LAVA]     =========================================/_/_/_/
+[LAVA]
+[LAVA]  Version:        4.2.2
+[LAVA]  Build time:     06.03.2026 23:24:16 UTC
+[LAVA]  Branch          HEAD
+[LAVA]  Commit:         e8503fd
+[LAVA]  Commit time:    06.03.2026 23:21:15 UTC
+[LAVA]  JVM:            17.0.18
+[LAVA]  Lavaplayer      2.2.6
+[LAVA]
+[LAVA] 2026-04-07T08:23:11.656Z  INFO 1636622 --- [Lavalink] [           main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+[LAVA] 2026-04-07T08:23:41.758Z  WARN 1636622 --- [Lavalink] [           main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+[LAVA] 2026-04-07T08:23:42.454Z  INFO 1636622 --- [Lavalink] [           main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+[LAVA] 2026-04-07T08:23:42.455Z  INFO 1636622 --- [Lavalink] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 29698 ms
+[LAVA] 2026-04-07T08:23:52.557Z  INFO 1636622 --- [Lavalink] [           main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring enabled, reporting results every 2 minutes.
+[LAVA] 2026-04-07T08:23:54.348Z  WARN 1636622 --- [Lavalink] [           main] l.s.config.AudioPlayerConfiguration      : The default Youtube source is now deprecated and won't receive further updates.
+[LAVA] You should use the new Youtube source plugin instead.
+[LAVA] https://github.com/lavalink-devs/youtube-source#plugin.
+[LAVA] To disable this warning, set 'lavalink.server.sources.youtube' to false in your application.yml.
+[LAVA] 2026-04-07T08:24:02.952Z  INFO 1636622 --- [Lavalink] [           main] d.l.youtube.plugin.YoutubePluginLoader   : YouTube source initialised with clients: WEB_REMIX, WEB, ANDROID_MUSIC, IOS
+[LAVA] 2026-04-07T08:24:03.148Z  WARN 1636622 --- [Lavalink] [           main] l.server.config.SentryConfiguration      : Turning off sentry
+[LAVA] 2026-04-07T08:24:11.351Z  INFO 1636622 --- [Lavalink] [           main] l.server.config.KoeConfiguration         : OS: LINUX, Arch: X86_64
+[LAVA] 2026-04-07T08:24:11.351Z  INFO 1636622 --- [Lavalink] [           main] l.server.config.KoeConfiguration         : Enabling JDA-NAS
+[LAVA] 2026-04-07T08:24:11.357Z  INFO 1636622 --- [Lavalink] [           main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: loading with filter null
+[LAVA] 2026-04-07T08:24:11.653Z  INFO 1636622 --- [Lavalink] [           main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: successfully loaded.
+[LAVA] 2026-04-07T08:24:24.153Z  INFO 1636622 --- [Lavalink] [           main] io.undertow                              : starting server: Undertow - 2.3.13.Final
+[LAVA] 2026-04-07T08:24:24.352Z  INFO 1636622 --- [Lavalink] [           main] org.xnio                                 : XNIO version 3.8.8.Final
+[LAVA] 2026-04-07T08:24:24.652Z  INFO 1636622 --- [Lavalink] [           main] org.xnio.nio                             : XNIO NIO Implementation Version 3.8.8.Final
+[LAVA] 2026-04-07T08:24:26.954Z  INFO 1636622 --- [Lavalink] [           main] org.jboss.threads                        : JBoss Threads version 3.5.0.Final
+[LAVA] 2026-04-07T08:24:28.756Z  INFO 1636622 --- [Lavalink] [           main] o.s.b.w.e.undertow.UndertowWebServer     : Undertow started on port 2333 (http) with context path '/'
+[LAVA] 2026-04-07T08:24:29.648Z  INFO 1636622 --- [Lavalink] [           main] lavalink.server.Launcher                 : Started Launcher in 85.593 seconds (process running for 200.696)
+[LAVA] 2026-04-07T08:24:29.650Z  INFO 1636622 --- [Lavalink] [           main] lavalink.server.Launcher                 : Lavalink is ready to accept connections.
+[LAVA] 2026-04-07T08:24:46.254Z  INFO 1636622 --- [Lavalink] [  XNIO-1 task-2] io.undertow.servlet                      : Initializing Spring DispatcherServlet 'dispatcherServlet'
+[LAVA] 2026-04-07T08:24:46.256Z  INFO 1636622 --- [Lavalink] [  XNIO-1 task-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+[LAVA] 2026-04-07T08:24:46.449Z  INFO 1636622 --- [Lavalink] [  XNIO-1 task-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 95 ms
+[LAVA] 2026-04-07T08:24:47.355Z  INFO 1636622 --- [Lavalink] [  XNIO-1 task-2] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:48136
+[LAVA] 2026-04-07T08:24:48.955Z  INFO 1636622 --- [Lavalink] [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/websocket, client=127.0.0.1
+[LAVA] 2026-04-07T08:24:51.055Z  INFO 1636622 --- [Lavalink] [  XNIO-1 task-2] c.s.l.c.natives.NativeLibraryLoader      : Native library dave-jvm: loading with filter null
+[LAVA] 2026-04-07T08:24:52.053Z  INFO 1636622 --- [Lavalink] [  XNIO-1 task-2] c.s.l.c.natives.NativeLibraryLoader      : Native library dave-jvm: successfully loaded.
+[LAVA] 2026-04-07T08:24:54.147Z  INFO 1636622 --- [Lavalink] [  XNIO-1 task-2] lavalink.server.io.SocketServer          : Connection successfully established from DJ_r2d2
+[LAVA] 2026-04-07T08:24:56.250Z  INFO 1636622 --- [Lavalink] [  XNIO-1 task-3] l.server.io.RequestLoggingFilter         : GET /v4/info?trace=true, client=127.0.0.1
