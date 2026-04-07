@@ -1,0 +1,89 @@
+INFO ] Lavalink node "main-node" reconectando...
+2026-04-07T06:36:28.856Z [INFO ] Lavalink node "main-node" reconectando...
+2026-04-07T06:36:28.953Z [ERROR] Lavalink node "main-node" error: Error: connect ECONNREFUSED 127.0.0.1:2333
+[LAVA]     at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+2026-04-07T06:36:28.953Z [ERROR] Lavalink node "main-node" error: Error: connect ECONNREFUSED 127.0.0.1:2333
+[LAVA]     at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+2026-04-07T06:36:28.954Z [WARN ] Lavalink node "main-node" desconectado. Código: 1006 | Razón: Socket got terminated due to no ping connection
+2026-04-07T06:36:28.954Z [WARN ] Lavalink node "main-node" desconectado. Código: 1006 | Razón: Socket got terminated due to no ping connection
+2026-04-07T06:36:32.048Z [ERROR] Lavalink node "main-node" error: Error: Unable to connect after 10 attempts.
+[LAVA]     at _LavalinkNode.executeReconnect (/home/r2dd2/Music-Bot-Master/discord-music-bot/node_modules/lavalink-client/dist/index.cjs:2477:21)
+[LAVA]     at Timeout._onTimeout (/home/r2dd2/Music-Bot-Master/discord-music-bot/node_modules/lavalink-client/dist/index.cjs:2464:12)
+[LAVA]     at listOnTimeout (node:internal/timers:585:17)
+[LAVA]     at process.processTimers (node:internal/timers:521:7)
+2026-04-07T06:36:32.048Z [ERROR] Lavalink node "main-node" error: Error: Unable to connect after 10 attempts.
+[LAVA]     at _LavalinkNode.executeReconnect (/home/r2dd2/Music-Bot-Master/discord-music-bot/node_modules/lavalink-client/dist/index.cjs:2477:21)
+[LAVA]     at Timeout._onTimeout (/home/r2dd2/Music-Bot-Master/discord-music-bot/node_modules/lavalink-client/dist/index.cjs:2464:12)
+^[[O[LAVA]     at listOnTimeout (node:internal/timers:585:17)
+[LAVA]     at process.processTimers (node:internal/timers:521:7)
+2026-04-07T06:45:22.450Z [INFO ] 21 comandos registrados.
+2026-04-07T06:45:22.557Z [INFO ] Iniciando Music Bot...
+2026-04-07T06:45:22.557Z [INFO ] Lavalink: 127.0.0.1:2333
+^[[I2026-04-07T06:45:22.557Z [INFO ] Prefijo: !
+2026-04-07T06:45:22.450Z [INFO ] 21 comandos registrados.
+2026-04-07T06:45:22.557Z [INFO ] Iniciando Music Bot...
+2026-04-07T06:45:22.557Z [INFO ] Lavalink: 127.0.0.1:2333
+2026-04-07T06:45:22.557Z [INFO ] Prefijo: !
+[LAVA]
+
+── LAVALINK LOG ─────────────────────────────────────
+[LAVA] 2026-04-07T06:44:56.555Z  INFO 1365762 --- [Lavalink] [           main] lavalink.server.Launcher                 : Starting Launcher v4.2.2 using Java 17.0.18 with PID 1365762 (/home/r2dd2/Music-Bot-Master/discord-music-bot/lavalink/Lavalink.jar started by r2dd2 in /home/r2dd2/Music-Bot-Master/discord-music-bot/lavalink)
+[LAVA] 2026-04-07T06:44:57.754Z  INFO 1365762 --- [Lavalink] [           main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+[LAVA]
+
+── BOT LOG ──────────────────────────────────────────
+2026-04-07T06:45:30.953Z [INFO ] ──────────────────────────────────────────────────
+[LAVA]   BOT CONECTADO A DISCORD
+[LAVA] ──────────────────────────────────────────────────
+^[[O2026-04-07T06:45:30.953Z [INFO ] ──────────────────────────────────────────────────
+^[[I[LAVA]   BOT CONECTADO A DISCORD
+[LAVA] ──────────────────────────────────────────────────
+2026-04-07T06:45:30.956Z [INFO ] Tag:          DJ_r2d2#3319
+2026-04-07T06:45:30.956Z [INFO ] ID:           1490704582412603493
+2026-04-07T06:45:30.956Z [INFO ] Servidores:   1
+2026-04-07T06:45:30.956Z [INFO ] Prefijo:      !
+2026-04-07T06:45:30.956Z [INFO ] Comandos:     21
+2026-04-07T06:45:30.956Z [INFO ] Lavalink:     127.0.0.1:2333
+2026-04-07T06:45:30.956Z [INFO ] Iniciando conexión con Lavalink...
+2026-04-07T06:45:31.053Z [INFO ] LavalinkManager iniciado. Esperando conexión del nodo...
+[LAVA] (node:1367425) DeprecationWarning: The ready event has been renamed to clientReady to distinguish it from the gateway READY event and will only emit under that name in v15. Please use clientReady instead.
+[LAVA] (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-04-07T06:45:31.847Z [ERROR] Lavalink nodo "main-node" ERROR:
+[LAVA]   Error: connect ECONNREFUSED 127.0.0.1:2333
+[LAVA]     at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+2026-04-07T06:45:30.956Z [INFO ] Tag:          DJ_r2d2#3319
+2026-04-07T06:45:30.956Z [INFO ] ID:           1490704582412603493
+2026-04-07T06:45:30.956Z [INFO ] Servidores:   1
+2026-04-07T06:45:30.956Z [INFO ] Prefijo:      !
+2026-04-07T06:45:30.956Z [INFO ] Comandos:     21
+2026-04-07T06:45:30.956Z [INFO ] Lavalink:     127.0.0.1:2333
+2026-04-07T06:45:30.956Z [INFO ] Iniciando conexión con Lavalink...
+2026-04-07T06:45:31.053Z [INFO ] LavalinkManager iniciado. Esperando conexión del nodo...
+2026-04-07T06:45:31.848Z [WARN ] Lavalink nodo "main-node" DESCONECTADO
+2026-04-07T06:45:31.848Z [WARN ] Código: 1006 | Razón: Socket got terminated due to no ping connection
+2026-04-07T06:45:31.848Z [WARN ] El bot no podrá reproducir música hasta que se reconecte.
+2026-04-07T06:45:31.847Z [ERROR] Lavalink nodo "main-node" ERROR:
+[LAVA]   Error: connect ECONNREFUSED 127.0.0.1:2333
+[LAVA]     at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+2026-04-07T06:45:31.848Z [WARN ] Lavalink nodo "main-node" DESCONECTADO
+2026-04-07T06:45:31.848Z [WARN ] Código: 1006 | Razón: Socket got terminated due to no ping connection
+2026-04-07T06:45:31.848Z [WARN ] El bot no podrá reproducir música hasta que se reconecte.
+2026-04-07T06:45:34.955Z [INFO ] Lavalink nodo "main-node" reconectando...
+2026-04-07T06:45:35.150Z [ERROR] Lavalink nodo "main-node" ERROR:
+[LAVA]   Error: connect ECONNREFUSED 127.0.0.1:2333
+[LAVA]     at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+2026-04-07T06:45:35.150Z [WARN ] Lavalink nodo "main-node" DESCONECTADO
+2026-04-07T06:45:35.150Z [WARN ] Código: 1006 | Razón: Socket got terminated due to no ping connection
+2026-04-07T06:45:35.150Z [WARN ] El bot no podrá reproducir música hasta que se reconecte.
+2026-04-07T06:45:34.955Z [INFO ] Lavalink nodo "main-node" reconectando...
+2026-04-07T06:45:35.150Z [ERROR] Lavalink nodo "main-node" ERROR:
+[LAVA]   Error: connect ECONNREFUSED 127.0.0.1:2333
+[LAVA]     at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+2026-04-07T06:45:35.150Z [WARN ] Lavalink nodo "main-node" DESCONECTADO
+2026-04-07T06:45:35.150Z [WARN ] Código: 1006 | Razón: Socket got terminated due to no ping connection
+2026-04-07T06:45:35.150Z [WARN ] El bot no podrá reproducir música hasta que se reconecte.
+2026-04-07T06:45:38.255Z [INFO ] Lavalink nodo "main-node" reconectando...
+2026-04-07T06:45:38.255Z [INFO ] Lavalink nodo "main-node" reconectando...
+2026-04-07T06:45:38.655Z [ERROR] Lavalink nodo "main-node" ERROR:
+[LAVA]   Error: connect ECONNREFUSED 127.0.0.1:2333
+[LAVA]     at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1637

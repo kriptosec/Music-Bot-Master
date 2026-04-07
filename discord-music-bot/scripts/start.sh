@@ -11,21 +11,23 @@ LAVALINK_PID_FILE="$BOT_DIR/.lavalink.pid"
 BOT_PID_FILE="$BOT_DIR/.bot.pid"
 LAVALINK_LOG="$BOT_DIR/logs/lavalink.log"
 BOT_LOG="$BOT_DIR/logs/bot.log"
+ENV_FILE="$BOT_DIR/.env"
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
+BOLD='\033[1m'
 NC='\033[0m'
 
 info()    { echo -e "${BLUE}[INFO]${NC} $1"; }
-success() { echo -e "${GREEN}[OK]${NC} $1"; }
+success() { echo -e "${GREEN}[OK]${NC}   $1"; }
 warn()    { echo -e "${YELLOW}[WARN]${NC} $1"; }
 error()   { echo -e "${RED}[ERROR]${NC} $1"; exit 1; }
 
 echo ""
 echo "======================================================"
-echo "   🎵  Music Bot — Iniciando"
+echo -e "   🎵  ${BOLD}Music Bot — Iniciando${NC}"
 echo "======================================================"
 echo ""
 
@@ -33,12 +35,12 @@ cd "$BOT_DIR"
 mkdir -p "$BOT_DIR/logs" "$LAVALINK_DIR/logs"
 
 # ──────────────────────────────────────────────────────────────────────────────
-# Verificar que no esté ya corriendo
+# 1. Verificar que no esté ya corriendo
 # ──────────────────────────────────────────────────────────────────────────────
 if [ -f "$BOT_PID_FILE" ]; then
     pid=$(cat "$BOT_PID_FILE")
     if kill -0 "$pid" 2>/dev/null; then
-        warn "El bot ya está corriendo (PID: $pid). Usa 'bash scripts/stop.sh' primero."
+        warn "El bot ya está corriendo (PID $pid). Usa 'bash scripts/stop.sh' primero."
         exit 1
     else
         rm -f "$BOT_PID_FILE"
@@ -46,31 +48,35 @@ if [ -f "$BOT_PID_FILE" ]; then
 fi
 
 # ──────────────────────────────────────────────────────────────────────────────
-# Verificar build compilado
+# 2. Verificar .env y cargar variables de entorno
 # ──────────────────────────────────────────────────────────────────────────────
-if [ ! -f "$BOT_DIR/dist/index.js" ]; then
-    warn "Build no encontrado. Compilando TypeScript..."
-    if command -v pnpm &>/dev/null; then
-        pnpm run build || error "Error al compilar. Revisa los errores de TypeScript."
-    elif command -v npm &>/dev/null; then
-        npm run build || error "Error al compilar. Revisa los errores de TypeScript."
-    else
-        error "npm/pnpm no encontrado. Ejecuta 'bash scripts/install.sh' primero."
-    fi
-fi
+[ ! -f "$ENV_FILE" ] && error ".env no encontrado. Ejecuta 'bash scripts/install.sh' primero."
 
-# ──────────────────────────────────────────────────────────────────────────────
-# Verificar .env
-# ──────────────────────────────────────────────────────────────────────────────
-[ ! -f "$BOT_DIR/.env" ] && error ".env no encontrado. Ejecuta 'bash scripts/install.sh' primero."
-
-TOKEN=$(grep "^DISCORD_TOKEN=" "$BOT_DIR/.env" | cut -d= -f2-)
+TOKEN=$(grep "^DISCORD_TOKEN=" "$ENV_FILE" | cut -d= -f2-)
 if [ -z "$TOKEN" ] || [ "$TOKEN" = "TU_TOKEN_AQUI" ]; then
     error "DISCORD_TOKEN no configurado en .env"
 fi
 
+# Exportar TODAS las variables del .env al entorno del shell.
+# Esto es crítico para que Lavalink lea ${YOUTUBE_OAUTH_REFRESH_TOKEN}
+# desde application.yml usando la sintaxis de Spring Boot.
+info "Cargando variables de entorno desde .env..."
+set -a  # auto-export
+# shellcheck disable=SC1090
+source "$ENV_FILE"
+set +a
+success "Variables de entorno cargadas (YOUTUBE_OAUTH_REFRESH_TOKEN, DISCORD_TOKEN, etc.)."
+
 # ──────────────────────────────────────────────────────────────────────────────
-# Iniciar Lavalink
+# 3. Verificar build compilado
+# ──────────────────────────────────────────────────────────────────────────────
+if [ ! -f "$BOT_DIR/dist/index.js" ]; then
+    warn "Build no encontrado. Compilando TypeScript..."
+    npm run build || error "Error al compilar. Revisa los errores de TypeScript."
+fi
+
+# ──────────────────────────────────────────────────────────────────────────────
+# 4. Iniciar Lavalink
 # ──────────────────────────────────────────────────────────────────────────────
 lava_pid=""
 if [ -f "$LAVALINK_PID_FILE" ]; then
@@ -82,33 +88,57 @@ if [ -f "$LAVALINK_PID_FILE" ]; then
 fi
 
 if [ -n "$lava_pid" ]; then
-    success "Lavalink ya está corriendo (PID: $lava_pid)"
+    success "Lavalink ya está corriendo (PID $lava_pid)"
 elif [ -f "$LAVALINK_JAR" ] && command -v java &>/dev/null; then
     info "Iniciando Lavalink..."
     cd "$LAVALINK_DIR"
+
+    # Iniciar Lavalink con el entorno completo (incluye YOUTUBE_OAUTH_REFRESH_TOKEN)
     nohup java -Xmx512m -jar Lavalink.jar > "$LAVALINK_LOG" 2>&1 &
     echo $! > "$LAVALINK_PID_FILE"
-    success "Lavalink iniciado (PID: $(cat $LAVALINK_PID_FILE))"
+    success "Lavalink iniciado (PID $(cat $LAVALINK_PID_FILE))"
     cd "$BOT_DIR"
 
-    info "Esperando que Lavalink esté listo (45s máx)..."
-    for i in $(seq 1 45); do
+    # Esperar hasta 3 minutos (la primera vez descarga el plugin de YouTube)
+    MAX_WAIT=180
+    info "Esperando que Lavalink esté listo (máx ${MAX_WAIT}s — la 1ra vez descarga el plugin de YouTube)..."
+    LAVALINK_READY=false
+    for i in $(seq 1 $MAX_WAIT); do
         sleep 1
         if grep -q "Lavalink is ready to accept connections" "$LAVALINK_LOG" 2>/dev/null; then
-            success "Lavalink listo."
+            LAVALINK_READY=true
+            success "Lavalink listo en ${i}s."
             break
         fi
-        if [ "$i" -eq 45 ]; then
-            warn "Lavalink tardó más de lo esperado. Continuando de todas formas..."
+        # Detectar error crítico de Lavalink (crash al arrancar)
+        if grep -qiE "APPLICATION FAILED TO START|Unable to start|BUILD FAILURE" "$LAVALINK_LOG" 2>/dev/null; then
+            echo ""
+            error "Lavalink falló al arrancar. Últimas líneas del log:\n$(tail -20 $LAVALINK_LOG)"
+        fi
+        # Mostrar progreso cada 15 segundos
+        if [ $(( i % 15 )) -eq 0 ]; then
+            info "Aún esperando Lavalink... (${i}s)"
+            # Mostrar si está descargando el plugin
+            if grep -q "Downloading" "$LAVALINK_LOG" 2>/dev/null; then
+                info "  → Descargando plugin de YouTube (solo ocurre la primera vez)..."
+            fi
         fi
     done
+
+    if ! $LAVALINK_READY; then
+        warn "Lavalink no respondió en ${MAX_WAIT}s."
+        warn "Últimas líneas del log de Lavalink:"
+        tail -10 "$LAVALINK_LOG" | while read -r line; do warn "  $line"; done
+        warn "El bot iniciará de todas formas e intentará reconectarse a Lavalink."
+    fi
 else
-    [ ! -f "$LAVALINK_JAR" ] && warn "Lavalink.jar no encontrado. El bot iniciará sin audio."
+    [ ! -f "$LAVALINK_JAR" ] && warn "Lavalink.jar no encontrado. Ejecuta 'bash scripts/install.sh'."
     ! command -v java &>/dev/null && warn "Java no encontrado. Instala Java 17+."
+    warn "El bot iniciará sin audio."
 fi
 
 # ──────────────────────────────────────────────────────────────────────────────
-# Iniciar el bot de Discord
+# 5. Iniciar el bot de Discord
 # ──────────────────────────────────────────────────────────────────────────────
 info "Iniciando bot de Discord..."
 nohup node "$BOT_DIR/dist/index.js" >> "$BOT_LOG" 2>&1 &
@@ -117,18 +147,23 @@ echo $BOT_PID > "$BOT_PID_FILE"
 
 sleep 2
 if kill -0 "$BOT_PID" 2>/dev/null; then
-    success "Bot de Discord iniciado (PID: $BOT_PID)"
+    success "Bot iniciado (PID $BOT_PID)"
 else
-    error "El bot falló al iniciar. Revisa los logs:\n  tail -f $BOT_LOG"
+    error "El bot falló al iniciar. Revisa los logs:\n  bash scripts/logs.sh"
 fi
 
+# ──────────────────────────────────────────────────────────────────────────────
 echo ""
 echo "======================================================"
-echo -e "   ${GREEN}✅  Music Bot corriendo${NC}"
+echo -e "   ${GREEN}${BOLD}✅  Music Bot corriendo${NC}"
 echo "======================================================"
 echo ""
-echo "Logs del bot:      tail -f $BOT_LOG"
-echo "Logs de Lavalink:  tail -f $LAVALINK_LOG"
-echo "Estado:            bash scripts/status.sh"
-echo "Detener:           bash scripts/stop.sh"
+echo "   Ver logs en tiempo real:"
+echo "     bash scripts/logs.sh"
+echo ""
+echo "   Solo errores:"
+echo "     bash scripts/logs.sh error"
+echo ""
+echo "   Estado:   bash scripts/status.sh"
+echo "   Detener:  bash scripts/stop.sh"
 echo ""

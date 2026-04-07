@@ -34,8 +34,8 @@ client.lavalink = new LavalinkManager({
       port: config.lavalink.port,
       id: "main-node",
       secure: config.lavalink.secure,
-      retryAmount: 10,
-      retryDelay: 3_000,
+      retryAmount: 999,
+      retryDelay: 5_000,
     },
   ],
   sendToShard: (guildId, payload) => {
