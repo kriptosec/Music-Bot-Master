@@ -9,3 +9,5 @@ lavalink/Lavalink.jar
 lavalink/logs/
 *.log
 *.tmp
+package-lock.json
+pnpm-lock.yaml
