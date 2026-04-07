@@ -19,6 +19,10 @@ plugins:
       enabled: true
       skipInitialization: true
       refreshToken: ${YOUTUBE_OAUTH_REFRESH_TOKEN:}
+      clients:
+        - WEB
+        - ANDROID
+        - IOS
 
 lavalink:
   plugins:

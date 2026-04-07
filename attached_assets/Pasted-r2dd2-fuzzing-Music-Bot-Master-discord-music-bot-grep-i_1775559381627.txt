@@ -1,0 +1,17 @@
+r2dd2@fuzzing:~/Music-Bot-Master/discord-music-bot$ grep -i "skipInitialization\|oauth\|token\|refresh" /home/r2dd2/Music-Bot-Master/discord-music-bot/lavalink/application.yml
+    oauth:
+      skipInitialization: true
+      refreshToken: ${YOUTUBE_OAUTH_REFRESH_TOKEN:}
+r2dd2@fuzzing:~/Music-Bot-Master/discord-music-bot$ grep -i "oauth\|token\|refresh\|enabled\|skip" /home/r2dd2/Music-Bot-Master/discord-music-bot/logs/lavalink.log | grep "1928272\|main\|token\|oauth" | head -15
+2026-04-07T10:17:30.648Z  INFO 1928272 --- [Lavalink] [           main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring enabled, reporting results every 2 minutes.
+2026-04-07T10:17:44.448Z  INFO 1928272 --- [Lavalink] [           main] d.l.youtube.http.YoutubeOauth2Handler    : YouTube access token refreshed successfully
+2026-04-07T10:17:44.451Z  WARN 1928272 --- [Lavalink] [           main] d.l.youtube.YoutubeAudioSourceManager    : OAuth has been enabled without registering any OAuth-compatible clients. Please consult https://github.com/lavalink-devs/youtube-source?tab=readme-ov-file#available-clients for a list of OAuth-compatible clients.
+2026-04-07T10:52:58.349Z  INFO 1928272 --- [Lavalink] [back-1-thread-1] d.l.y.http.YoutubeAccessTokenTracker     : Updating YouTube visitor id succeeded, new one is CgtpeFZ5eXhQSXBZNCiKxNPOBjIKCgJNWRIEGgAgZDoMCAEgnaqd9qbBuOppggHfAhpS60ZMaIf8TOBXExZ9_5zUbtYl2eyWixDUWoIJjpS5nktuuPB2-YwN-nv2TXfF5aTIyHhvoBwWgq7MwYkR59rio3oEiRU0oun7VZPW8C7nvJ-RzXxXpTkYEtpXTUz7XzpIK417f6dtwu35zZmIcFCnmTW4pSVEAEZlsCAhhHns-ZSraJD_e5RvRFI4vnqiUK24hoHv5eLhpdzr1fw2mXUD8mJh4wqs3PEdDx59b1VFQdMmSBHSh4vLtjtm-wy626R2aN5cqB-AuN1UreYwicmZjKONsMm3geRSRUDJU8rcvqYwQdJp5AbiVb2e7RxZvh7iLHLjesZfT7yyuCO4P6C3VZzDFbWA-vcqC4cQhPggK7QN_vWvhFB1wKKwuoMmtV6lm8CK3vW2Brnac8vHLHDgaCOi9_Y4qftVDo9dPU3q0FfbUEvakp3i7DaSvm7U8rvFaWigTsTLccH35hL34g%3D%3D, next update will be after 600 seconds.
+2026-04-07T10:53:06.848Z  INFO 1928272 --- [Lavalink] [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/2c1xkcm120012ikq/players/998076829980164187?trace=true, client=127.0.0.1, payload={"voice":{"token":"226b309d87743572","endpoint":"japan13004.discord.media:443","sessionId":"cc82a726334dc5308b208ae28b062d4c","channelId":"998076829980164192"}}
+r2dd2@fuzzing:~/Music-Bot-Master/discord-music-bot$ sed -i 's/oauth:/oauth:\n      skipInitialization: true/' /home/r2dd2/Music-Bot-Master/discord-music-bot/lavalink/application.yml
+cat /home/r2dd2/Music-Bot-Master/discord-music-bot/lavalink/application.yml | grep -A4 "oauth:"
+    oauth:
+      skipInitialization: true
+      enabled: true
+      skipInitialization: true
+      refreshToken: ${YOUTUBE_OAUTH_REFRESH_TOKEN:}
