@@ -1,6 +1,7 @@
 import type { Track } from "lavalink-client";
 import type { Command, CommandContext } from "../types.js";
 import { errorEmbed, trackAddedEmbed, playlistAddedEmbed } from "../utils/embeds.js";
+import { cleanQuery } from "../utils/format.js";
 import { logger } from "../utils/logger.js";
 
 export const play: Command = {
@@ -17,7 +18,7 @@ export const play: Command = {
       return;
     }
 
-    const query = args.join(" ");
+    const { query, stripped } = cleanQuery(args.join(" "));
     const guild = message.guild!;
     const member = message.member!;
     const voiceChannel = member.voice.channel!;
@@ -41,10 +42,13 @@ export const play: Command = {
       await player.connect();
     }
 
-    // Update text channel to current channel
     player.textChannelId = message.channel.id;
 
-    const loadingMsg = await message.reply({ content: "🔍 Buscando..." });
+    const loadingMsg = await message.reply({
+      content: stripped
+        ? "🔍 Buscando... *(era una radio/mix de YouTube, reproduciré solo el video)*"
+        : "🔍 Buscando...",
+    });
 
     try {
       const result = await player.search(

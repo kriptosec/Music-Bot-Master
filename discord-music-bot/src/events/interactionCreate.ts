@@ -13,7 +13,7 @@ import {
   trackAddedEmbed,
   playlistAddedEmbed,
 } from "../utils/embeds.js";
-import { formatDuration, chunkArray, getSourceEmoji, truncate } from "../utils/format.js";
+import { formatDuration, chunkArray, getSourceEmoji, truncate, cleanQuery } from "../utils/format.js";
 
 // ─── Helper: reply to an interaction (deferred) ───────────────────────────────
 async function reply(
@@ -38,7 +38,7 @@ async function checkVoice(interaction: ChatInputCommandInteraction): Promise<boo
 async function handlePlay(interaction: ChatInputCommandInteraction, client: Client) {
   if (!await checkVoice(interaction)) return;
 
-  const query = interaction.options.getString("cancion", true);
+  const { query, stripped } = cleanQuery(interaction.options.getString("cancion", true));
   const guild = interaction.guild!;
   const member = interaction.member as GuildMember;
   const voiceChannel = member.voice.channel!;
@@ -60,7 +60,11 @@ async function handlePlay(interaction: ChatInputCommandInteraction, client: Clie
   if (!player.connected) await player.connect();
   player.textChannelId = interaction.channelId;
 
-  await reply(interaction, { content: "🔍 Buscando..." });
+  await reply(interaction, {
+    content: stripped
+      ? "🔍 Buscando... *(era una radio/mix de YouTube, reproduciré solo el video)*"
+      : "🔍 Buscando...",
+  });
 
   try {
     const result = await player.search(
