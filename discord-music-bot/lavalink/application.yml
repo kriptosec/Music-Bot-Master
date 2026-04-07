@@ -13,10 +13,11 @@ plugins:
     clients:
       - MUSIC
       - WEB
-      - ANDROID
-      - IOS
+      - TVHTML5EMBEDDED
+      - ANDROID_MUSIC
     oauth:
       enabled: true
+      skipInitialization: true
       refreshToken: ${YOUTUBE_OAUTH_REFRESH_TOKEN:}
 
 lavalink:
