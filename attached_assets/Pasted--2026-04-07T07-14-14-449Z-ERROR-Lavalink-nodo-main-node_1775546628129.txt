@@ -1,0 +1,107 @@
+
+2026-04-07T07:14:14.449Z [ERROR] Lavalink nodo "main-node" ERROR:
+[LAVA]   Error: connect ECONNREFUSED 127.0.0.1:2333
+[LAVA]     at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+2026-04-07T07:14:14.450Z [WARN ] Lavalink nodo "main-node" DESCONECTADO
+2026-04-07T07:14:14.450Z [WARN ] Código: 1006 | Razón: Socket got terminated due to no ping connection
+2026-04-07T07:14:14.450Z [WARN ] El bot no podrá reproducir música hasta que se reconecte.
+2026-04-07T07:14:14.450Z [WARN ] Lavalink nodo "main-node" DESCONECTADO
+2026-04-07T07:14:14.450Z [WARN ] Código: 1006 | Razón: Socket got terminated due to no ping connection
+2026-04-07T07:14:14.450Z [WARN ] El bot no podrá reproducir música hasta que se reconecte.
+2026-04-07T07:21:34.450Z [INFO ] 21 comandos registrados.
+2026-04-07T07:21:34.453Z [INFO ] Iniciando Music Bot...
+2026-04-07T07:21:34.453Z [INFO ] Lavalink: 127.0.0.1:2333
+2026-04-07T07:21:34.453Z [INFO ] Prefijo: !
+2026-04-07T07:21:34.450Z [INFO ] 21 comandos registrados.
+2026-04-07T07:21:34.453Z [INFO ] Iniciando Music Bot...
+2026-04-07T07:21:34.453Z [INFO ] Lavalink: 127.0.0.1:2333
+2026-04-07T07:21:34.453Z [INFO ] Prefijo: !
+2026-04-07T07:21:38.354Z [INFO ] ──────────────────────────────────────────────────
+[LAVA]   BOT CONECTADO A DISCORD
+[LAVA] ──────────────────────────────────────────────────
+2026-04-07T07:21:38.354Z [INFO ] ──────────────────────────────────────────────────
+[LAVA]   BOT CONECTADO A DISCORD
+[LAVA] ──────────────────────────────────────────────────
+2026-04-07T07:21:38.356Z [INFO ] Tag:          DJ_r2d2#3319
+2026-04-07T07:21:38.356Z [INFO ] ID:           1490704582412603493
+2026-04-07T07:21:38.356Z [INFO ] Servidores:   1
+2026-04-07T07:21:38.356Z [INFO ] Prefijo:      !
+2026-04-07T07:21:38.356Z [INFO ] Comandos:     21
+2026-04-07T07:21:38.356Z [INFO ] Lavalink:     127.0.0.1:2333
+2026-04-07T07:21:38.356Z [INFO ] Iniciando conexión con Lavalink...
+2026-04-07T07:21:38.547Z [INFO ] LavalinkManager iniciado. Esperando conexión del nodo...
+[LAVA] (node:1470540) DeprecationWarning: The ready event has been renamed to clientReady to distinguish it from the gateway READY event and will only emit under that name in v15. Please use clientReady instead.
+[LAVA] (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-04-07T07:21:38.356Z [INFO ] Tag:          DJ_r2d2#3319
+2026-04-07T07:21:38.356Z [INFO ] ID:           1490704582412603493
+2026-04-07T07:21:38.356Z [INFO ] Servidores:   1
+2026-04-07T07:21:38.356Z [INFO ] Prefijo:      !
+2026-04-07T07:21:38.356Z [INFO ] Comandos:     21
+2026-04-07T07:21:38.356Z [INFO ] Lavalink:     127.0.0.1:2333
+2026-04-07T07:21:38.356Z [INFO ] Iniciando conexión con Lavalink...
+2026-04-07T07:21:38.547Z [INFO ] LavalinkManager iniciado. Esperando conexión del nodo...
+2026-04-07T07:21:51.453Z [INFO ] ──────────────────────────────────────────────────
+[LAVA]   LAVALINK CONECTADO — nodo "main-node"
+[LAVA] ──────────────────────────────────────────────────
+2026-04-07T07:21:51.453Z [INFO ] ──────────────────────────────────────────────────
+[LAVA]   LAVALINK CONECTADO — nodo "main-node"
+[LAVA] ──────────────────────────────────────────────────
+2026-04-07T07:21:51.453Z [INFO ] Host: 127.0.0.1:2333
+2026-04-07T07:21:51.453Z [INFO ] El bot ya puede reproducir música.
+2026-04-07T07:21:51.453Z [INFO ] Host: 127.0.0.1:2333
+2026-04-07T07:21:51.453Z [INFO ] El bot ya puede reproducir música.
+[LAVA]
+
+── LAVALINK LOG ─────────────────────────────────────
+[LAVA] 2026-04-07T07:20:11.347Z  INFO 1464332 --- [Lavalink] [           main] lavalink.server.Launcher                 :
+[LAVA]
+[LAVA]        .   _                  _ _       _    __ _ _
+[LAVA]       /\ | | __ ___   ____ _| (_)_ __ | | __\ \ \ \033[0m
+[LAVA]      ( ( )| |/ _` \ \ / / _` | | | '_ \| |/ / \ \ \ \033[0m
+[LAVA]       \/ | | (_| |\ V / (_| | | | | | |   <   ) ) ) )
+[LAVA]        '  |_|\__,_| \_/ \__,_|_|_|_| |_|_|\_\ / / / /
+[LAVA]     =========================================/_/_/_/
+[LAVA]
+[LAVA]  Version:        4.2.2
+[LAVA]  Build time:     06.03.2026 23:24:16 UTC
+[LAVA]  Branch          HEAD
+[LAVA]  Commit:         e8503fd
+[LAVA]  Commit time:    06.03.2026 23:21:15 UTC
+[LAVA]  JVM:            17.0.18
+[LAVA]  Lavaplayer      2.2.6
+[LAVA]
+[LAVA] 2026-04-07T07:20:11.849Z  INFO 1464332 --- [Lavalink] [           main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+[LAVA] 2026-04-07T07:20:36.755Z  WARN 1464332 --- [Lavalink] [           main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+[LAVA] 2026-04-07T07:20:37.149Z  INFO 1464332 --- [Lavalink] [           main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+[LAVA] 2026-04-07T07:20:37.150Z  INFO 1464332 --- [Lavalink] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 25200 ms
+[LAVA] 2026-04-07T07:20:45.648Z  INFO 1464332 --- [Lavalink] [           main] dev.lavalink.youtube.plugin.PluginInfo   : ********************************************
+[LAVA] YOUTUBE-SOURCE VERSION 1.18.0 AVAILABLE
+[LAVA] https://github.com/lavalink-devs/youtube-source/releases/tag/1.18.0
+[LAVA] Update to ensure the YouTube source remains operational!
+[LAVA] ********************************************
+[LAVA] 2026-04-07T07:20:46.147Z  INFO 1464332 --- [Lavalink] [           main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring enabled, reporting results every 2 minutes.
+[LAVA] 2026-04-07T07:20:53.853Z  WARN 1464332 --- [Lavalink] [           main] d.l.youtube.plugin.ClientProvider        : Failed to resolve ANDROID_TESTSUITE into a Client
+[LAVA] 2026-04-07T07:20:53.853Z  WARN 1464332 --- [Lavalink] [           main] d.l.youtube.plugin.ClientProvider        : Failed to resolve TV_EMBEDDED into a Client
+[LAVA] 2026-04-07T07:20:54.650Z  INFO 1464332 --- [Lavalink] [           main] d.l.youtube.plugin.YoutubePluginLoader   : YouTube source initialised with clients: WEB_REMIX, WEB
+[LAVA] 2026-04-07T07:20:54.951Z  WARN 1464332 --- [Lavalink] [           main] l.server.config.SentryConfiguration      : Turning off sentry
+[LAVA] 2026-04-07T07:21:02.455Z  INFO 1464332 --- [Lavalink] [           main] l.server.config.KoeConfiguration         : OS: LINUX, Arch: X86_64
+[LAVA] 2026-04-07T07:21:02.455Z  INFO 1464332 --- [Lavalink] [           main] l.server.config.KoeConfiguration         : Enabling JDA-NAS
+[LAVA] 2026-04-07T07:21:02.551Z  INFO 1464332 --- [Lavalink] [           main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: loading with filter null
+[LAVA] 2026-04-07T07:21:02.647Z  INFO 1464332 --- [Lavalink] [           main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: successfully loaded.
+[LAVA] 2026-04-07T07:21:15.647Z  INFO 1464332 --- [Lavalink] [           main] io.undertow                              : starting server: Undertow - 2.3.13.Final
+[LAVA] 2026-04-07T07:21:16.147Z  INFO 1464332 --- [Lavalink] [           main] org.xnio                                 : XNIO version 3.8.8.Final
+[LAVA] 2026-04-07T07:21:16.450Z  INFO 1464332 --- [Lavalink] [           main] org.xnio.nio                             : XNIO NIO Implementation Version 3.8.8.Final
+[LAVA] 2026-04-07T07:21:19.249Z  INFO 1464332 --- [Lavalink] [           main] org.jboss.threads                        : JBoss Threads version 3.5.0.Final
+[LAVA] 2026-04-07T07:21:21.149Z  INFO 1464332 --- [Lavalink] [           main] o.s.b.w.e.undertow.UndertowWebServer     : Undertow started on port 2333 (http) with context path '/'
+[LAVA] 2026-04-07T07:21:21.750Z  INFO 1464332 --- [Lavalink] [           main] lavalink.server.Launcher                 : Started Launcher in 72.898 seconds (process running for 195.699)
+[LAVA] 2026-04-07T07:21:21.753Z  INFO 1464332 --- [Lavalink] [           main] lavalink.server.Launcher                 : Lavalink is ready to accept connections.
+[LAVA] 2026-04-07T07:21:41.555Z  INFO 1464332 --- [Lavalink] [  XNIO-1 task-2] io.undertow.servlet                      : Initializing Spring DispatcherServlet 'dispatcherServlet'
+[LAVA] 2026-04-07T07:21:41.751Z  INFO 1464332 --- [Lavalink] [  XNIO-1 task-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+[LAVA] 2026-04-07T07:21:42.446Z  INFO 1464332 --- [Lavalink] [  XNIO-1 task-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 602 ms
+[LAVA] 2026-04-07T07:21:44.147Z  INFO 1464332 --- [Lavalink] [  XNIO-1 task-2] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:60412
+[LAVA] 2026-04-07T07:21:45.049Z  INFO 1464332 --- [Lavalink] [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/websocket, client=127.0.0.1
+[LAVA] 2026-04-07T07:21:47.446Z  INFO 1464332 --- [Lavalink] [  XNIO-1 task-2] c.s.l.c.natives.NativeLibraryLoader      : Native library dave-jvm: loading with filter null
+[LAVA] 2026-04-07T07:21:47.948Z  INFO 1464332 --- [Lavalink] [  XNIO-1 task-2] c.s.l.c.natives.NativeLibraryLoader      : Native library dave-jvm: successfully loaded.
+[LAVA] 2026-04-07T07:21:48.849Z  INFO 1464332 --- [Lavalink] [  XNIO-1 task-2] lavalink.server.io.SocketServer          : Connection successfully established from DJ_r2d2
+[LAVA] 2026-04-07T07:21:50.953Z  INFO 1464332 --- [Lavalink] [  XNIO-1 task-3] l.server.io.RequestLoggingFilter         : GET /v4/info?trace=true, client=127.0.0.1
+[LAVA] 2026-04-07T07:22:46.148Z  WARN 1464332 --- [Lavalink] [ager-3-thread-1] c.s.d.l.tools.GarbageCollectionMonitor   : Suspicious GC results for the last 2 minutes: [Bucket 0 = 1] [Bucket 20 = 0] [Bucket 50 = 5] [Bucket 200 = 2] [Bucket 500 = 0] [Bucket 2000 = 0]

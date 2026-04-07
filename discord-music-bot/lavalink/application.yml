@@ -12,15 +12,15 @@ plugins:
     allowDirectPlaylistIds: true
     clients:
       - MUSIC
-      - ANDROID_TESTSUITE
-      - TV_EMBEDDED
       - WEB
+      - ANDROID_MUSIC
+      - IOS
     oauth:
       enabled: false
 
 lavalink:
   plugins:
-    - dependency: "dev.lavalink.youtube:youtube-plugin:1.13.1"
+    - dependency: "dev.lavalink.youtube:youtube-plugin:1.18.0"
       repository: "https://maven.lavalink.dev/releases"
   server:
     password: "r2dd2pass"
