@@ -6,6 +6,7 @@ import { allCommands } from "./commands/index.js";
 import { registerReadyEvent } from "./events/ready.js";
 import { registerMessageEvent } from "./events/messageCreate.js";
 import { registerLavalinkEvents } from "./events/lavalink.js";
+import { registerInteractionEvent } from "./events/interactionCreate.js";
 import type { Command } from "./types.js";
 
 // ─── Discord Client ────────────────────────────────────────────────────────────
@@ -69,6 +70,7 @@ client.on("raw", (data) => {
 registerReadyEvent(client);
 registerMessageEvent(client);
 registerLavalinkEvents(client);
+registerInteractionEvent(client);
 
 // ─── Global Error Handlers ────────────────────────────────────────────────────
 process.on("unhandledRejection", (reason, promise) => {
