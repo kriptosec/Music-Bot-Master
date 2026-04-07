@@ -37,6 +37,7 @@ client.lavalink = new LavalinkManager({
       secure: config.lavalink.secure,
       retryAmount: 999,
       retryDelay: 5_000,
+      requestSignalTimeoutMS: 0,
     },
   ],
   sendToShard: (guildId, payload) => {
@@ -63,7 +64,7 @@ client.lavalink = new LavalinkManager({
 
 // ─── Forward raw gateway events to Lavalink ───────────────────────────────────
 client.on("raw", (data) => {
-  client.lavalink.sendRawData(data);
+  client.lavalink.sendRawData(data).catch(() => null);
 });
 
 // ─── Register Event Handlers ──────────────────────────────────────────────────
