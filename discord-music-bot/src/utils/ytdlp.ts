@@ -62,13 +62,20 @@ export async function ytdlpSearch(query: string): Promise<YtDlpInfo | null> {
   const args = [
     "--no-playlist",
     "--no-warnings",
+    "--no-config",
     "-f", "bestaudio[ext=webm]/bestaudio[ext=m4a]/bestaudio/best",
     "-j",
     searchArg,
   ];
 
   try {
-    const { stdout } = await execFileAsync(YTDLP_BINARY, args, { timeout: 30_000 });
+    const { stdout, stderr } = await execFileAsync(YTDLP_BINARY, args, { timeout: 90_000 });
+
+    if (!stdout.trim()) {
+      console.error("[ytdlp] empty stdout. stderr:", stderr?.slice(0, 500));
+      return null;
+    }
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const j: any = JSON.parse(stdout.trim());
 
@@ -91,8 +98,14 @@ export async function ytdlpSearch(query: string): Promise<YtDlpInfo | null> {
       audioUrl,
       proxyUrl:  getProxyUrl(videoId),
     };
-  } catch (e) {
-    console.error("[ytdlp] search error:", e);
+  } catch (e: unknown) {
+    const err = e as { killed?: boolean; signal?: string; stderr?: string; code?: number | null };
+    if (err.killed && err.signal === "SIGTERM") {
+      console.error("[ytdlp] process timed out (90s). Is yt-dlp installed and working?");
+      console.error("[ytdlp] Test with: yt-dlp --version");
+    } else {
+      console.error("[ytdlp] search error:", err.stderr?.slice(0, 500) || e);
+    }
     return null;
   }
 }

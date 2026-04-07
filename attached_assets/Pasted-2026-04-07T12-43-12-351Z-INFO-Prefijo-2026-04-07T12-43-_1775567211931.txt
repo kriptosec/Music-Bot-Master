@@ -1,0 +1,84 @@
+2026-04-07T12:43:12.351Z [INFO ] Prefijo:      !
+2026-04-07T12:43:12.351Z [INFO ] Comandos:     21
+2026-04-07T12:43:12.351Z [INFO ] Lavalink:     127.0.0.1:2333
+2026-04-07T12:43:12.948Z [INFO ] 7 slash commands registrados globalmente.
+2026-04-07T12:43:12.948Z [INFO ] Iniciando conexión con Lavalink...
+2026-04-07T12:43:12.948Z [INFO ] 7 slash commands registrados globalmente.
+2026-04-07T12:43:13.348Z [INFO ] LavalinkManager iniciado. Esperando conexión del nodo...
+2026-04-07T12:43:12.948Z [INFO ] Iniciando conexión con Lavalink...
+2026-04-07T12:43:13.348Z [INFO ] LavalinkManager iniciado. Esperando conexión del nodo...
+2026-04-07T12:43:24.752Z [INFO ] ──────────────────────────────────────────────────
+[LAVA]   LAVALINK CONECTADO — nodo "main-node"
+[LAVA] ──────────────────────────────────────────────────
+2026-04-07T12:43:24.752Z [INFO ] Host: 127.0.0.1:2333
+2026-04-07T12:43:24.752Z [INFO ] El bot ya puede reproducir música.
+2026-04-07T12:43:24.752Z [INFO ] ──────────────────────────────────────────────────
+[LAVA]   LAVALINK CONECTADO — nodo "main-node"
+[LAVA] ──────────────────────────────────────────────────
+2026-04-07T12:43:24.752Z [INFO ] Host: 127.0.0.1:2333
+2026-04-07T12:43:24.752Z [INFO ] El bot ya puede reproducir música.
+2026-04-07T13:05:31.651Z [INFO ] Slash /play — kaito1703 en Gamelead
+2026-04-07T13:05:31.651Z [INFO ] Slash /play — kaito1703 en Gamelead
+[LAVA]
+
+── LAVALINK LOG ─────────────────────────────────────
+[LAVA] 2026-04-07T12:41:44.953Z  INFO 2088337 --- [Lavalink] [           main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+[LAVA] 2026-04-07T12:41:44.953Z  INFO 2088337 --- [Lavalink] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 20800 ms
+^[[O[LAVA] 2026-04-07T12:41:51.250Z  INFO 2088337 --- [Lavalink] [           main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring enabled, reporting results every 2 minutes.
+[LAVA] 2026-04-07T12:42:02.746Z  INFO 2088337 --- [Lavalink] [           main] d.l.youtube.plugin.YoutubePluginLoader   : YouTube source initialised with clients: WEB_REMIX, WEB
+[LAVA] 2026-04-07T12:42:02.949Z  WARN 2088337 --- [Lavalink] [           main] l.server.config.SentryConfiguration      : Turning off sentry
+[LAVA] 2026-04-07T12:42:12.447Z  INFO 2088337 --- [Lavalink] [           main] l.server.config.KoeConfiguration         : OS: LINUX, Arch: X86_64
+[LAVA] 2026-04-07T12:42:12.451Z  INFO 2088337 --- [Lavalink] [           main] l.server.config.KoeConfiguration         : Enabling JDA-NAS
+[LAVA] 2026-04-07T12:42:12.946Z  INFO 2088337 --- [Lavalink] [           main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: loading with filter null
+[LAVA] 2026-04-07T12:42:13.155Z  INFO 2088337 --- [Lavalink] [           main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: successfully loaded.
+[LAVA] 2026-04-07T12:42:28.848Z  INFO 2088337 --- [Lavalink] [           main] io.undertow                              : starting server: Undertow - 2.3.13.Final
+[LAVA] 2026-04-07T12:42:28.951Z  INFO 2088337 --- [Lavalink] [           main] org.xnio                                 : XNIO version 3.8.8.Final
+[LAVA] 2026-04-07T12:42:29.148Z  INFO 2088337 --- [Lavalink] [           main] org.xnio.nio                             : XNIO NIO Implementation Version 3.8.8.Final
+[LAVA] 2026-04-07T12:42:32.950Z  INFO 2088337 --- [Lavalink] [           main] org.jboss.threads                        : JBoss Threads version 3.5.0.Final
+[LAVA] 2026-04-07T12:42:36.352Z  INFO 2088337 --- [Lavalink] [           main] o.s.b.w.e.undertow.UndertowWebServer     : Undertow started on port 2333 (http) with context path '/'
+[LAVA] 2026-04-07T12:42:37.045Z  INFO 2088337 --- [Lavalink] [           main] lavalink.server.Launcher                 : Started Launcher in 75.995 seconds (process running for 174.698)
+[LAVA] 2026-04-07T12:42:37.049Z  INFO 2088337 --- [Lavalink] [           main] lavalink.server.Launcher                 : Lavalink is ready to accept connections.
+[LAVA] 2026-04-07T12:43:15.350Z  INFO 2088337 --- [Lavalink] [  XNIO-1 task-2] io.undertow.servlet                      : Initializing Spring DispatcherServlet 'dispatcherServlet'
+[LAVA] 2026-04-07T12:43:15.351Z  INFO 2088337 --- [Lavalink] [  XNIO-1 task-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+[LAVA] 2026-04-07T12:43:15.352Z  INFO 2088337 --- [Lavalink] [  XNIO-1 task-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+[LAVA] 2026-04-07T12:43:17.053Z  INFO 2088337 --- [Lavalink] [  XNIO-1 task-2] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:55784
+^[[I[LAVA] 2026-04-07T12:43:18.152Z  INFO 2088337 --- [Lavalink] [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/websocket, client=127.0.0.1
+[LAVA] 2026-04-07T12:43:20.553Z  INFO 2088337 --- [Lavalink] [  XNIO-1 task-2] c.s.l.c.natives.NativeLibraryLoader      : Native library dave-jvm: loading with filter null
+[LAVA] 2026-04-07T12:43:21.949Z  INFO 2088337 --- [Lavalink] [  XNIO-1 task-2] c.s.l.c.natives.NativeLibraryLoader      : Native library dave-jvm: successfully loaded.
+[LAVA] 2026-04-07T12:43:23.752Z  INFO 2088337 --- [Lavalink] [  XNIO-1 task-2] lavalink.server.io.SocketServer          : Connection successfully established from DJ_r2d2
+[LAVA] 2026-04-07T12:43:24.746Z  INFO 2088337 --- [Lavalink] [  XNIO-1 task-3] l.server.io.RequestLoggingFilter         : GET /v4/info?trace=true, client=127.0.0.1
+[LAVA] 2026-04-07T12:43:51.346Z  WARN 2088337 --- [Lavalink] [ager-3-thread-1] c.s.d.l.tools.GarbageCollectionMonitor   : Suspicious GC results for the last 2 minutes: [Bucket 0 = 1] [Bucket 20 = 0] [Bucket 50 = 2] [Bucket 200 = 4] [Bucket 500 = 3] [Bucket 2000 = 0]
+[LAVA] 2026-04-07T13:01:51.251Z  WARN 2088337 --- [Lavalink] [ager-3-thread-1] c.s.d.l.tools.GarbageCollectionMonitor   : Suspicious GC results for the last 2 minutes: [Bucket 0 = 0] [Bucket 20 = 0] [Bucket 50 = 0] [Bucket 200 = 0] [Bucket 500 = 1] [Bucket 2000 = 0]
+[LAVA]
+
+── BOT LOG ──────────────────────────────────────────
+2026-04-07T13:05:54.750Z [INFO ] Slash /play — kaito1703 en Gamelead
+2026-04-07T13:05:54.750Z [INFO ] Slash /play — kaito1703 en Gamelead
+[LAVA] [ytdlp] search error: Error: Command failed: yt-dlp --no-playlist --no-warnings -f bestaudio[ext=webm]/bestaudio[ext=m4a]/bestaudio/best -j https://youtu.be/9ux9OuukokM
+[LAVA]
+[LAVA]     at genericNodeError (node:internal/errors:983:15)
+[LAVA]     at wrappedFn (node:internal/errors:537:14)
+[LAVA]     at ChildProcess.exithandler (node:child_process:417:12)
+[LAVA]     at ChildProcess.emit (node:events:519:28)
+[LAVA]     at maybeClose (node:internal/child_process:1101:16)
+[LAVA]     at ChildProcess._handle.onexit (node:internal/child_process:304:5) {
+[LAVA]   code: null,
+[LAVA]   killed: true,
+[LAVA]   signal: 'SIGTERM',
+[LAVA]   cmd: 'yt-dlp --no-playlist --no-warnings -f bestaudio[ext=webm]/bestaudio[ext=m4a]/bestaudio/best -j https://youtu.be/9ux9OuukokM',
+[LAVA]   stdout: '',
+[LAVA]   stderr: ''
+[LAVA] }
+[LAVA]
+
+── LAVALINK LOG ─────────────────────────────────────
+[LAVA] 2026-04-07T13:06:27.757Z  INFO 2088337 --- [Lavalink] [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : DELETE /v4/sessions/r9fngvufgepj7wcw/players/998076829980164187?trace=true, client=127.0.0.1
+[LAVA]
+
+── BOT LOG ──────────────────────────────────────────
+2026-04-07T13:06:28.249Z [INFO ] Player destruido | Guild: 998076829980164187 | Razón: desconocida
+2026-04-07T13:06:28.249Z [INFO ] Player destruido | Guild: 998076829980164187 | Razón: desconocida
+[LAVA]
+
+── LAVALINK LOG ─────────────────────────────────────
+[LAVA] 2026-04-07T13:06:30.557Z  INFO 2088337 --- [Lavalink] [  XNIO-1 task-3] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/r9fngvufgepj7wcw/players/998076829980164187?trace=true, client=127.0.0.1, payload={"voice":{"token":"98abcdb138af163a","endpoint":"c-nrt13-e6fcd250.discord.media:8443","sessionId":"5f36997e28b528b29e6158f013ccfb0a","channelId":"998076829980164193"}}
