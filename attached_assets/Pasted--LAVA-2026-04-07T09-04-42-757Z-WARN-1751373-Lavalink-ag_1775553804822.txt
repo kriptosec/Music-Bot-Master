@@ -1,0 +1,119 @@
+[LAVA] 2026-04-07T09:04:42.757Z  WARN 1751373 --- [Lavalink] [ager-3-thread-1] c.s.d.l.tools.GarbageCollectionMonitor   : Suspicious GC results for the last 2 minutes: [Bucket 0 = 1] [Bucket 20 = 0] [Bucket 50 = 3] [Bucket 200 = 6] [Bucket 500 = 2] [Bucket 2000 = 0]
+^[[I^[[O[LAVA]
+
+── BOT LOG ──────────────────────────────────────────
+2026-04-07T09:08:47.350Z [INFO ] Slash /play — kaito1703 en Gamelead
+2026-04-07T09:08:47.350Z [INFO ] Slash /play — kaito1703 en Gamelead
+[LAVA]
+
+── LAVALINK LOG ─────────────────────────────────────
+[LAVA] 2026-04-07T09:08:51.551Z  INFO 1751373 --- [Lavalink] [  XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "https://www.youtube.com/watch?v=_-AATEkjUr4"
+^[[I[LAVA] 2026-04-07T09:09:00.158Z  INFO 1751373 --- [Lavalink] [  XNIO-1 task-2] d.l.y.http.YoutubeAccessTokenTracker     : Updating YouTube visitor id succeeded, new one is CgswMzhFaXpUaW9kMCirk9POBjIKCgJNWRIEGgAgQzoMCAEgibG27ba1supp, next update will be after 600 seconds.
+[LAVA] 2026-04-07T09:09:00.854Z ERROR 1751373 --- [Lavalink] [  XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Failed to load track for identifier https://www.youtube.com/watch?v=_-AATEkjUr4
+[LAVA]
+[LAVA] com.sedmelluq.discord.lavaplayer.tools.FriendlyException: Something went wrong while looking up the track.
+[LAVA]  at lavalink.server.util.LoadingKt.loadAudioItem(loading.kt:20) ~[classes!/:4.2.2]
+[LAVA]  at lavalink.server.player.AudioLoaderRestHandler.loadTracks(AudioLoaderRestHandler.kt:59) ~[classes!/:4.2.2]
+[LAVA]  at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+[LAVA]  at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+[LAVA]  at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+[LAVA]  at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+[LAVA]  at kotlin.reflect.jvm.internal.calls.CallerImpl$Method.callMethod(CallerImpl.kt:97) ~[kotlin-reflect-2.1.20.jar!/:2.1.20-release-217]
+[LAVA]  at kotlin.reflect.jvm.internal.calls.CallerImpl$Method$Instance.call(CallerImpl.kt:113) ~[kotlin-reflect-2.1.20.jar!/:2.1.20-release-217]
+[LAVA]  at kotlin.reflect.jvm.internal.KCallableImpl.callDefaultMethod$kotlin_reflection(KCallableImpl.kt:207) ~[kotlin-reflect-2.1.20.jar!/:2.1.20-release-217]
+[LAVA]  at kotlin.reflect.jvm.internal.KCallableImpl.callBy(KCallableImpl.kt:112) ~[kotlin-reflect-2.1.20.jar!/:2.1.20-release-217]
+[LAVA]  at org.springframework.web.method.support.InvocableHandlerMethod$KotlinDelegate.invokeFunction(InvocableHandlerMethod.java:334) ~[spring-web-6.1.15.jar!/:6.1.15]
+[LAVA]  at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:252) ~[spring-web-6.1.15.jar!/:6.1.15]
+[LAVA]  at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188) ~[spring-web-6.1.15.jar!/:6.1.15]
+[LAVA]  at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.1.8.jar!/:6.1.8]
+[LAVA]  at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926) ~[spring-webmvc-6.1.8.jar!/:6.1.8]
+^[[O[LAVA]      at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831) ~[spring-webmvc-6.1.8.jar!/:6.1.8]
+^[[I[LAVA]      at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.1.8.jar!/:6.1.8]
+[LAVA]  at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.8.jar!/:6.1.8]
+[LAVA]  at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.8.jar!/:6.1.8]
+[LAVA]  at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.8.jar!/:6.1.8]
+[LAVA]  at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903) ~[spring-webmvc-6.1.8.jar!/:6.1.8]
+[LAVA]  at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:527) ~[jakarta.servlet-api-6.0.0.jar!/:6.0.0]
+[LAVA]  at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.8.jar!/:6.1.8]
+[LAVA]  at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:614) ~[jakarta.servlet-api-6.0.0.jar!/:6.0.0]
+[LAVA]  at io.undertow.servlet.handlers.ServletHandler.handleRequest(ServletHandler.java:74) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:129) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at org.springframework.web.filter.AbstractRequestLoggingFilter.doFilterInternal(AbstractRequestLoggingFilter.java:289) ~[spring-web-6.1.15.jar!/:6.1.15]
+[LAVA]  at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.15.jar!/:6.1.15]
+[LAVA]  at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:67) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at lavalink.server.io.ResponseHeaderFilter.doFilterInternal(ResponseHeaderFilter.kt:17) ~[classes!/:4.2.2]
+[LAVA]  at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.15.jar!/:6.1.15]
+[LAVA]  at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:67) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.15.jar!/:6.1.15]
+[LAVA]  at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.15.jar!/:6.1.15]
+[LAVA]  at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:67) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.FilterHandler.handleRequest(FilterHandler.java:84) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+^[[O[LAVA]      at io.undertow.servlet.handlers.security.ServletSecurityRoleHandler.handleRequest(ServletSecurityRoleHandler.java:62) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.ServletChain$1.handleRequest(ServletChain.java:68) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+^[[I^[[O[LAVA]  at io.undertow.servlet.handlers.ServletDispatchingHandler.handleRequest(ServletDispatchingHandler.java:36) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.RedirectDirHandler.handleRequest(RedirectDirHandler.java:68) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.security.SSLInformationAssociationHandler.handleRequest(SSLInformationAssociationHandler.java:117) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.security.ServletAuthenticationCallHandler.handleRequest(ServletAuthenticationCallHandler.java:57) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.security.handlers.AbstractConfidentialityHandler.handleRequest(AbstractConfidentialityHandler.java:46) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.security.ServletConfidentialityConstraintHandler.handleRequest(ServletConfidentialityConstraintHandler.java:64) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.security.handlers.AuthenticationMechanismsHandler.handleRequest(AuthenticationMechanismsHandler.java:60) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.security.CachedAuthenticatedSessionHandler.handleRequest(CachedAuthenticatedSessionHandler.java:77) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.security.handlers.AbstractSecurityContextAssociationHandler.handleRequest(AbstractSecurityContextAssociationHandler.java:43) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.SendErrorPageHandler.handleRequest(SendErrorPageHandler.java:52) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.ServletInitialHandler.handleFirstRequest(ServletInitialHandler.java:276) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.ServletInitialHandler$2.call(ServletInitialHandler.java:135) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.ServletInitialHandler$2.call(ServletInitialHandler.java:132) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.core.ServletRequestContextThreadSetupAction$1.call(ServletRequestContextThreadSetupAction.java:48) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.core.ContextClassLoaderSetupAction$1.call(ContextClassLoaderSetupAction.java:43) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.ServletInitialHandler.dispatchRequest(ServletInitialHandler.java:256) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.ServletInitialHandler$1.handleRequest(ServletInitialHandler.java:101) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.server.Connectors.executeRootHandler(Connectors.java:393) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.server.HttpServerExchange$1.run(HttpServerExchange.java:859) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at org.jboss.threads.ContextHandler$1.runWith(ContextHandler.java:18) ~[jboss-threads-3.5.0.Final.jar!/:3.5.0.Final]
+[LAVA]  at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2513) ~[jboss-threads-3.5.0.Final.jar!/:3.5.0.Final]
+[LAVA]  at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1538) ~[jboss-threads-3.5.0.Final.jar!/:3.5.0.Final]
+[LAVA]  at org.xnio.XnioWorker$WorkerThreadFactory$1$1.run(XnioWorker.java:1282) ~[xnio-api-3.8.8.Final.jar!/:3.8.8.Final]
+[LAVA]  at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+[LAVA] Caused by: dev.lavalink.youtube.AllClientsFailedException: (yts.version: 1.18.0) All clients failed to load the item.
+[LAVA]
+[LAVA] Client [WEB] failed: This video requires login.This video requires login.
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.Client.getPlayabilityStatus(Client.java:94)
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadTrackInfoFromInnertube(NonMusicClient.java:163)
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadVideo(NonMusicClient.java:432)
+[LAVA]  at dev.lavalink.youtube.YoutubeAudioSourceManager.lambda$routeFromVideoId$7(YoutubeAudioSourceManager.java:386)
+[LAVA]  at dev.lavalink.youtube.YoutubeAudioSourceManager.loadItemOnce(YoutubeAudioSourceManager.java:249)
+[LAVA]
+[LAVA] Client [ANDROID_MUSIC] failed: This video requires login.This video requires login.
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.Client.getPlayabilityStatus(Client.java:94)
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadTrackInfoFromInnertube(NonMusicClient.java:163)
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadVideo(NonMusicClient.java:432)
+[LAVA]  at dev.lavalink.youtube.YoutubeAudioSourceManager.lambda$routeFromVideoId$7(YoutubeAudioSourceManager.java:386)
+[LAVA]  at dev.lavalink.youtube.YoutubeAudioSourceManager.loadItemOnce(YoutubeAudioSourceManager.java:249)
+[LAVA]  at dev.lavalink.youtube.YoutubeAudioSourceManager.loadItemOnce(YoutubeAudioSourceManager.java:267) ~[youtube-plugin-1.18.0.jar!/:na]
+[LAVA]  at dev.lavalink.youtube.YoutubeAudioSourceManager.loadItem(YoutubeAudioSourceManager.java:205) ~[youtube-plugin-1.18.0.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager.checkSourcesForItemOnce(DefaultAudioPlayerManager.java:442) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager.checkSourcesForItem(DefaultAudioPlayerManager.java:423) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager.loadItemSync(DefaultAudioPlayerManager.java:154) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager.loadItemSync(AudioPlayerManager.java:127) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at lavalink.server.util.LoadingKt.loadAudioItem(loading.kt:15) ~[classes!/:4.2.2]
+[LAVA]  ... 67 common frames omitted
+[LAVA]
+[LAVA] 2026-04-07T09:09:04.148Z  INFO 1751373 --- [Lavalink] [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D_-AATEkjUr4&trace=true, client=127.0.0.1
+[LAVA] 2026-04-07T09:09:05.557Z  INFO 1751373 --- [Lavalink] [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : DELETE /v4/sessions/jd6uyh2lbpii09md/players/998076829980164187?trace=true, client=127.0.0.1
+[LAVA]
+
+── BOT LOG ──────────────────────────────────────────
+2026-04-07T09:09:05.952Z [INFO ] Player destruido | Guild: 998076829980164187 | Razón: desconocida
+2026-04-07T09:09:05.952Z [INFO ] Player destruido | Guild: 998076829980164187 | Razón: desconocida
+[LAVA]
+
+── LAVALINK LOG ─────────────────────────────────────
+[LAVA] 2026-04-07T09:09:17.454Z  INFO 1751373 --- [Lavalink] [  XNIO-1 task-3] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/jd6uyh2lbpii09md/players/998076829980164187?trace=true, client=127.0.0.1, payload={"voice":{"token":"c0e14f0374ec1ae0","endpoint":"japan13004.discord.media:443","sessionId":"e9bbd8f2b819568818f7d9ed9846f87b","channelId":"998076829980164192"}}
+[LAVA] 2026-04-07T09:10:42.757Z  WARN 1751373 --- [Lavalink] [ager-3-thread-1] c.s.d.l.tools.GarbageCollectionMonitor   : Suspicious GC results for the last 2 minutes: [Bucket 0 = 1] [Bucket 20 = 0] [Bucket 50 = 3] [Bucket 200 = 2] [Bucket 500 = 0] [Bucket 2000 = 0]
+^[[I
