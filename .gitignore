@@ -47,3 +47,6 @@ Thumbs.db
 # Replit
 .cache/
 .local/
+
+# Conversation attachments (may contain sensitive data from logs)
+attached_assets/
