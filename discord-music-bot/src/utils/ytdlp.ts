@@ -1,11 +1,22 @@
 import { execFile } from "child_process";
+import { existsSync } from "fs";
+import { resolve } from "path";
 import { promisify } from "util";
 
 const execFileAsync = promisify(execFile);
 
-export const YTDLP_BINARY   = process.env.YTDLP_BINARY   ?? "yt-dlp";
+export const YTDLP_BINARY     = process.env.YTDLP_BINARY     ?? "yt-dlp";
 export const YTDLP_PROXY_PORT = process.env.YTDLP_PROXY_PORT ?? "9001";
 const PROXY_HOST = "127.0.0.1";
+
+/**
+ * Path to a Netscape-format cookies file for YouTube authentication.
+ * Set YTDLP_COOKIES env var to override. Default: <project-root>/cookies.txt
+ * If the file doesn't exist it is silently ignored.
+ */
+const COOKIES_FILE =
+  process.env.YTDLP_COOKIES ??
+  resolve(process.cwd(), "cookies.txt");
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -49,6 +60,26 @@ export function getProxyUrl(videoId: string): string {
   return `http://${PROXY_HOST}:${YTDLP_PROXY_PORT}/track/${videoId}`;
 }
 
+/** Returns base yt-dlp args shared across all calls. */
+function baseArgs(): string[] {
+  const args = [
+    "--no-playlist",
+    "--no-warnings",
+    "--no-config",
+    "--js-runtimes", "node",
+    // Try multiple clients in order: tv and web_embedded often bypass VPS bot-detection
+    "--extractor-args", "youtube:player_client=tv,web_embedded,ios",
+    "-f", "bestaudio[ext=webm]/bestaudio[ext=m4a]/bestaudio/best",
+  ];
+
+  if (existsSync(COOKIES_FILE)) {
+    args.push("--cookies", COOKIES_FILE);
+    console.log(`[ytdlp] Using cookies: ${COOKIES_FILE}`);
+  }
+
+  return args;
+}
+
 // ── Core: single yt-dlp call for metadata + audio URL ────────────────────────
 
 /**
@@ -59,16 +90,7 @@ export function getProxyUrl(videoId: string): string {
  */
 export async function ytdlpSearch(query: string): Promise<YtDlpInfo | null> {
   const searchArg = query.startsWith("http") ? query : `ytsearch:${query}`;
-  const args = [
-    "--no-playlist",
-    "--no-warnings",
-    "--no-config",
-    "--js-runtimes", "node",
-    "--extractor-args", "youtube:player_client=ios",
-    "-f", "bestaudio[ext=webm]/bestaudio[ext=m4a]/bestaudio/best",
-    "-j",
-    searchArg,
-  ];
+  const args = [...baseArgs(), "-j", searchArg];
 
   try {
     const { stdout, stderr } = await execFileAsync(YTDLP_BINARY, args, { timeout: 90_000 });
@@ -104,9 +126,17 @@ export async function ytdlpSearch(query: string): Promise<YtDlpInfo | null> {
     const err = e as { killed?: boolean; signal?: string; stderr?: string; code?: number | null };
     if (err.killed && err.signal === "SIGTERM") {
       console.error("[ytdlp] process timed out (90s). Is yt-dlp installed and working?");
-      console.error("[ytdlp] Test with: yt-dlp --version");
     } else {
-      console.error("[ytdlp] search error:", err.stderr?.slice(0, 500) || e);
+      const msg = err.stderr?.trim() || String(e);
+      console.error("[ytdlp] search error:", msg.slice(0, 600));
+      if (msg.includes("Sign in to confirm")) {
+        console.error(
+          "[ytdlp] YouTube bot-detection activo en este IP.\n" +
+          "[ytdlp] Solución: exporta cookies de YouTube y colócalas en:\n" +
+          `[ytdlp]   ${COOKIES_FILE}\n` +
+          "[ytdlp] Guía: https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp"
+        );
+      }
     }
     return null;
   }

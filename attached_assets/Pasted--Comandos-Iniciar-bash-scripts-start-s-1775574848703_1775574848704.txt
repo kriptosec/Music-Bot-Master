@@ -1,0 +1,32 @@
+=====================================================
+Comandos:
+  Iniciar:    bash scripts/start.sh
+  Detener:    bash scripts/stop.sh
+  Actualizar: bash scripts/update.sh
+  Log bot:    tail -f /home/r2dd2/Music-Bot-Master/discord-music-bot/logs/bot.log
+  Log lava:   tail -f /home/r2dd2/Music-Bot-Master/discord-music-bot/logs/lavalink.log
+======================================================
+
+r2dd2@fuzzing:~/Music-Bot-Master/discord-music-bot$ tail -f /home/r2dd2/Music-Bot-Master/discord-music-bot/logs/lavalink.log
+2026-04-07T15:06:39.254Z  INFO 2221359 --- [Lavalink] [  XNIO-1 task-2] c.s.l.c.natives.NativeLibraryLoader      : Native library dave-jvm: loading with filter null
+2026-04-07T15:06:40.854Z  INFO 2221359 --- [Lavalink] [  XNIO-1 task-2] c.s.l.c.natives.NativeLibraryLoader      : Native library dave-jvm: successfully loaded.
+2026-04-07T15:06:45.655Z  INFO 2221359 --- [Lavalink] [  XNIO-1 task-2] lavalink.server.io.SocketServer          : Connection successfully established from DJ_r2d2
+2026-04-07T15:06:51.152Z  INFO 2221359 --- [Lavalink] [  XNIO-1 task-3] l.server.io.RequestLoggingFilter         : GET /v4/info?trace=true, client=127.0.0.1
+2026-04-07T15:07:04.554Z  WARN 2221359 --- [Lavalink] [ager-3-thread-1] c.s.d.l.tools.GarbageCollectionMonitor   : Suspicious GC results for the last 2 minutes: [Bucket 0 = 1] [Bucket 20 = 0] [Bucket 50 = 5] [Bucket 200 = 9] [Bucket 500 = 6] [Bucket 2000 = 0]
+2026-04-07T15:12:18.450Z  INFO 2221359 --- [Lavalink] [  XNIO-1 task-3] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/ylrh3fc660084mco/players/998076829980164187?trace=true, client=127.0.0.1, payload={"voice":{"token":"e03b495bdbca44f3","endpoint":"c-nrt13-e6fcd250.discord.media:8443","sessionId":"99f28e13e5416115a79b7e04350e1941","channelId":"998076829980164193"}}
+2026-04-07T15:12:20.354Z  INFO 2221359 --- [Lavalink] [  XNIO-1 task-3] l.server.io.RequestLoggingFilter         : DELETE /v4/sessions/ylrh3fc660084mco/players/998076829980164187?trace=true, client=127.0.0.1
+2026-04-07T15:12:30.648Z  INFO 2221359 --- [Lavalink] [  XNIO-1 task-3] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/ylrh3fc660084mco/players/998076829980164187?trace=true, client=127.0.0.1, payload={"voice":{"token":"facb6d1257fe3ffa","endpoint":"c-nrt13-e6fcd250.discord.media:8443","sessionId":"99f28e13e5416115a79b7e04350e1941","channelId":"998076829980164193"}}
+2026-04-07T15:12:56.252Z  INFO 2221359 --- [Lavalink] [  XNIO-1 task-3] l.server.io.RequestLoggingFilter         : DELETE /v4/sessions/ylrh3fc660084mco/players/998076829980164187?trace=true, client=127.0.0.1
+2026-04-07T15:13:04.554Z  WARN 2221359 --- [Lavalink] [ager-3-thread-1] c.s.d.l.tools.GarbageCollectionMonitor   : Suspicious GC results for the last 2 minutes: [Bucket 0 = 0] [Bucket 20 = 0] [Bucket 50 = 3] [Bucket 200 = 2] [Bucket 500 = 3] [Bucket 2000 = 0]
+^C
+r2dd2@fuzzing:~/Music-Bot-Master/discord-music-bot$ tail -f /home/r2dd2/Music-Bot-Master/discord-music-bot/logs/bot.log
+[ytdlp] search error: ERROR: [youtube] 9ux9OuukokM: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
+
+2026-04-07T15:12:20.551Z [INFO ] Player destruido | Guild: 998076829980164187 | Razón: desconocida
+2026-04-07T15:12:20.551Z [INFO ] Player destruido | Guild: 998076829980164187 | Razón: desconocida
+2026-04-07T15:12:27.550Z [INFO ] Slash /play — kaito1703 en Gamelead
+2026-04-07T15:12:27.550Z [INFO ] Slash /play — kaito1703 en Gamelead
+[ytdlp] search error: ERROR: [youtube] kJQP7kiw5Fk: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
+
+2026-04-07T15:12:56.352Z [INFO ] Player destruido | Guild: 998076829980164187 | Razón: desconocida
+2026-04-07T15:12:56.352Z [INFO ] Player destruido | Guild: 998076829980164187 | Razón: desconocida

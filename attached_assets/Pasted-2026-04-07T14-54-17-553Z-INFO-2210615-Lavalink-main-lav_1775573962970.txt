@@ -1,0 +1,28 @@
+2026-04-07T14:54:17.553Z  INFO 2210615 --- [Lavalink] [           main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2026-04-07T14:55:08.350Z  WARN 2210615 --- [Lavalink] [           main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2026-04-07T14:55:10.550Z  INFO 2210615 --- [Lavalink] [           main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2026-04-07T14:55:10.550Z  INFO 2210615 --- [Lavalink] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 52000 ms
+2026-04-07T14:55:35.547Z  INFO 2210615 --- [Lavalink] [           main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring enabled, reporting results every 2 minutes.
+2026-04-07T14:55:55.547Z  INFO 2210615 --- [Lavalink] [           main] d.l.youtube.plugin.YoutubePluginLoader   : YouTube source initialised with clients: WEB_REMIX, WEB
+2026-04-07T14:55:57.350Z  WARN 2210615 --- [Lavalink] [           main] l.server.config.SentryConfiguration      : Turning off sentry
+2026-04-07T14:56:13.850Z  INFO 2210615 --- [Lavalink] [           main] l.server.config.KoeConfiguration         : OS: LINUX, Arch: X86_64
+2026-04-07T14:56:13.852Z  INFO 2210615 --- [Lavalink] [           main] l.server.config.KoeConfiguration         : Enabling JDA-NAS
+2026-04-07T14:56:14.453Z  INFO 2210615 --- [Lavalink] [           main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: loading with filter null
+2026-04-07T14:56:14.953Z  INFO 2210615 --- [Lavalink] [           main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: successfully loaded.
+2026-04-07T14:56:35.054Z  INFO 2210615 --- [Lavalink] [           main] io.undertow                              : starting server: Undertow - 2.3.13.Final
+2026-04-07T14:56:36.048Z  INFO 2210615 --- [Lavalink] [           main] org.xnio                                 : XNIO version 3.8.8.Final
+2026-04-07T14:56:37.847Z  INFO 2210615 --- [Lavalink] [           main] org.xnio.nio                             : XNIO NIO Implementation Version 3.8.8.Final
+2026-04-07T14:56:43.949Z  INFO 2210615 --- [Lavalink] [           main] org.jboss.threads                        : JBoss Threads version 3.5.0.Final
+2026-04-07T14:56:46.451Z  INFO 2210615 --- [Lavalink] [           main] o.s.b.w.e.undertow.UndertowWebServer     : Undertow started on port 2333 (http) with context path '/'
+2026-04-07T14:56:47.055Z  INFO 2210615 --- [Lavalink] [           main] lavalink.server.Launcher                 : Started Launcher in 157.499 seconds (process running for 390.501)
+2026-04-07T14:56:47.253Z  INFO 2210615 --- [Lavalink] [           main] lavalink.server.Launcher                 : Lavalink is ready to accept connections.
+2026-04-07T14:56:51.048Z  INFO 2210615 --- [Lavalink] [  XNIO-1 task-2] io.undertow.servlet                      : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-07T14:56:51.049Z  INFO 2210615 --- [Lavalink] [  XNIO-1 task-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-04-07T14:56:51.052Z  INFO 2210615 --- [Lavalink] [  XNIO-1 task-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2026-04-07T14:56:54.650Z  INFO 2210615 --- [Lavalink] [  XNIO-1 task-2] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:44490
+2026-04-07T14:56:56.047Z  INFO 2210615 --- [Lavalink] [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/websocket, client=127.0.0.1
+2026-04-07T14:57:01.152Z  INFO 2210615 --- [Lavalink] [  XNIO-1 task-2] c.s.l.c.natives.NativeLibraryLoader      : Native library dave-jvm: loading with filter null
+2026-04-07T14:57:02.247Z  INFO 2210615 --- [Lavalink] [  XNIO-1 task-2] c.s.l.c.natives.NativeLibraryLoader      : Native library dave-jvm: successfully loaded.
+2026-04-07T14:57:08.250Z  INFO 2210615 --- [Lavalink] [  XNIO-1 task-2] lavalink.server.io.SocketServer          : Connection successfully established from DJ_r2d2
+2026-04-07T14:57:09.354Z  INFO 2210615 --- [Lavalink] [  XNIO-1 task-3] l.server.io.RequestLoggingFilter         : GET /v4/info?trace=true, client=127.0.0.1
+2026-04-07T14:57:35.549Z  WARN 2210615 --- [Lavalink] [ager-3-thread-1] c.s.d.l.tools.GarbageCollectionMonitor   : Suspicious GC results for the last 2 minutes: [Bucket 0 = 2] [Bucket 20 = 0] [Bucket 50 = 1] [Bucket 200 = 5] [Bucket 500 = 5] [Bucket 2000 = 0]

@@ -1,13 +1,19 @@
 'use strict';
 
-const http = require('http');
+const http     = require('http');
 const { execFile } = require('child_process');
-const { URL } = require('url');
+const { existsSync } = require('fs');
+const { resolve }   = require('path');
+const { URL }  = require('url');
 
 const PORT       = parseInt(process.env.YTDLP_PROXY_PORT ?? '9001', 10);
 const HOST       = '127.0.0.1';
 const YTDLP_BIN  = process.env.YTDLP_BINARY ?? 'yt-dlp';
 const CACHE_TTL  = 60 * 60 * 1000; // 1 hour — yt-dlp CDN URLs last ~6 h
+
+const COOKIES_FILE =
+  process.env.YTDLP_COOKIES ??
+  resolve(process.cwd(), 'cookies.txt');
 
 // Simple in-memory cache: videoId -> { url, ts }
 const cache = new Map();
@@ -31,11 +37,15 @@ function fetchAudioUrl(videoId, cb) {
     '--no-warnings',
     '--no-config',
     '--js-runtimes', 'node',
-    '--extractor-args', 'youtube:player_client=ios',
+    '--extractor-args', 'youtube:player_client=tv,web_embedded,ios',
     '-f', 'bestaudio[ext=webm]/bestaudio[ext=m4a]/bestaudio/best',
     '--get-url',
     `https://www.youtube.com/watch?v=${videoId}`,
   ];
+
+  if (existsSync(COOKIES_FILE)) {
+    args.push('--cookies', COOKIES_FILE);
+  }
 
   execFile(YTDLP_BIN, args, { timeout: 45_000 }, (err, stdout, stderr) => {
     if (err) return cb(new Error(stderr?.trim() || err.message), null);
