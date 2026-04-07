@@ -1,0 +1,58 @@
+r2dd2@fuzzing:~/Music-Bot-Master/discord-music-bot$ bash scripts/start.sh
+
+======================================================
+   🎵  Music Bot — Iniciando
+======================================================
+
+[INFO] Cargando variables de entorno desde .env...
+[OK]   Variables de entorno cargadas (YOUTUBE_OAUTH_REFRESH_TOKEN, DISCORD_TOKEN, etc.).
+[INFO] Iniciando Lavalink...
+[OK]   Lavalink iniciado (PID 1412058)
+[INFO] Esperando que Lavalink esté listo (máx 180s — la 1ra vez descarga el plugin de YouTube)...
+^[[O[INFO] Aún esperando Lavalink... (15s)
+^[[I[INFO] Aún esperando Lavalink... (30s)
+^[[O^[[I^[[O^[[I^[[O[INFO] Aún esperando Lavalink... (45s)
+^[[I^[[O^[[I^[[O^[[I^[[O^[[I[INFO] Aún esperando Lavalink... (60s)
+^[[O^[[I^[[O[INFO] Aún esperando Lavalink... (75s)
+[INFO] Aún esperando Lavalink... (90s)
+[INFO]   → Descargando plugin de YouTube (solo ocurre la primera vez)...
+[INFO] Aún esperando Lavalink... (105s)
+[INFO]   → Descargando plugin de YouTube (solo ocurre la primera vez)...
+[INFO] Aún esperando Lavalink... (120s)
+[INFO]   → Descargando plugin de YouTube (solo ocurre la primera vez)...
+^[[I[INFO] Aún esperando Lavalink... (135s)
+[INFO]   → Descargando plugin de YouTube (solo ocurre la primera vez)...
+^[[O^[[I^[[O^[[I^[[O[INFO] Aún esperando Lavalink... (150s)
+[INFO]   → Descargando plugin de YouTube (solo ocurre la primera vez)...
+^[[I^[[O^[[I^[[O^[[I[INFO] Aún esperando Lavalink... (165s)
+[INFO]   → Descargando plugin de YouTube (solo ocurre la primera vez)...
+[INFO] Aún esperando Lavalink... (180s)
+[INFO]   → Descargando plugin de YouTube (solo ocurre la primera vez)...
+[WARN] Lavalink no respondió en 180s.
+[WARN] Últimas líneas del log de Lavalink:
+[WARN]   at lavalink.server.bootstrap.PluginManager.<init>(PluginManager.kt:30) ~[classes!/:4.2.2]
+[WARN]   at lavalink.server.bootstrap.PluginManager$$SpringCGLIB$$0.<init>(<generated>) ~[classes!/:4.2.2]
+[WARN]   at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[na:na]
+[WARN]   at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77) ~[na:na]
+[WARN]   at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[na:na]
+[WARN]   at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500) ~[na:na]
+[WARN]   at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481) ~[na:na]
+[WARN]   at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:208) ~[spring-beans-6.1.15.jar!/:6.1.15]
+[WARN]   ... 27 common frames omitted
+[WARN]
+[WARN] El bot iniciará de todas formas e intentará reconectarse a Lavalink.
+[INFO] Iniciando bot de Discord...
+[OK]   Bot iniciado (PID 1422009)
+
+======================================================
+   ✅  Music Bot corriendo
+======================================================
+
+   Ver logs en tiempo real:
+     bash scripts/logs.sh
+
+   Solo errores:
+     bash scripts/logs.sh error
+
+   Estado:   bash scripts/status.sh
+   Detener:  bash scripts/stop.sh
