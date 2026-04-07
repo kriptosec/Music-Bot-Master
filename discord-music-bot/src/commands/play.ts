@@ -68,9 +68,27 @@ export const play: Command = {
     });
 
     try {
-      // ── YouTube path: use yt-dlp to get audio URL ──────────────────────────
+      // ── YouTube path: plugin first (OAuth, fast), yt-dlp as fallback ────────
       if (isYouTubeQuery(query)) {
-        logger.debug(`[play] yt-dlp search: ${query}`);
+        // 1. Try the Lavalink YouTube plugin (OAuth — instant when authenticated)
+        const ytQuery = query.startsWith("http") ? query : `ytsearch:${query}`;
+        logger.debug(`[play] Lavalink plugin search: ${ytQuery}`);
+        const pluginResult = await player.search({ query: ytQuery }, message.author);
+
+        if (pluginResult.loadType !== "empty" && pluginResult.loadType !== "error" && pluginResult.tracks.length) {
+          const track = pluginResult.tracks[0] as Track;
+          await player.queue.add(track);
+          if (player.playing) {
+            await loadingMsg.edit({ content: "", embeds: [trackAddedEmbed(track, player.queue.tracks.length)] });
+          } else {
+            await loadingMsg.delete().catch(() => null);
+          }
+          if (!player.playing) await player.play({ paused: false });
+          return;
+        }
+
+        // 2. Plugin failed — fall back to yt-dlp (slower but uses cookies auth)
+        logger.warn("[play] Lavalink plugin falló para YouTube, usando yt-dlp como fallback...");
         const info = await ytdlpSearch(query);
 
         if (!info) {
@@ -79,8 +97,6 @@ export const play: Command = {
           return;
         }
 
-        // Use the direct CDN URL from yt-dlp (already fetched during search).
-        // Fall back to proxy URL only if CDN URL is missing.
         const audioIdentifier = info.audioUrl || info.proxyUrl;
 
         if (!audioIdentifier) {

@@ -5,8 +5,6 @@ server:
     enabled: false
 
 plugins:
-  # youtube-source: used only for SoundCloud compatibility check; YouTube audio
-  # is now handled by yt-dlp via the local HTTP proxy (scripts/ytdlp-proxy.cjs).
   youtube:
     enabled: true
     allowSearch: true
@@ -15,8 +13,13 @@ plugins:
     clients:
       - MUSIC
       - WEB
+      - ANDROID_MUSIC
+      - TVHTML5EMBEDDED
     oauth:
-      enabled: false
+      enabled: true
+      # refreshToken is written here automatically after first authentication.
+      # On first start Lavalink prints a device-code URL — open it in a browser
+      # and sign in with any Google account to authorise the plugin.
 
 lavalink:
   plugins:
