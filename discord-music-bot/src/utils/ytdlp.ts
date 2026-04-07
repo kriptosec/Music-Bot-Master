@@ -66,10 +66,8 @@ function baseArgs(): string[] {
     "--no-playlist",
     "--no-warnings",
     "--no-config",
-    "--js-runtimes", "node",
-    "--remote-components", "ejs:github",
-    // ios doesn't support cookies; tv and web_embedded work with cookie auth
-    "--extractor-args", "youtube:player_client=tv,web_embedded",
+    // tv client works with cookie auth and doesn't require Node.js for decryption
+    "--extractor-args", "youtube:player_client=tv",
     "-f", "bestaudio[ext=webm]/bestaudio[ext=m4a]/bestaudio/best",
   ];
 

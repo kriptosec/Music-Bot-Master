@@ -36,11 +36,10 @@ function fetchAudioUrl(videoId, cb) {
     '--no-playlist',
     '--no-warnings',
     '--no-config',
-    '--js-runtimes', 'node',
-    '--remote-components', 'ejs:github',
-    '--extractor-args', 'youtube:player_client=tv,web_embedded',
+    // tv client works with cookie auth; no Node.js runtime needed
+    '--extractor-args', 'youtube:player_client=tv',
     '-f', 'bestaudio[ext=webm]/bestaudio[ext=m4a]/bestaudio/best',
-    '-j',   // JSON dump — more reliable than --get-url with remote-components
+    '-j',
     `https://www.youtube.com/watch?v=${videoId}`,
   ];
 
