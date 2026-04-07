@@ -79,9 +79,9 @@ export const play: Command = {
           return;
         }
 
-        // Prefer proxy URL so token never expires mid-queue;
-        // fall back to direct CDN URL if proxy unavailable.
-        const audioIdentifier = info.proxyUrl || info.audioUrl;
+        // Use the direct CDN URL from yt-dlp (already fetched during search).
+        // Fall back to proxy URL only if CDN URL is missing.
+        const audioIdentifier = info.audioUrl || info.proxyUrl;
 
         if (!audioIdentifier) {
           await loadingMsg.edit({ content: "", embeds: [errorEmbed("❌ yt-dlp no pudo obtener la URL de audio.")] });
