@@ -1,0 +1,60 @@
+── Paso 0: Permisos de scripts
+[OK]    Scripts con permisos de ejecución.
+
+── Paso 1: Node.js
+[OK]    Node.js v22.22.2 OK
+
+── Paso 2: Gestor de paquetes
+[OK]    npm 10.9.7 OK
+
+── Paso 3: Dependencias de Node.js
+[INFO]  Ejecutando npm install...
+npm error code ETARGET
+npm error notarget No matching version found for lavalink-client@^2.9.12.
+npm error notarget In most cases you or one of your dependencies are requesting
+npm error notarget a package version that doesn't exist.
+npm error A complete log of this run can be found in: /home/r2dd2/.npm/_logs/2026-04-07T06_13_50_155Z-debug-0.log
+[ERROR] npm install falló.
+
+── Paso 4: Compilar TypeScript
+[WARN]  Saltando compilación (dependencias no instaladas)
+
+── Paso 5: Java 17+ (para Lavalink)
+[OK]    Java 17 OK
+
+── Paso 6: Herramienta de descarga (wget/curl)
+[OK]    wget 1.21.4 disponible
+
+── Paso 7: Lavalink.jar
+[INFO]  Descargando Lavalink.jar con wget...
+/home/r2dd2/Music-Bot-Master/ 100%[=================================================>]  95.95M  8.70MB/s    in 21s
+[OK]    Lavalink.jar descargado correctamente (95 MB).
+
+── Paso 8: Directorios del sistema
+[OK]    logs/ y lavalink/logs/ listos.
+
+── Paso 9: Configuración (.env)
+[WARN]  .env no encontrado → creado desde .env.example.
+[WARN]  Edita .env con: nano /home/r2dd2/Music-Bot-Master/discord-music-bot/.env
+[WARN]  Reemplaza TU_TOKEN_AQUI con tu token de Discord.
+
+======================================================
+   📊  Resumen de instalación
+======================================================
+
+  ✓ Node.js v22.22.2
+  ✗ Dependencias npm  → discord.js + lavalink-client
+  ✗ Build TypeScript  → dist/index.js generado
+  ✓ Java 17.0.18
+  ✓ Lavalink.jar
+  ✓ Directorios logs/
+  ✗ .env configurado
+
+   ⚠️  Instalación con problemas:
+
+   • Fallo al instalar dependencias de Node.js
+   • TypeScript no compilado
+   • .env creado pero necesita configuración del DISCORD_TOKEN
+
+   Corrige los problemas y vuelve a ejecutar:
+   bash scripts/install.sh
