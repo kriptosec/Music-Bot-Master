@@ -34,7 +34,6 @@ client.lavalink = new LavalinkManager({
       port: config.lavalink.port,
       id: "main-node",
       secure: config.lavalink.secure,
-      requestTimeout: 15_000,
       retryAmount: 10,
       retryDelay: 3_000,
     },

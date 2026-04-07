@@ -1,30 +1,32 @@
 import type { Client, TextChannel } from "discord.js";
-import type { LavalinkManager, Player, Track, TrackEndEvent, TrackExceptionEvent, TrackStuckEvent } from "lavalink-client";
+import type { LavalinkManager, Player, Track } from "lavalink-client";
 import { logger } from "../utils/logger.js";
 import { trackStartEmbed } from "../utils/embeds.js";
-import { formatDuration } from "../utils/format.js";
 import { EmbedBuilder } from "discord.js";
 
 export function registerLavalinkEvents(client: Client): void {
   const lavalink = client.lavalink;
 
-  lavalink.on("nodeConnect", (node) => {
+  // ── Node events (via nodeManager) ────────────────────────────────────────────
+  lavalink.nodeManager.on("connect", (node) => {
     logger.info(`Lavalink node "${node.id}" conectado.`);
   });
 
-  lavalink.on("nodeDisconnect", (node, code, reason) => {
-    logger.warn(`Lavalink node "${node.id}" desconectado. Código: ${code} | Razón: ${reason}`);
+  lavalink.nodeManager.on("disconnect", (node, reason) => {
+    logger.warn(`Lavalink node "${node.id}" desconectado. Código: ${reason?.code ?? "?"} | Razón: ${reason?.reason ?? "desconocida"}`);
   });
 
-  lavalink.on("nodeError", (node, error) => {
+  lavalink.nodeManager.on("error", (node, error) => {
     logger.error(`Lavalink node "${node.id}" error:`, error);
   });
 
-  lavalink.on("nodeReconnect", (node) => {
+  lavalink.nodeManager.on("reconnecting", (node) => {
     logger.info(`Lavalink node "${node.id}" reconectando...`);
   });
 
+  // ── Player / Track events ─────────────────────────────────────────────────────
   lavalink.on("trackStart", async (player, track) => {
+    if (!track) return;
     const channel = getTextChannel(client, player);
     if (!channel) return;
     const queueSize = player.queue.tracks.length;
@@ -32,6 +34,7 @@ export function registerLavalinkEvents(client: Client): void {
   });
 
   lavalink.on("trackEnd", async (player, track, payload) => {
+    if (!track) return;
     logger.debug(`Canción terminada: ${track.info.title} | Razón: ${payload.reason}`);
   });
 
@@ -46,6 +49,7 @@ export function registerLavalinkEvents(client: Client): void {
   });
 
   lavalink.on("trackStuck", async (player, track, payload) => {
+    if (!track) return;
     logger.warn(`Canción atascada: ${track.info.title}`);
     const channel = getTextChannel(client, player);
     if (!channel) return;

@@ -1,5 +1,6 @@
 import { EmbedBuilder } from "discord.js";
-import type { Command, CommandContext } from "../types.js";
+import type { Track } from "lavalink-client";
+import type { Command } from "../types.js";
 import { errorEmbed } from "../utils/embeds.js";
 import { formatDuration, getSourceEmoji } from "../utils/format.js";
 import { logger } from "../utils/logger.js";
@@ -17,6 +18,13 @@ export const search: Command = {
       await message.reply({ embeds: [errorEmbed("Debes especificar qué buscar.")] });
       return;
     }
+
+    // awaitMessages requiere un canal de texto de servidor (no DM ni PartialGroupDMChannel)
+    if (!message.channel.isTextBased() || message.channel.isDMBased()) {
+      await message.reply({ embeds: [errorEmbed("Este comando solo funciona en canales de servidor.")] });
+      return;
+    }
+    const textChannel = message.channel;
 
     const query = args.join(" ");
     const loadingMsg = await message.reply({ content: "🔍 Buscando..." });
@@ -61,7 +69,7 @@ export const search: Command = {
         m.channel.id === message.channel.id &&
         (/^[1-5]$/.test(m.content) || ["cancelar", "cancel"].includes(m.content.toLowerCase()));
 
-      const collected = await message.channel
+      const collected = await textChannel
         .awaitMessages({ filter, max: 1, time: 30_000 })
         .catch(() => null);
 
@@ -81,7 +89,7 @@ export const search: Command = {
       }
 
       const idx = parseInt(reply.content) - 1;
-      const selected = tracks[idx];
+      const selected = tracks[idx] as Track;
 
       if (!fakePlayer.connected) await fakePlayer.connect();
       fakePlayer.textChannelId = message.channel.id;

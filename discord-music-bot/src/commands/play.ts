@@ -1,3 +1,4 @@
+import type { Track } from "lavalink-client";
 import type { Command, CommandContext } from "../types.js";
 import { errorEmbed, trackAddedEmbed, playlistAddedEmbed } from "../utils/embeds.js";
 import { logger } from "../utils/logger.js";
@@ -66,7 +67,7 @@ export const play: Command = {
         const track = result.tracks[0];
         await player.queue.add(track);
         if (player.playing) {
-          await loadingMsg.edit({ content: "", embeds: [trackAddedEmbed(track, player.queue.tracks.length)] });
+          await loadingMsg.edit({ content: "", embeds: [trackAddedEmbed(track as Track, player.queue.tracks.length)] });
         } else {
           await loadingMsg.delete().catch(() => null);
         }

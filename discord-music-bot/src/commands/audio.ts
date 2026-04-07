@@ -1,5 +1,5 @@
 import { EmbedBuilder } from "discord.js";
-import type { Command, CommandContext } from "../types.js";
+import type { Command } from "../types.js";
 import { errorEmbed, successEmbed } from "../utils/embeds.js";
 import { logger } from "../utils/logger.js";
 
@@ -79,37 +79,42 @@ export const filters: Command = {
     }
 
     try {
+      const fm = player.filterManager;
+
       if (preset === "clear") {
-        await player.filterManager.resetFilters();
+        await fm.resetFilters();
         await message.reply({ embeds: [successEmbed("✅ Filtros eliminados.")] });
         return;
       }
 
-      const fm = player.filterManager;
-
       if (preset === "bass") {
-        await fm.setEqualizer([
+        // setEQ reemplaza a setEqualizer en lavalink-client v2.9.x
+        await fm.setEQ([
           { band: 0, gain: 0.3 }, { band: 1, gain: 0.25 },
           { band: 2, gain: 0.2 }, { band: 3, gain: 0.1 },
         ]);
       } else if (preset === "night") {
-        await fm.setTimescale({ speed: 1.25, pitch: 1.15, rate: 1.0 });
+        // setSpeed/setPitch reemplazan a setTimescale en lavalink-client v2.9.x
+        await fm.setSpeed(1.25);
+        await fm.setPitch(1.15);
       } else if (preset === "slow") {
-        await fm.setTimescale({ speed: 0.75, pitch: 0.9, rate: 1.0 });
+        await fm.setSpeed(0.75);
+        await fm.setPitch(0.9);
       } else if (preset === "pop") {
-        await fm.setEqualizer([
+        await fm.setEQ([
           { band: 0, gain: -0.05 }, { band: 1, gain: 0.15 },
           { band: 2, gain: 0.2 }, { band: 3, gain: 0.1 }, { band: 4, gain: 0.05 },
         ]);
       } else if (preset === "rock") {
-        await fm.setEqualizer([
+        await fm.setEQ([
           { band: 0, gain: 0.3 }, { band: 1, gain: 0.2 },
           { band: 5, gain: 0.1 }, { band: 6, gain: 0.2 }, { band: 7, gain: 0.3 },
         ]);
       } else if (preset === "8d") {
-        await fm.setRotation({ rotationHz: 0.2 });
+        // toggleRotation reemplaza a setRotation en lavalink-client v2.9.x
+        await fm.toggleRotation(0.2);
       } else if (preset === "soft") {
-        await fm.setEqualizer([
+        await fm.setEQ([
           { band: 0, gain: 0 }, { band: 1, gain: 0 },
           { band: 2, gain: 0.1 }, { band: 3, gain: 0.2 },
           { band: 4, gain: 0.3 }, { band: 5, gain: 0.2 },

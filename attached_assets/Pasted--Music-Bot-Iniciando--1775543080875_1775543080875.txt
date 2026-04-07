@@ -1,0 +1,159 @@
+======================================================
+   🎵  Music Bot — Iniciando
+======================================================
+
+[WARN] Build no encontrado. Compilando TypeScript...
+
+> discord-music-bot@2.0.0 build
+> tsc
+
+src/commands/audio.ts:91:18 - error TS2339: Property 'setEqualizer' does not exist on type 'FilterManager'.
+
+91         await fm.setEqualizer([
+                    ~~~~~~~~~~~~
+
+src/commands/audio.ts:96:18 - error TS2339: Property 'setTimescale' does not exist on type 'FilterManager'.
+
+96         await fm.setTimescale({ speed: 1.25, pitch: 1.15, rate: 1.0 });
+                    ~~~~~~~~~~~~
+
+src/commands/audio.ts:98:18 - error TS2339: Property 'setTimescale' does not exist on type 'FilterManager'.
+
+98         await fm.setTimescale({ speed: 0.75, pitch: 0.9, rate: 1.0 });
+                    ~~~~~~~~~~~~
+
+src/commands/audio.ts:100:18 - error TS2339: Property 'setEqualizer' does not exist on type 'FilterManager'.
+
+100         await fm.setEqualizer([
+                     ~~~~~~~~~~~~
+
+src/commands/audio.ts:105:18 - error TS2339: Property 'setEqualizer' does not exist on type 'FilterManager'.
+
+105         await fm.setEqualizer([
+                     ~~~~~~~~~~~~
+
+src/commands/audio.ts:110:18 - error TS2339: Property 'setRotation' does not exist on type 'FilterManager'.
+
+110         await fm.setRotation({ rotationHz: 0.2 });
+                     ~~~~~~~~~~~
+
+src/commands/audio.ts:112:18 - error TS2339: Property 'setEqualizer' does not exist on type 'FilterManager'.
+
+112         await fm.setEqualizer([
+                     ~~~~~~~~~~~~
+
+src/commands/play.ts:69:73 - error TS2345: Argument of type 'Track | UnresolvedTrack' is not assignable to parameter of type 'Track'.
+  Type 'UnresolvedTrack' is not assignable to type 'Track'.
+    The types of 'info.identifier' are incompatible between these types.
+      Type 'string | undefined' is not assignable to type 'string'.
+        Type 'undefined' is not assignable to type 'string'.
+
+69           await loadingMsg.edit({ content: "", embeds: [trackAddedEmbed(track, player.queue.tracks.length)] });
+                                                                           ~~~~~
+
+src/commands/search.ts:65:10 - error TS2339: Property 'awaitMessages' does not exist on type 'DMChannel | PartialDMChannel | PartialGroupDMChannel | NewsChannel | StageChannel | TextChannel | PublicThreadChannel<...> | PrivateThreadChannel | VoiceChannel'.
+  Property 'awaitMessages' does not exist on type 'PartialGroupDMChannel'.
+
+65         .awaitMessages({ filter, max: 1, time: 30_000 })
+            ~~~~~~~~~~~~~
+
+src/commands/search.ts:95:71 - error TS2345: Argument of type 'Track | UnresolvedTrack' is not assignable to parameter of type 'Track'.
+  Type 'UnresolvedTrack' is not assignable to type 'Track'.
+    The types of 'info.identifier' are incompatible between these types.
+      Type 'string | undefined' is not assignable to type 'string'.
+        Type 'undefined' is not assignable to type 'string'.
+
+95         await loadingMsg.edit({ content: "", embeds: [trackAddedEmbed(selected, fakePlayer.queue.tracks.length)] });
+                                                                         ~~~~~~~~
+
+src/events/lavalink.ts:11:15 - error TS2345: Argument of type '"nodeConnect"' is not assignable to parameter of type 'keyof LavalinkManagerEvents<CustomPlayerT>'.
+
+11   lavalink.on("nodeConnect", (node) => {
+                 ~~~~~~~~~~~~~
+
+src/events/lavalink.ts:11:31 - error TS7006: Parameter 'node' implicitly has an 'any' type.
+
+11   lavalink.on("nodeConnect", (node) => {
+                                 ~~~~
+
+src/events/lavalink.ts:15:15 - error TS2345: Argument of type '"nodeDisconnect"' is not assignable to parameter of type 'keyof LavalinkManagerEvents<CustomPlayerT>'.
+
+15   lavalink.on("nodeDisconnect", (node, code, reason) => {
+                 ~~~~~~~~~~~~~~~~
+
+src/events/lavalink.ts:15:34 - error TS7006: Parameter 'node' implicitly has an 'any' type.
+
+15   lavalink.on("nodeDisconnect", (node, code, reason) => {
+                                    ~~~~
+
+src/events/lavalink.ts:15:40 - error TS7006: Parameter 'code' implicitly has an 'any' type.
+
+15   lavalink.on("nodeDisconnect", (node, code, reason) => {
+                                          ~~~~
+
+src/events/lavalink.ts:15:46 - error TS7006: Parameter 'reason' implicitly has an 'any' type.
+
+15   lavalink.on("nodeDisconnect", (node, code, reason) => {
+                                                ~~~~~~
+
+src/events/lavalink.ts:19:15 - error TS2345: Argument of type '"nodeError"' is not assignable to parameter of type 'keyof LavalinkManagerEvents<CustomPlayerT>'.
+
+19   lavalink.on("nodeError", (node, error) => {
+                 ~~~~~~~~~~~
+
+src/events/lavalink.ts:19:29 - error TS7006: Parameter 'node' implicitly has an 'any' type.
+
+19   lavalink.on("nodeError", (node, error) => {
+                               ~~~~
+
+src/events/lavalink.ts:19:35 - error TS7006: Parameter 'error' implicitly has an 'any' type.
+
+19   lavalink.on("nodeError", (node, error) => {
+                                     ~~~~~
+
+src/events/lavalink.ts:23:15 - error TS2345: Argument of type '"nodeReconnect"' is not assignable to parameter of type 'keyof LavalinkManagerEvents<CustomPlayerT>'.
+
+23   lavalink.on("nodeReconnect", (node) => {
+                 ~~~~~~~~~~~~~~~
+
+src/events/lavalink.ts:23:33 - error TS7006: Parameter 'node' implicitly has an 'any' type.
+
+23   lavalink.on("nodeReconnect", (node) => {
+                                   ~~~~
+
+src/events/lavalink.ts:31:51 - error TS2345: Argument of type 'Track | null' is not assignable to parameter of type 'Track'.
+  Type 'null' is not assignable to type 'Track'.
+
+31     await channel.send({ embeds: [trackStartEmbed(track, queueSize)] }).catch(() => null);
+                                                     ~~~~~
+
+src/events/lavalink.ts:35:40 - error TS18047: 'track' is possibly 'null'.
+
+35     logger.debug(`Canción terminada: ${track.info.title} | Razón: ${payload.reason}`);
+                                          ~~~~~
+
+src/events/lavalink.ts:49:38 - error TS18047: 'track' is possibly 'null'.
+
+49     logger.warn(`Canción atascada: ${track.info.title}`);
+                                        ~~~~~
+
+src/events/lavalink.ts:54:31 - error TS18047: 'track' is possibly 'null'.
+
+54       .setDescription(`⚠️ **${track.info.title}** está atascada. Saltando...`);
+                                 ~~~~~
+
+src/index.ts:37:7 - error TS2353: Object literal may only specify known properties, and 'requestTimeout' does not exist in type 'LavalinkNodeOptions'.
+
+37       requestTimeout: 15_000,
+         ~~~~~~~~~~~~~~
+
+
+Found 26 errors in 5 files.
+
+Errors  Files
+     7  src/commands/audio.ts:91
+     1  src/commands/play.ts:69
+     2  src/commands/search.ts:65
+    15  src/events/lavalink.ts:11
+     1  src/index.ts:37
+[ERROR] Error al compilar. Revisa los errores de TypeScript.
