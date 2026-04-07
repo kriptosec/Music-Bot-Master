@@ -67,8 +67,9 @@ function baseArgs(): string[] {
     "--no-warnings",
     "--no-config",
     "--js-runtimes", "node",
-    // Try multiple clients in order: tv and web_embedded often bypass VPS bot-detection
-    "--extractor-args", "youtube:player_client=tv,web_embedded,ios",
+    "--remote-components", "ejs:github",
+    // ios doesn't support cookies; tv and web_embedded work with cookie auth
+    "--extractor-args", "youtube:player_client=tv,web_embedded",
     "-f", "bestaudio[ext=webm]/bestaudio[ext=m4a]/bestaudio/best",
   ];
 
