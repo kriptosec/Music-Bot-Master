@@ -36,8 +36,9 @@ function fetchAudioUrl(videoId, cb) {
     '--no-playlist',
     '--no-warnings',
     '--no-config',
-    // tv client works with cookie auth; no Node.js runtime needed
-    '--extractor-args', 'youtube:player_client=tv',
+    '--js-runtimes', 'node',
+    '--remote-components', 'ejs:github',
+    '--extractor-args', 'youtube:player_client=tv,web_embedded',
     '-f', 'bestaudio[ext=webm]/bestaudio[ext=m4a]/bestaudio/best',
     '-j',
     `https://www.youtube.com/watch?v=${videoId}`,
