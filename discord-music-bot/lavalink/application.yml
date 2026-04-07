@@ -17,7 +17,6 @@ plugins:
       - IOS
     oauth:
       enabled: true
-      skipInitialization: true
       refreshToken: ${YOUTUBE_OAUTH_REFRESH_TOKEN:}
 
 lavalink:
