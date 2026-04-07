@@ -47,3 +47,6 @@ Thumbs.db
 # Replit
 .cache/
 .local/
+
+# Chat attachments — never commit to git (may contain sensitive data)
+attached_assets/
