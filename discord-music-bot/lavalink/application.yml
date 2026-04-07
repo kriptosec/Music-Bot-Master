@@ -16,8 +16,7 @@ plugins:
       - TVHTML5EMBEDDED
       - ANDROID_MUSIC
     oauth:
-      enabled: true
-      refreshToken: ${YOUTUBE_OAUTH_REFRESH_TOKEN:}
+      enabled: false
 
 lavalink:
   plugins:
