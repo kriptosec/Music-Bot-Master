@@ -1,0 +1,33 @@
+:39:40.358Z [INFO ] ✅ Cola terminada | Guild: 998076829980164187
+2026-04-07T09:39:40.358Z [INFO ] ✅ Cola terminada | Guild: 998076829980164187
+[LAVA]
+
+── LAVALINK LOG ─────────────────────────────────────
+[LAVA] 2026-04-07T09:39:29.557Z  INFO 1852283 --- [Lavalink] [  XNIO-1 task-3] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/k3mbuld48x9txy1h/players/998076829980164187?trace=true, client=127.0.0.1, payload={"track":{"encoded":"QAAAvwMAJ0x1aXMgRm9uc2kgLSBEZXNwYWNpdG8gZnQuIERhZGR5IFlhbmtlZQAKTHVpcyBGb25zaQAAAAAABE2QAAtrSlFQN2tpdzVGawABACtodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PWtKUVA3a2l3NUZrAQAwaHR0cHM6Ly9pLnl0aW1nLmNvbS92aS9rSlFQN2tpdzVGay9tcWRlZmF1bHQuanBnAAAHeW91dHViZQAAAAAAAAAA","userData":{"requester":{"id":"770282914579218433","bot":false,"system":false,"flags":0,"username":"kaito1703","globalName":"Kaito","discriminator":"0","avatar":"6123d2d575c9cad2375db9890639b081","banner":null,"accentColor":null,"avatarDecoration":null,"avatarDecorationData":null,"collectibles":null,"primaryGuild":null,"createdTimestamp":1603720158000,"defaultAvatarURL":"https://cdn.discordapp.com/embed/avatars/0.png","hexAccentColor":null,"tag":"kaito1703","avatarURL":"https://cdn.discordapp.com/avatars/770282914579218433/6123d2d575c9cad2375db9890639b081.webp","displayAvatarURL":"https://cdn.discordapp.com/avatars/770282914579218433/6123d2d575c9cad2375db9890639b081.webp","bannerURL":null,"guildTagBadgeURL":null}}},"volume":60,"position":0,"paused":false}
+[LAVA] 2026-04-07T09:39:32.652Z  INFO 1852283 --- [Lavalink] [back-1-thread-1] d.l.y.http.YoutubeAccessTokenTracker     : Updating YouTube visitor id succeeded, new one is CgtHcWw5aTFFcHNfYyjUodPOBjIKCgJNWRIEGgAgWToMCAEgju6vzMSatOpp, next update will be after 600 seconds.
+[LAVA] 2026-04-07T09:39:32.852Z  WARN 1852283 --- [Lavalink] [back-1-thread-1] c.s.d.l.t.p.LocalAudioTrackExecutor      : Suspicious exception for playback of kJQP7kiw5Fk
+[LAVA]
+[LAVA] dev.lavalink.youtube.AllClientsFailedException: (yts.version: 1.18.0) All clients failed to load the item.
+[LAVA]
+[LAVA] Client [WEB] failed: This video requires login.This video requires login.
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.Client.getPlayabilityStatus(Client.java:94)
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadTrackInfoFromInnertube(NonMusicClient.java:163)
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.StreamingNonMusicClient.loadFormats(StreamingNonMusicClient.java:35)
+[LAVA]  at dev.lavalink.youtube.track.YoutubeAudioTrack.loadBestFormatWithUrl(YoutubeAudioTrack.java:197)
+[LAVA]  at dev.lavalink.youtube.track.YoutubeAudioTrack.processWithClient(YoutubeAudioTrack.java:134)
+[LAVA]
+[LAVA] Client [ANDROID_MUSIC] failed: This video requires login.This video requires login.
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.Client.getPlayabilityStatus(Client.java:94)
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadTrackInfoFromInnertube(NonMusicClient.java:163)
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.StreamingNonMusicClient.loadFormats(StreamingNonMusicClient.java:35)
+[LAVA]  at dev.lavalink.youtube.track.YoutubeAudioTrack.loadBestFormatWithUrl(YoutubeAudioTrack.java:197)
+[LAVA]  at dev.lavalink.youtube.track.YoutubeAudioTrack.processWithClient(YoutubeAudioTrack.java:134)
+[LAVA]  at dev.lavalink.youtube.track.YoutubeAudioTrack.process(YoutubeAudioTrack.java:123) ~[youtube-plugin-1.18.0.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.track.playback.LocalAudioTrackExecutor.execute(LocalAudioTrackExecutor.java:109) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager.lambda$executeTrack$2(DefaultAudioPlayerManager.java:339) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+[LAVA]  at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+[LAVA]  at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+[LAVA]
+[LAVA] 2026-04-07T09:39:39.452Z  INFO 1852283 --- [Lavalink] [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/k3mbuld48x9txy1h/players/998076829980164187?trace=true, client=127.0.0.1, payload={"voice":{"token":"2353d430e906cfdd","endpoint":"japan13004.discord.media:443","sessionId":"ed309cbbed207353113d62083bf11f3f","channelId":"998076829980164192"}}
+[LAVA] 2026-04-07T09:39:55.056Z  WARN 1852283 --- [Lavalink] [ager-3-thread-1] c.s.d.l.tools.GarbageCollectionMonitor   : Suspicious GC results for the last 2 minutes: [Bucket 0 = 2] [Bucket 20 = 0] [Bucket 50 = 8] [Bucket 200 = 5] [Bucket 500 = 1] [Bucket 2000 = 0]
