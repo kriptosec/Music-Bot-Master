@@ -1,0 +1,68 @@
+
+======================================================
+   🎵  Music Bot — Logs en tiempo real
+======================================================
+   Mostrando: Bot + Lavalink
+   Últimas líneas al inicio: 50
+   Ctrl+C para salir
+------------------------------------------------------
+
+
+── BOT LOG ──────────────────────────────────────────
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.Client.getPlayabilityStatus(Client.java:94)
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadTrackInfoFromInnertube(NonMusicClient.java:163)
+^[[O[LAVA]      at dev.lavalink.youtube.clients.skeleton.StreamingNonMusicClient.loadFormats(StreamingNonMusicClient.java:35)
+[LAVA]  at dev.lavalink.youtube.track.YoutubeAudioTrack.loadBestFormatWithUrl(YoutubeAudioTrack.java:197)
+[LAVA]  at dev.lavalink.youtube.track.YoutubeAudioTrack.processWithClient(YoutubeAudioTrack.java:134)
+[LAVA]
+^[[I[LAVA] Client [ANDROID_MUSIC] failed: This video requires login.This video requires login.
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.Client.getPlayabilityStatus(Client.java:94)
+^[[I[LAVA]      at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadTrackInfoFromInnertube(NonMusicClient.java:163)
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.StreamingNonMusicClient.loadFormats(StreamingNonMusicClient.java:35)
+[LAVA]  at dev.lavalink.youtube.track.YoutubeAudioTrack.loadBestFormatWithUrl(YoutubeAudioTrack.java:197)
+[LAVA]  at dev.lavalink.youtube.track.YoutubeAudioTrack.processWithClient(YoutubeAudioTrack.java:134)
+2026-04-07T09:50:16.154Z [ERROR] ❌ Error en canción "Eminem - Not Afraid" | Guild: 998076829980164187 | (yts.version: 1.18.0) All clients failed to load the item.
+[LAVA]
+[LAVA] Client [WEB] failed: This video requires login.This video requires login.
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.Client.getPlayabilityStatus(Client.java:94)
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadTrackInfoFromInnertube(NonMusicClient.java:163)
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.StreamingNonMusicClient.loadFormats(StreamingNonMusicClient.java:35)
+[LAVA]  at dev.lavalink.youtube.track.YoutubeAudioTrack.loadBestFormatWithUrl(YoutubeAudioTrack.java:197)
+[LAVA]  at dev.lavalink.youtube.track.YoutubeAudioTrack.processWithClient(YoutubeAudioTrack.java:134)
+[LAVA]
+[LAVA] Client [ANDROID_MUSIC] failed: This video requires login.This video requires login.
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.Client.getPlayabilityStatus(Client.java:94)
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadTrackInfoFromInnertube(NonMusicClient.java:163)
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.StreamingNonMusicClient.loadFormats(StreamingNonMusicClient.java:35)
+[LAVA]  at dev.lavalink.youtube.track.YoutubeAudioTrack.loadBestFormatWithUrl(YoutubeAudioTrack.java:197)
+[LAVA]  at dev.lavalink.youtube.track.YoutubeAudioTrack.processWithClient(YoutubeAudioTrack.java:134)
+[LAVA]
+
+── LAVALINK LOG ─────────────────────────────────────
+[LAVA] 2026-04-07T09:50:14.759Z  INFO 1852283 --- [Lavalink] [  XNIO-1 task-3] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/k3mbuld48x9txy1h/players/998076829980164187?trace=true, client=127.0.0.1, payload={"voice":{"token":"f4a9b713a8d252db","endpoint":"japan13004.discord.media:443","sessionId":"ed309cbbed207353113d62083bf11f3f","channelId":"998076829980164192"}}
+[LAVA] 2026-04-07T09:50:14.857Z  INFO 1852283 --- [Lavalink] [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=ytsearch%3Aeminem+im+not+afraid&trace=true, client=127.0.0.1
+[LAVA] 2026-04-07T09:50:15.754Z  INFO 1852283 --- [Lavalink] [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/k3mbuld48x9txy1h/players/998076829980164187?trace=true, client=127.0.0.1, payload={"track":{"encoded":"QAAArAMAE0VtaW5lbSAtIE5vdCBBZnJhaWQAC0VtaW5lbU11c2ljAAAAAAAD87gAC2o1LXlLaERkNjRzAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9ajUteUtoRGQ2NHMBADBodHRwczovL2kueXRpbWcuY29tL3ZpL2o1LXlLaERkNjRzL21xZGVmYXVsdC5qcGcAAAd5b3V0dWJlAAAAAAAAAAA=","userData":{"requester":{"id":"770282914579218433","bot":false,"system":false,"flags":0,"username":"kaito1703","globalName":"Kaito","discriminator":"0","avatar":"6123d2d575c9cad2375db9890639b081","banner":null,"accentColor":null,"avatarDecoration":null,"avatarDecorationData":null,"collectibles":null,"primaryGuild":null,"createdTimestamp":1603720158000,"defaultAvatarURL":"https://cdn.discordapp.com/embed/avatars/0.png","hexAccentColor":null,"tag":"kaito1703","avatarURL":"https://cdn.discordapp.com/avatars/770282914579218433/6123d2d575c9cad2375db9890639b081.webp","displayAvatarURL":"https://cdn.discordapp.com/avatars/770282914579218433/6123d2d575c9cad2375db9890639b081.webp","bannerURL":null,"guildTagBadgeURL":null}}},"volume":60,"position":0,"paused":false}
+[LAVA] 2026-04-07T09:50:16.052Z  WARN 1852283 --- [Lavalink] [back-1-thread-1] c.s.d.l.t.p.LocalAudioTrackExecutor      : Suspicious exception for playback of j5-yKhDd64s
+[LAVA]
+[LAVA] dev.lavalink.youtube.AllClientsFailedException: (yts.version: 1.18.0) All clients failed to load the item.
+[LAVA]
+[LAVA] Client [WEB] failed: This video requires login.This video requires login.
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.Client.getPlayabilityStatus(Client.java:94)
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadTrackInfoFromInnertube(NonMusicClient.java:163)
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.StreamingNonMusicClient.loadFormats(StreamingNonMusicClient.java:35)
+[LAVA]  at dev.lavalink.youtube.track.YoutubeAudioTrack.loadBestFormatWithUrl(YoutubeAudioTrack.java:197)
+[LAVA]  at dev.lavalink.youtube.track.YoutubeAudioTrack.processWithClient(YoutubeAudioTrack.java:134)
+[LAVA]
+[LAVA] Client [ANDROID_MUSIC] failed: This video requires login.This video requires login.
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.Client.getPlayabilityStatus(Client.java:94)
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadTrackInfoFromInnertube(NonMusicClient.java:163)
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.StreamingNonMusicClient.loadFormats(StreamingNonMusicClient.java:35)
+[LAVA]  at dev.lavalink.youtube.track.YoutubeAudioTrack.loadBestFormatWithUrl(YoutubeAudioTrack.java:197)
+[LAVA]  at dev.lavalink.youtube.track.YoutubeAudioTrack.processWithClient(YoutubeAudioTrack.java:134)
+[LAVA]  at dev.lavalink.youtube.track.YoutubeAudioTrack.process(YoutubeAudioTrack.java:123) ~[youtube-plugin-1.18.0.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.track.playback.LocalAudioTrackExecutor.execute(LocalAudioTrackExecutor.java:109) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager.lambda$executeTrack$2(DefaultAudioPlayerManager.java:339) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+[LAVA]  at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+[LAVA]  at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+[LAVA]
