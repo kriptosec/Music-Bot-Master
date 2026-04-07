@@ -40,7 +40,7 @@ function fetchAudioUrl(videoId, cb) {
     '--remote-components', 'ejs:github',
     '--extractor-args', 'youtube:player_client=tv,web_embedded',
     '-f', 'bestaudio[ext=webm]/bestaudio[ext=m4a]/bestaudio/best',
-    '--get-url',
+    '-j',   // JSON dump — more reliable than --get-url with remote-components
     `https://www.youtube.com/watch?v=${videoId}`,
   ];
 
@@ -53,12 +53,20 @@ function fetchAudioUrl(videoId, cb) {
     args.push('--cookies', COOKIES_FILE);
   }
 
-  execFile(YTDLP_BIN, args, { timeout: 45_000 }, (err, stdout, stderr) => {
-    if (err) return cb(new Error(stderr?.trim() || err.message), null);
-    const url = stdout.trim().split('\n')[0];
-    if (!url?.startsWith('http')) return cb(new Error('yt-dlp returned no URL'), null);
-    setCached(videoId, url);
-    cb(null, url);
+  execFile(YTDLP_BIN, args, { timeout: 60_000 }, (err, stdout, stderr) => {
+    if (err) {
+      const msg = stderr?.trim() || err.message;
+      return cb(new Error(msg.slice(0, 300)), null);
+    }
+    try {
+      const j = JSON.parse(stdout.trim());
+      const url = j.requested_downloads?.[0]?.url ?? j.url ?? '';
+      if (!url.startsWith('http')) return cb(new Error('yt-dlp: no audio URL in JSON'), null);
+      setCached(videoId, url);
+      cb(null, url);
+    } catch (e) {
+      cb(new Error('yt-dlp: JSON parse error'), null);
+    }
   });
 }
 
