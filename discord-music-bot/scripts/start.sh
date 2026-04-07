@@ -46,19 +46,23 @@ if [ -f "$BOT_PID_FILE" ]; then
 fi
 
 # ──────────────────────────────────────────────────────────────────────────────
-# Verificar entorno virtual
+# Verificar build compilado
 # ──────────────────────────────────────────────────────────────────────────────
-if [ ! -d "$BOT_DIR/venv" ]; then
-    warn "Entorno virtual no encontrado. Ejecuta 'bash scripts/install.sh' primero."
-    exit 1
+if [ ! -f "$BOT_DIR/dist/index.js" ]; then
+    warn "Build no encontrado. Compilando TypeScript..."
+    if command -v pnpm &>/dev/null; then
+        pnpm run build || error "Error al compilar. Revisa los errores de TypeScript."
+    elif command -v npm &>/dev/null; then
+        npm run build || error "Error al compilar. Revisa los errores de TypeScript."
+    else
+        error "npm/pnpm no encontrado. Ejecuta 'bash scripts/install.sh' primero."
+    fi
 fi
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Verificar .env
 # ──────────────────────────────────────────────────────────────────────────────
-if [ ! -f "$BOT_DIR/.env" ]; then
-    error ".env no encontrado. Ejecuta 'bash scripts/install.sh' primero."
-fi
+[ ! -f "$BOT_DIR/.env" ] && error ".env no encontrado. Ejecuta 'bash scripts/install.sh' primero."
 
 TOKEN=$(grep "^DISCORD_TOKEN=" "$BOT_DIR/.env" | cut -d= -f2-)
 if [ -z "$TOKEN" ] || [ "$TOKEN" = "TU_TOKEN_AQUI" ]; then
@@ -68,52 +72,46 @@ fi
 # ──────────────────────────────────────────────────────────────────────────────
 # Iniciar Lavalink
 # ──────────────────────────────────────────────────────────────────────────────
-if [ -f "$LAVALINK_JAR" ] && command -v java &>/dev/null; then
-    if [ -f "$LAVALINK_PID_FILE" ]; then
-        lava_pid=$(cat "$LAVALINK_PID_FILE")
-        if kill -0 "$lava_pid" 2>/dev/null; then
-            success "Lavalink ya está corriendo (PID: $lava_pid)"
-        else
-            rm -f "$LAVALINK_PID_FILE"
-            lava_pid=""
+lava_pid=""
+if [ -f "$LAVALINK_PID_FILE" ]; then
+    lava_pid=$(cat "$LAVALINK_PID_FILE")
+    if ! kill -0 "$lava_pid" 2>/dev/null; then
+        rm -f "$LAVALINK_PID_FILE"
+        lava_pid=""
+    fi
+fi
+
+if [ -n "$lava_pid" ]; then
+    success "Lavalink ya está corriendo (PID: $lava_pid)"
+elif [ -f "$LAVALINK_JAR" ] && command -v java &>/dev/null; then
+    info "Iniciando Lavalink..."
+    cd "$LAVALINK_DIR"
+    nohup java -Xmx512m -jar Lavalink.jar > "$LAVALINK_LOG" 2>&1 &
+    echo $! > "$LAVALINK_PID_FILE"
+    success "Lavalink iniciado (PID: $(cat $LAVALINK_PID_FILE))"
+    cd "$BOT_DIR"
+
+    info "Esperando que Lavalink esté listo (45s máx)..."
+    for i in $(seq 1 45); do
+        sleep 1
+        if grep -q "Lavalink is ready to accept connections" "$LAVALINK_LOG" 2>/dev/null; then
+            success "Lavalink listo."
+            break
         fi
-    fi
-
-    if [ -z "${lava_pid:-}" ]; then
-        info "Iniciando Lavalink..."
-        cd "$LAVALINK_DIR"
-        nohup java -jar Lavalink.jar > "$LAVALINK_LOG" 2>&1 &
-        echo $! > "$LAVALINK_PID_FILE"
-        success "Lavalink iniciado (PID: $(cat $LAVALINK_PID_FILE))"
-        cd "$BOT_DIR"
-
-        info "Esperando que Lavalink esté listo (30s máx)..."
-        for i in $(seq 1 30); do
-            sleep 1
-            if grep -q "Lavalink is ready to accept connections" "$LAVALINK_LOG" 2>/dev/null; then
-                success "Lavalink listo."
-                break
-            fi
-            if [ "$i" -eq 30 ]; then
-                warn "Lavalink tardó más de lo esperado. Continuando de todas formas..."
-            fi
-        done
-    fi
+        if [ "$i" -eq 45 ]; then
+            warn "Lavalink tardó más de lo esperado. Continuando de todas formas..."
+        fi
+    done
 else
-    if [ ! -f "$LAVALINK_JAR" ]; then
-        warn "Lavalink.jar no encontrado. El bot iniciará pero sin audio."
-    fi
-    if ! command -v java &>/dev/null; then
-        warn "Java no encontrado. Instala Java 17+ para habilitar audio."
-    fi
+    [ ! -f "$LAVALINK_JAR" ] && warn "Lavalink.jar no encontrado. El bot iniciará sin audio."
+    ! command -v java &>/dev/null && warn "Java no encontrado. Instala Java 17+."
 fi
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Iniciar el bot de Discord
 # ──────────────────────────────────────────────────────────────────────────────
-info "Iniciando el bot de Discord..."
-source "$BOT_DIR/venv/bin/activate"
-nohup python "$BOT_DIR/main.py" >> "$BOT_LOG" 2>&1 &
+info "Iniciando bot de Discord..."
+nohup node "$BOT_DIR/dist/index.js" >> "$BOT_LOG" 2>&1 &
 BOT_PID=$!
 echo $BOT_PID > "$BOT_PID_FILE"
 
@@ -121,7 +119,7 @@ sleep 2
 if kill -0 "$BOT_PID" 2>/dev/null; then
     success "Bot de Discord iniciado (PID: $BOT_PID)"
 else
-    error "El bot falló al iniciar. Revisa los logs: $BOT_LOG"
+    error "El bot falló al iniciar. Revisa los logs:\n  tail -f $BOT_LOG"
 fi
 
 echo ""

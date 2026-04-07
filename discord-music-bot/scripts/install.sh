@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # =============================================================================
-# install.sh — Instala todas las dependencias del Music Bot
+# install.sh — Instala todas las dependencias del Music Bot (TypeScript/Node.js)
 # Uso: bash scripts/install.sh
 # =============================================================================
 
@@ -10,7 +10,7 @@ BOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 LAVALINK_DIR="$BOT_DIR/lavalink"
 LAVALINK_JAR="$LAVALINK_DIR/Lavalink.jar"
 LAVALINK_URL="https://github.com/lavalink-devs/Lavalink/releases/latest/download/Lavalink.jar"
-PYTHON_MIN_VERSION="3.10"
+NODE_MIN_MAJOR=18
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -32,72 +32,66 @@ echo ""
 cd "$BOT_DIR"
 
 # ──────────────────────────────────────────────────────────────────────────────
-# 1. Verificar Python
+# 1. Verificar Node.js
 # ──────────────────────────────────────────────────────────────────────────────
-info "Verificando Python..."
-PYTHON_CMD=""
-for cmd in python3 python; do
-    if command -v "$cmd" &>/dev/null; then
-        version=$("$cmd" -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')")
-        major=$(echo "$version" | cut -d. -f1)
-        minor=$(echo "$version" | cut -d. -f2)
-        if [ "$major" -ge 3 ] && [ "$minor" -ge 10 ]; then
-            PYTHON_CMD="$cmd"
-            success "Python $version encontrado en '$cmd'"
-            break
-        fi
-    fi
-done
-
-if [ -z "$PYTHON_CMD" ]; then
-    error "Se requiere Python 3.10+. Instálalo con: sudo apt install python3 python3-pip"
+info "Verificando Node.js..."
+if ! command -v node &>/dev/null; then
+    error "Node.js no encontrado. Instala Node.js 18+ desde: https://nodejs.org o con:\n  curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -\n  sudo apt-get install -y nodejs"
 fi
 
-# ──────────────────────────────────────────────────────────────────────────────
-# 2. Verificar pip
-# ──────────────────────────────────────────────────────────────────────────────
-info "Verificando pip..."
-PIP_CMD=""
-for cmd in pip3 pip; do
-    if command -v "$cmd" &>/dev/null; then
-        PIP_CMD="$cmd"
-        break
-    fi
-done
-
-if [ -z "$PIP_CMD" ]; then
-    warn "pip no encontrado. Intentando instalar..."
-    "$PYTHON_CMD" -m ensurepip --upgrade || error "No se pudo instalar pip."
-    PIP_CMD="$PYTHON_CMD -m pip"
+NODE_VERSION=$(node -e "process.stdout.write(process.version.slice(1).split('.')[0])")
+if [ "$NODE_VERSION" -lt "$NODE_MIN_MAJOR" ]; then
+    error "Node.js v$NODE_VERSION encontrado. Se requiere Node.js 18+."
 fi
-success "pip encontrado: $PIP_CMD"
+success "Node.js v$(node -v | tr -d 'v') OK"
 
 # ──────────────────────────────────────────────────────────────────────────────
-# 3. Instalar dependencias de Python
+# 2. Verificar npm o instalar pnpm
 # ──────────────────────────────────────────────────────────────────────────────
-info "Instalando dependencias de Python..."
-if [ -d "venv" ]; then
-    info "Entorno virtual existente encontrado. Actualizando..."
+info "Verificando gestor de paquetes..."
+PKG_MANAGER=""
+if command -v pnpm &>/dev/null; then
+    PKG_MANAGER="pnpm"
+    success "pnpm encontrado: $(pnpm -v)"
+elif command -v npm &>/dev/null; then
+    PKG_MANAGER="npm"
+    success "npm encontrado: $(npm -v)"
 else
-    info "Creando entorno virtual en ./venv ..."
-    "$PYTHON_CMD" -m venv venv
+    error "npm/pnpm no encontrado. Instala Node.js correctamente."
 fi
 
-source venv/bin/activate
-pip install --upgrade pip --quiet
-pip install -r requirements.txt --quiet
-success "Dependencias de Python instaladas."
+# ──────────────────────────────────────────────────────────────────────────────
+# 3. Instalar dependencias de Node.js
+# ──────────────────────────────────────────────────────────────────────────────
+info "Instalando dependencias de Node.js..."
+if [ "$PKG_MANAGER" = "pnpm" ]; then
+    pnpm install --frozen-lockfile 2>/dev/null || pnpm install
+else
+    npm install
+fi
+success "Dependencias instaladas."
 
 # ──────────────────────────────────────────────────────────────────────────────
-# 4. Verificar Java para Lavalink
+# 4. Compilar TypeScript
+# ──────────────────────────────────────────────────────────────────────────────
+info "Compilando TypeScript..."
+if [ "$PKG_MANAGER" = "pnpm" ]; then
+    pnpm run build
+else
+    npm run build
+fi
+success "TypeScript compilado en ./dist/"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# 5. Verificar Java para Lavalink
 # ──────────────────────────────────────────────────────────────────────────────
 info "Verificando Java (requerido para Lavalink)..."
 if command -v java &>/dev/null; then
-    java_version=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}' | cut -d. -f1)
-    if [ "$java_version" -ge 17 ] 2>/dev/null; then
-        success "Java $java_version encontrado."
+    JAVA_VER=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}' | cut -d. -f1)
+    if [ "${JAVA_VER:-0}" -ge 17 ] 2>/dev/null; then
+        success "Java $JAVA_VER OK"
     else
-        warn "Java $java_version encontrado pero se requiere Java 17+."
+        warn "Java $JAVA_VER encontrado. Se requiere Java 17+."
         warn "Instala con: sudo apt install openjdk-17-jre"
     fi
 else
@@ -106,50 +100,36 @@ else
 fi
 
 # ──────────────────────────────────────────────────────────────────────────────
-# 5. Descargar Lavalink.jar si no existe
+# 6. Descargar Lavalink.jar si no existe
 # ──────────────────────────────────────────────────────────────────────────────
 mkdir -p "$LAVALINK_DIR/logs"
 if [ ! -f "$LAVALINK_JAR" ]; then
     info "Descargando Lavalink.jar..."
     if command -v wget &>/dev/null; then
-        wget -q --show-progress -O "$LAVALINK_JAR" "$LAVALINK_URL" || {
-            warn "No se pudo descargar Lavalink.jar automáticamente."
-            warn "Descárgalo manualmente desde:"
-            warn "  https://github.com/lavalink-devs/Lavalink/releases/latest"
-            warn "Y colócalo en: $LAVALINK_JAR"
-        }
+        wget -q --show-progress -O "$LAVALINK_JAR" "$LAVALINK_URL" || warn "No se pudo descargar automáticamente."
     elif command -v curl &>/dev/null; then
-        curl -L -o "$LAVALINK_JAR" "$LAVALINK_URL" || {
-            warn "No se pudo descargar Lavalink.jar automáticamente."
-        }
+        curl -L --progress-bar -o "$LAVALINK_JAR" "$LAVALINK_URL" || warn "No se pudo descargar automáticamente."
     else
-        warn "wget y curl no disponibles. Descarga Lavalink.jar manualmente desde:"
+        warn "wget/curl no disponibles. Descarga Lavalink.jar manualmente:"
         warn "  https://github.com/lavalink-devs/Lavalink/releases/latest"
-        warn "Y colócalo en: $LAVALINK_JAR"
+        warn "  → Guárdalo en: $LAVALINK_JAR"
     fi
-
-    if [ -f "$LAVALINK_JAR" ]; then
-        success "Lavalink.jar descargado."
-    fi
+    [ -f "$LAVALINK_JAR" ] && success "Lavalink.jar descargado."
 else
     success "Lavalink.jar ya existe."
 fi
 
 # ──────────────────────────────────────────────────────────────────────────────
-# 6. Verificar .env
+# 7. Verificar .env
 # ──────────────────────────────────────────────────────────────────────────────
 if [ ! -f "$BOT_DIR/.env" ]; then
     warn ".env no encontrado. Creando desde .env.example..."
-    if [ -f "$BOT_DIR/.env.example" ]; then
-        cp "$BOT_DIR/.env.example" "$BOT_DIR/.env"
-        warn "Por favor edita .env y agrega tu DISCORD_TOKEN."
-    fi
+    [ -f "$BOT_DIR/.env.example" ] && cp "$BOT_DIR/.env.example" "$BOT_DIR/.env"
+    warn "Por favor edita .env y agrega tu DISCORD_TOKEN."
 else
-    success "Archivo .env encontrado."
+    success ".env OK"
 fi
 
-# ──────────────────────────────────────────────────────────────────────────────
-# Fin
 # ──────────────────────────────────────────────────────────────────────────────
 echo ""
 echo "======================================================"

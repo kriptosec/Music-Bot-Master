@@ -24,46 +24,38 @@ echo "   🎵  Music Bot — Deteniendo"
 echo "======================================================"
 echo ""
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Detener bot de Discord
-# ──────────────────────────────────────────────────────────────────────────────
 if [ -f "$BOT_PID_FILE" ]; then
     pid=$(cat "$BOT_PID_FILE")
     if kill -0 "$pid" 2>/dev/null; then
-        info "Deteniendo bot de Discord (PID: $pid)..."
-        kill -TERM "$pid"
+        info "Deteniendo bot (PID: $pid)..."
+        kill -TERM "$pid" 2>/dev/null
         sleep 2
-        if kill -0 "$pid" 2>/dev/null; then
-            kill -9 "$pid" 2>/dev/null
-        fi
-        success "Bot de Discord detenido."
+        kill -0 "$pid" 2>/dev/null && kill -9 "$pid" 2>/dev/null
+        success "Bot detenido."
     else
-        warn "Bot de Discord no está corriendo (PID: $pid no existe)."
+        warn "Bot no está corriendo (PID $pid no existe)."
     fi
     rm -f "$BOT_PID_FILE"
 else
-    warn "Bot de Discord no está corriendo (no hay PID file)."
+    warn "Bot no está corriendo (sin archivo PID)."
 fi
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Detener Lavalink
-# ──────────────────────────────────────────────────────────────────────────────
 if [ -f "$LAVALINK_PID_FILE" ]; then
     pid=$(cat "$LAVALINK_PID_FILE")
     if kill -0 "$pid" 2>/dev/null; then
         info "Deteniendo Lavalink (PID: $pid)..."
-        kill -TERM "$pid"
+        kill -TERM "$pid" 2>/dev/null
         sleep 3
-        if kill -0 "$pid" 2>/dev/null; then
-            kill -9 "$pid" 2>/dev/null
-        fi
+        kill -0 "$pid" 2>/dev/null && kill -9 "$pid" 2>/dev/null
         success "Lavalink detenido."
     else
-        warn "Lavalink no está corriendo (PID: $pid no existe)."
+        warn "Lavalink no está corriendo (PID $pid no existe)."
     fi
     rm -f "$LAVALINK_PID_FILE"
 else
-    warn "Lavalink no está corriendo (no hay PID file)."
+    warn "Lavalink no está corriendo (sin archivo PID)."
 fi
 
 echo ""

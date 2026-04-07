@@ -28,25 +28,32 @@ See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and pa
 
 ## Discord Music Bot
 
-Located in `discord-music-bot/` — a standalone, portable Python Discord music bot.
+Located in `discord-music-bot/` — a standalone, portable TypeScript Discord music bot.
 
 ### Stack
-- **Language**: Python 3.10+
-- **Discord library**: discord.py 2.3+
-- **Audio**: Lavalink v4 + wavelink 3.4+
-- **Sources**: YouTube (OAuth), Spotify, SoundCloud
+- **Language**: TypeScript (compiled to Node.js)
+- **Discord library**: discord.js v14
+- **Audio client**: lavalink-client v2 (actively maintained, updated weekly)
+- **Audio server**: Lavalink v4
+- **Sources**: YouTube (OAuth plugin), Spotify, SoundCloud, URLs
 - **Plugin**: youtube-plugin (snapshot) via maven.lavalink.dev/snapshots
 
+### Why TypeScript over Python
+wavelink (Python) was archived in July 2024 — no more updates or security patches.
+lavalink-client (TypeScript) is updated actively in 2025/2026 with full Lavalink v4 support.
+
 ### Key files
-- `discord-music-bot/main.py` — Bot entry point
-- `discord-music-bot/cogs/music.py` — All music commands
-- `discord-music-bot/cogs/help.py` — Help and info commands
+- `discord-music-bot/src/index.ts` — Bot entry point
+- `discord-music-bot/src/config.ts` — Config from .env
+- `discord-music-bot/src/commands/` — All music/queue/audio/info commands
+- `discord-music-bot/src/events/` — Discord + Lavalink event handlers
+- `discord-music-bot/src/utils/` — Formatters, embeds, logger
 - `discord-music-bot/lavalink/application.yml` — Lavalink config (OAuth, plugins)
 - `discord-music-bot/.env` — Bot token and settings
 
 ### Scripts
-- `bash scripts/install.sh` — Install everything (venv, deps, Lavalink.jar)
+- `bash scripts/install.sh` — Install Node.js deps, compile TS, download Lavalink.jar
 - `bash scripts/start.sh` — Start Lavalink + bot
 - `bash scripts/stop.sh` — Stop everything
 - `bash scripts/status.sh` — Check status + last logs
-- `bash scripts/update.sh` — Update deps + Lavalink (--force to reinstall all)
+- `bash scripts/update.sh` — Update deps + recompile + restart (--force to reinstall all)

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # =============================================================================
-# update.sh — Actualiza y reinstala el Music Bot desde cero si es necesario
+# update.sh — Actualiza y/o reinstala el Music Bot desde cero
 # Uso: bash scripts/update.sh [--force]
-# --force: Reinstala todo aunque no haya cambios
+# --force: Reinstala todo aunque no haya cambios detectados
 # =============================================================================
 
 set -e
@@ -13,9 +13,7 @@ LAVALINK_JAR="$LAVALINK_DIR/Lavalink.jar"
 LAVALINK_URL="https://github.com/lavalink-devs/Lavalink/releases/latest/download/Lavalink.jar"
 FORCE=false
 
-for arg in "$@"; do
-    [ "$arg" = "--force" ] && FORCE=true
-done
+for arg in "$@"; do [ "$arg" = "--force" ] && FORCE=true; done
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -37,125 +35,108 @@ echo ""
 cd "$BOT_DIR"
 
 # ──────────────────────────────────────────────────────────────────────────────
-# 1. Detener el bot si está corriendo
+# 1. Verificar si bot estaba corriendo y detenerlo
 # ──────────────────────────────────────────────────────────────────────────────
 BOT_PID_FILE="$BOT_DIR/.bot.pid"
-LAVALINK_PID_FILE="$BOT_DIR/.lavalink.pid"
-
 was_running=false
+
 if [ -f "$BOT_PID_FILE" ]; then
     pid=$(cat "$BOT_PID_FILE")
     if kill -0 "$pid" 2>/dev/null; then
         was_running=true
-        info "Deteniendo el bot para actualizar..."
+        info "Deteniendo bot para actualizar..."
         bash "$BOT_DIR/scripts/stop.sh"
         sleep 2
     fi
 fi
 
 # ──────────────────────────────────────────────────────────────────────────────
-# 2. Verificar Python
+# 2. Verificar Node.js
 # ──────────────────────────────────────────────────────────────────────────────
-info "Verificando Python..."
-PYTHON_CMD=""
-for cmd in python3 python; do
-    if command -v "$cmd" &>/dev/null; then
-        version=$("$cmd" -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')")
-        major=$(echo "$version" | cut -d. -f1)
-        minor=$(echo "$version" | cut -d. -f2)
-        if [ "$major" -ge 3 ] && [ "$minor" -ge 10 ]; then
-            PYTHON_CMD="$cmd"
-            success "Python $version OK"
-            break
-        fi
-    fi
-done
-[ -z "$PYTHON_CMD" ] && error "Python 3.10+ requerido. Instala con: sudo apt install python3"
+info "Verificando Node.js..."
+command -v node &>/dev/null || error "Node.js no encontrado. Instala Node.js 18+."
+NODE_VER=$(node -e "process.stdout.write(process.version.slice(1).split('.')[0])")
+[ "$NODE_VER" -lt 18 ] && error "Node.js 18+ requerido. Versión actual: v$(node -v)"
+success "Node.js $(node -v) OK"
 
 # ──────────────────────────────────────────────────────────────────────────────
-# 3. Verificar/Crear entorno virtual
+# 3. Instalar/actualizar dependencias de Node.js
 # ──────────────────────────────────────────────────────────────────────────────
-if [ ! -d "$BOT_DIR/venv" ] || [ "$FORCE" = true ]; then
-    info "Creando/recreando entorno virtual..."
-    rm -rf "$BOT_DIR/venv"
-    "$PYTHON_CMD" -m venv venv
-    success "Entorno virtual creado."
-fi
+info "Actualizando dependencias de Node.js..."
+PKG_MANAGER=""
+command -v pnpm &>/dev/null && PKG_MANAGER="pnpm" || PKG_MANAGER="npm"
 
-# ──────────────────────────────────────────────────────────────────────────────
-# 4. Actualizar dependencias de Python
-# ──────────────────────────────────────────────────────────────────────────────
-info "Actualizando dependencias de Python..."
-source "$BOT_DIR/venv/bin/activate"
-pip install --upgrade pip --quiet
-
-CHANGED=false
 if [ "$FORCE" = true ]; then
-    CHANGED=true
-    pip install --upgrade -r requirements.txt --quiet
-    success "Dependencias actualizadas (forzado)."
-else
-    INSTALLED=$(pip freeze 2>/dev/null)
-    pip install --upgrade -r requirements.txt --quiet
-    NEW_INSTALLED=$(pip freeze 2>/dev/null)
-    if [ "$INSTALLED" != "$NEW_INSTALLED" ]; then
-        CHANGED=true
-        success "Dependencias actualizadas."
-    else
-        success "Dependencias ya al día."
-    fi
+    info "Reinstalando node_modules desde cero (--force)..."
+    rm -rf "$BOT_DIR/node_modules"
 fi
+
+if [ "$PKG_MANAGER" = "pnpm" ]; then
+    pnpm install 2>/dev/null || pnpm install --no-frozen-lockfile
+else
+    npm install
+fi
+success "Dependencias actualizadas."
+
+# ──────────────────────────────────────────────────────────────────────────────
+# 4. Recompilar TypeScript
+# ──────────────────────────────────────────────────────────────────────────────
+info "Compilando TypeScript..."
+rm -rf "$BOT_DIR/dist"
+if [ "$PKG_MANAGER" = "pnpm" ]; then
+    pnpm run build
+else
+    npm run build
+fi
+success "Compilación exitosa."
 
 # ──────────────────────────────────────────────────────────────────────────────
 # 5. Verificar Java
 # ──────────────────────────────────────────────────────────────────────────────
 info "Verificando Java..."
 if command -v java &>/dev/null; then
-    java_version=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}' | cut -d. -f1)
-    if [ "$java_version" -ge 17 ] 2>/dev/null; then
-        success "Java $java_version OK"
+    JAVA_VER=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}' | cut -d. -f1)
+    if [ "${JAVA_VER:-0}" -ge 17 ] 2>/dev/null; then
+        success "Java $JAVA_VER OK"
     else
-        warn "Java $java_version detectado. Se requiere Java 17+."
+        warn "Java $JAVA_VER detectado. Se requiere Java 17+."
     fi
 else
-    warn "Java no encontrado. Lavalink requiere Java 17+."
+    warn "Java no encontrado. Necesario para Lavalink."
 fi
 
 # ──────────────────────────────────────────────────────────────────────────────
-# 6. Verificar/Actualizar Lavalink.jar
+# 6. Verificar/actualizar Lavalink.jar
 # ──────────────────────────────────────────────────────────────────────────────
 mkdir -p "$LAVALINK_DIR/logs"
+
 if [ ! -f "$LAVALINK_JAR" ]; then
+    NEED_DOWNLOAD=true
     info "Lavalink.jar no encontrado. Descargando..."
-    NEED_DOWNLOAD=true
 elif [ "$FORCE" = true ]; then
-    info "Actualizando Lavalink.jar (forzado)..."
     NEED_DOWNLOAD=true
+    info "Actualizando Lavalink.jar (--force)..."
 else
-    info "Verificando si hay actualización de Lavalink..."
     NEED_DOWNLOAD=false
+    info "Verificando actualización de Lavalink..."
     if command -v curl &>/dev/null; then
-        REMOTE_SIZE=$(curl -sI "$LAVALINK_URL" 2>/dev/null | grep -i content-length | awk '{print $2}' | tr -d '\r')
-        LOCAL_SIZE=$(stat -c%s "$LAVALINK_JAR" 2>/dev/null || echo "0")
-        if [ -n "$REMOTE_SIZE" ] && [ "$REMOTE_SIZE" != "$LOCAL_SIZE" ]; then
-            info "Nueva versión de Lavalink disponible."
-            NEED_DOWNLOAD=true
-        else
-            success "Lavalink.jar ya está actualizado."
-        fi
+        REMOTE=$(curl -sI "$LAVALINK_URL" 2>/dev/null | grep -i content-length | awk '{print $2}' | tr -d '\r')
+        LOCAL=$(stat -c%s "$LAVALINK_JAR" 2>/dev/null || echo "0")
+        [ -n "$REMOTE" ] && [ "$REMOTE" != "$LOCAL" ] && NEED_DOWNLOAD=true && info "Nueva versión de Lavalink disponible."
+        [ "$NEED_DOWNLOAD" = false ] && success "Lavalink.jar ya está actualizado."
     fi
 fi
 
 if [ "$NEED_DOWNLOAD" = true ]; then
     if command -v wget &>/dev/null; then
         wget -q --show-progress -O "$LAVALINK_JAR.tmp" "$LAVALINK_URL" && mv "$LAVALINK_JAR.tmp" "$LAVALINK_JAR"
-        success "Lavalink.jar descargado/actualizado."
+        success "Lavalink.jar actualizado."
     elif command -v curl &>/dev/null; then
-        curl -L -o "$LAVALINK_JAR.tmp" "$LAVALINK_URL" && mv "$LAVALINK_JAR.tmp" "$LAVALINK_JAR"
-        success "Lavalink.jar descargado/actualizado."
+        curl -L --progress-bar -o "$LAVALINK_JAR.tmp" "$LAVALINK_URL" && mv "$LAVALINK_JAR.tmp" "$LAVALINK_JAR"
+        success "Lavalink.jar actualizado."
     else
-        warn "No se puede descargar Lavalink.jar automáticamente."
-        warn "Descarga manualmente: https://github.com/lavalink-devs/Lavalink/releases/latest"
+        warn "No se puede descargar automáticamente. Descarga manualmente:"
+        warn "  https://github.com/lavalink-devs/Lavalink/releases/latest"
     fi
 fi
 
@@ -163,28 +144,24 @@ fi
 # 7. Verificar .env
 # ──────────────────────────────────────────────────────────────────────────────
 if [ ! -f "$BOT_DIR/.env" ]; then
-    if [ -f "$BOT_DIR/.env.example" ]; then
-        cp "$BOT_DIR/.env.example" "$BOT_DIR/.env"
-        warn "Archivo .env creado desde .env.example. Edítalo con tu token."
-    else
-        warn ".env no encontrado. Crea uno con tu DISCORD_TOKEN."
-    fi
+    [ -f "$BOT_DIR/.env.example" ] && cp "$BOT_DIR/.env.example" "$BOT_DIR/.env"
+    warn ".env no encontrado o creado desde .env.example. Revisa tu DISCORD_TOKEN."
 else
     success ".env OK"
 fi
 
 # ──────────────────────────────────────────────────────────────────────────────
-# 8. Reiniciar si estaba corriendo o si hubo cambios
+# 8. Reiniciar si estaba corriendo
 # ──────────────────────────────────────────────────────────────────────────────
 echo ""
 if [ "$was_running" = true ]; then
-    info "Reiniciando el bot..."
+    info "Reiniciando bot..."
     bash "$BOT_DIR/scripts/start.sh"
 else
     echo "======================================================"
     echo -e "   ${GREEN}✅  Actualización completada${NC}"
     echo "======================================================"
     echo ""
-    echo "Para iniciar el bot: bash scripts/start.sh"
+    echo "Para iniciar: bash scripts/start.sh"
     echo ""
 fi

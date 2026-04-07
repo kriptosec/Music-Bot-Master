@@ -1,42 +1,54 @@
 # 🎵 Music Bot — Discord
 
-Bot de música para Discord con soporte de YouTube, Spotify y SoundCloud, usando Lavalink para audio de alta calidad.
+Bot de música para Discord con soporte de YouTube, Spotify y SoundCloud.
+**Stack:** TypeScript + discord.js v14 + lavalink-client v2 + Lavalink v4
+
+## ¿Por qué TypeScript en lugar de Python?
+
+| | Python (wavelink) | TypeScript (lavalink-client) |
+|---|---|---|
+| Estado | ❌ Archivado en 2024 | ✅ Actualizado activamente |
+| Soporte Lavalink v4 | Parcial | ✅ Nativo completo |
+| Tipado | Sin tipos | TypeScript completo |
+| Rendimiento | Moderado | Alto (V8 engine) |
 
 ## Características
 
 - ▶️ Reproducción de YouTube, Spotify, SoundCloud y URLs directas
-- 📋 Cola de reproducción con gestión completa
-- 🔁 Modos de repetición (canción, cola, apagado)
+- 📋 Cola de reproducción con gestión completa (move, remove, shuffle)
+- 🔁 Modos de repetición (canción, cola, off)
 - 🔀 Mezcla aleatoria
 - ⏩ Seek (saltar a posición en la canción)
-- 🎚️ Filtros de audio (bass boost, nightcore, slowed, etc.)
+- 🎚️ Filtros de audio (bass, nightcore, slowed, 8D, pop, rock)
 - 🔊 Control de volumen (0–200%)
-- 🔍 Búsqueda interactiva con selección
-- 📊 Información de reproducción con barra de progreso
+- 🔍 Búsqueda interactiva con selección de resultados
+- 📊 Información detallada de reproducción con barra de progreso
+- 🔄 Reconexión automática a Lavalink
 
 ## Requisitos del sistema
 
-- Python 3.10 o superior
-- Java 17 o superior (para Lavalink)
-- Sistema operativo: Linux (Ubuntu/Debian recomendado para VPS)
+- Node.js 18+ (recomendado: 20 LTS)
+- Java 17+ (para Lavalink)
+- Sistema operativo: Linux (Ubuntu/Debian recomendado)
 
 ## Instalación rápida (VPS)
 
 ```bash
-# 1. Clonar o copiar el proyecto al servidor
-git clone <tu-repositorio> discord-music-bot
+# 1. Instalar Node.js, Java y dependencias del sistema
+sudo apt update && sudo apt install -y openjdk-17-jre wget curl
+
+# Instalar Node.js 20 LTS
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# 2. Copiar la carpeta discord-music-bot/ al servidor
+# (scp, git clone, rsync, etc.)
+
+# 3. Instalar todo
 cd discord-music-bot
-
-# 2. Instalar Java si no lo tienes
-sudo apt update && sudo apt install -y openjdk-17-jre python3 python3-pip python3-venv wget
-
-# 3. Ejecutar el instalador
 bash scripts/install.sh
 
-# 4. Configurar el bot (ya viene pre-configurado, verificar el token)
-nano .env
-
-# 5. Iniciar
+# 4. Iniciar
 bash scripts/start.sh
 ```
 
@@ -44,11 +56,11 @@ bash scripts/start.sh
 
 | Script | Descripción |
 |--------|-------------|
-| `bash scripts/install.sh` | Instala dependencias, descarga Lavalink |
+| `bash scripts/install.sh` | Instala Node.js deps, compila TypeScript, descarga Lavalink |
 | `bash scripts/start.sh` | Inicia Lavalink + bot |
-| `bash scripts/stop.sh` | Detiene todo |
-| `bash scripts/status.sh` | Ver estado y últimos logs |
-| `bash scripts/update.sh` | Actualiza dependencias y Lavalink |
+| `bash scripts/stop.sh` | Detiene todo limpiamente |
+| `bash scripts/status.sh` | Estado + últimos logs |
+| `bash scripts/update.sh` | Actualiza deps + recompila + reinicia |
 | `bash scripts/update.sh --force` | Reinstala todo desde cero |
 
 ## Configuración (.env)
@@ -58,96 +70,123 @@ DISCORD_TOKEN=tu_token_aqui
 LAVALINK_HOST=127.0.0.1
 LAVALINK_PORT=2333
 LAVALINK_PASSWORD=r2dd2pass
+LAVALINK_SECURE=false
 BOT_PREFIX=!
-INACTIVE_TIMEOUT=300
+INACTIVE_TIMEOUT_MS=300000
+DEFAULT_VOLUME=80
+DEBUG=false
 ```
 
 ## Comandos del bot
 
 ### Reproducción
-| Comando | Alias | Descripción |
-|---------|-------|-------------|
+| Comando | Aliases | Descripción |
+|---------|---------|-------------|
 | `!play <canción>` | `!p`, `!tocar` | Reproduce o agrega a la cola |
-| `!search <canción>` | `!buscar` | Busca y elige una canción |
-| `!pause` | `!pausar` | Pausa/reanuda |
-| `!resume` | `!reanudar` | Reanuda si está pausado |
+| `!search <canción>` | `!buscar` | Busca y elige entre resultados |
+| `!pause` | `!pausar` | Pausa la reproducción |
+| `!resume` | `!reanudar` | Reanuda la reproducción |
 | `!stop` | `!detener` | Detiene y limpia la cola |
 | `!skip` | `!s`, `!saltar` | Salta la canción actual |
 | `!skipto <n>` | `!st` | Salta a posición en cola |
 | `!seek <tiempo>` | `!ir` | Salta a tiempo (`1:30` o `90`) |
-| `!nowplaying` | `!np`, `!ahora` | Muestra la canción actual |
+| `!nowplaying` | `!np` | Muestra la canción actual |
+| `!disconnect` | `!dc`, `!salir` | Desconecta el bot |
 
 ### Cola
-| Comando | Alias | Descripción |
-|---------|-------|-------------|
+| Comando | Aliases | Descripción |
+|---------|---------|-------------|
 | `!queue [página]` | `!q`, `!cola` | Ver la cola |
-| `!remove <n>` | `!eliminar` | Eliminar canción de la cola |
-| `!move <de> <a>` | `!mover` | Mover canción en la cola |
+| `!remove <n>` | `!eliminar`, `!rm` | Eliminar canción de la cola |
+| `!move <de> <a>` | `!mover`, `!mv` | Mover canción en la cola |
 | `!shuffle` | `!mezclar` | Mezclar aleatoriamente |
 | `!clear` | `!limpiar` | Limpiar toda la cola |
 | `!loop <track\|queue\|off>` | `!repetir` | Modo de repetición |
 
 ### Audio
-| Comando | Alias | Descripción |
-|---------|-------|-------------|
+| Comando | Aliases | Descripción |
+|---------|---------|-------------|
 | `!volume <0-200>` | `!vol` | Ajustar volumen |
 | `!filters [preset]` | `!filtros` | Filtros de audio |
+
+### Filtros disponibles
+`bass`, `night`, `slow`, `pop`, `rock`, `8d`, `soft`, `clear`
 
 ### Info
 | Comando | Descripción |
 |---------|-------------|
-| `!help` | Muestra esta ayuda |
+| `!help` | Lista de comandos |
 | `!ping` | Latencia del bot |
 | `!info` | Información del bot |
-| `!disconnect` | Desconectar el bot |
 
 ## Estructura del proyecto
 
 ```
 discord-music-bot/
-├── main.py                    # Punto de entrada del bot
-├── config.py                  # Configuración desde .env
-├── requirements.txt           # Dependencias de Python
-├── .env                       # Variables de entorno (privado)
-├── .env.example               # Ejemplo de configuración
-├── .gitignore
-├── cogs/
-│   ├── music.py               # Comandos de música
-│   └── help.py                # Comandos de ayuda e info
+├── src/
+│   ├── index.ts               # Punto de entrada
+│   ├── config.ts              # Configuración (.env)
+│   ├── types.ts               # Tipos TypeScript
+│   ├── commands/
+│   │   ├── index.ts           # Registro de comandos
+│   │   ├── play.ts            # !play, !search
+│   │   ├── controls.ts        # !skip, !pause, !resume, !stop, !seek...
+│   │   ├── queue.ts           # !queue, !np, !remove, !move, !loop...
+│   │   ├── audio.ts           # !volume, !filters
+│   │   └── info.ts            # !help, !ping, !info
+│   ├── events/
+│   │   ├── ready.ts           # Evento ready
+│   │   ├── messageCreate.ts   # Handler de mensajes (prefijo)
+│   │   └── lavalink.ts        # Eventos de Lavalink
+│   └── utils/
+│       ├── format.ts          # Formateo de duración, barras de progreso
+│       ├── embeds.ts          # Embeds reutilizables
+│       └── logger.ts          # Logger a consola y archivo
+├── dist/                      # TypeScript compilado (auto-generado)
 ├── lavalink/
 │   ├── Lavalink.jar           # Servidor de audio (auto-descargado)
 │   └── application.yml        # Configuración de Lavalink
 ├── logs/
 │   ├── bot.log
 │   └── lavalink.log
-└── scripts/
-    ├── install.sh
-    ├── start.sh
-    ├── stop.sh
-    ├── status.sh
-    └── update.sh
+├── scripts/
+│   ├── install.sh
+│   ├── start.sh
+│   ├── stop.sh
+│   ├── status.sh
+│   └── update.sh
+├── package.json
+├── tsconfig.json
+├── .env
+└── .env.example
 ```
 
 ## Solución de problemas
 
 ### El bot no reproduce YouTube
-- Verifica que Lavalink esté corriendo: `bash scripts/status.sh`
-- El plugin de YouTube usa OAuth — revisa `lavalink/application.yml`
-- El token OAuth puede expirar. Si falla, ejecuta Lavalink y sigue las instrucciones en consola
+El youtube-plugin con OAuth ya está configurado. Si falla:
+1. `bash scripts/status.sh` — verificar que Lavalink esté corriendo
+2. `tail -f logs/lavalink.log` — buscar errores en Lavalink
+3. El token OAuth puede expirar. Si ves "Token expired", reinicia Lavalink y sigue el flujo OAuth en la consola
 
 ### Lavalink no inicia
-- Verifica Java 17+: `java -version`
-- Revisa los logs: `tail -f logs/lavalink.log`
-- Puerto 2333 libre: `ss -tlnp | grep 2333`
+```bash
+java -version  # verificar Java 17+
+ss -tlnp | grep 2333  # verificar que el puerto esté libre
+tail -f logs/lavalink.log  # ver logs de error
+```
 
-### Error de conexión al bot
-- Verifica el token en `.env`
-- El bot debe tener los permisos: `Send Messages`, `Connect`, `Speak`
-- Activa los "Privileged Intents" en el portal de Discord Developer
+### Error de compilación TypeScript
+```bash
+bash scripts/update.sh --force  # reinstala todo
+```
 
-## Mantenimiento con systemd (opcional)
+### El bot se conecta pero no está en la lista de miembros
+Activa en Discord Developer Portal → Bot → **Privileged Gateway Intents**:
+- ✅ Message Content Intent
+- ✅ Server Members Intent (opcional)
 
-Para que el bot arranque automáticamente al reiniciar la VPS, crea un servicio systemd:
+## Auto-inicio con systemd (VPS)
 
 ```ini
 # /etc/systemd/system/music-bot.service
@@ -157,11 +196,12 @@ After=network.target
 
 [Service]
 Type=forking
-User=tu_usuario
-WorkingDirectory=/ruta/al/discord-music-bot
-ExecStart=/bin/bash /ruta/al/discord-music-bot/scripts/start.sh
-ExecStop=/bin/bash /ruta/al/discord-music-bot/scripts/stop.sh
+User=USUARIO
+WorkingDirectory=/ruta/discord-music-bot
+ExecStart=/bin/bash /ruta/discord-music-bot/scripts/start.sh
+ExecStop=/bin/bash /ruta/discord-music-bot/scripts/stop.sh
 Restart=on-failure
+RestartSec=10
 
 [Install]
 WantedBy=multi-user.target
