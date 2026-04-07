@@ -1,0 +1,57 @@
+
+[LAVA]   Error: connect ECONNREFUSED 127.0.0.1:2333
+[LAVA]     at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+2026-04-07T07:13:08.252Z [WARN ] Lavalink nodo "main-node" DESCONECTADO
+2026-04-07T07:13:08.252Z [WARN ] Código: 1006 | Razón: Socket got terminated due to no ping connection
+2026-04-07T07:13:08.252Z [WARN ] El bot no podrá reproducir música hasta que se reconecte.
+2026-04-07T07:13:08.155Z [ERROR] Lavalink nodo "main-node" ERROR:
+[LAVA]   Error: connect ECONNREFUSED 127.0.0.1:2333
+[LAVA]     at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+2026-04-07T07:13:08.252Z [WARN ] Lavalink nodo "main-node" DESCONECTADO
+2026-04-07T07:13:08.252Z [WARN ] Código: 1006 | Razón: Socket got terminated due to no ping connection
+2026-04-07T07:13:08.252Z [WARN ] El bot no podrá reproducir música hasta que se reconecte.
+2026-04-07T07:13:13.346Z [INFO ] Lavalink nodo "main-node" reconectando...
+2026-04-07T07:13:13.346Z [INFO ] Lavalink nodo "main-node" reconectando...
+2026-04-07T07:13:13.356Z [ERROR] Lavalink nodo "main-node" ERROR:
+[LAVA]   Error: connect ECONNREFUSED 127.0.0.1:2333
+[LAVA]     at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+2026-04-07T07:13:13.452Z [WARN ] Lavalink nodo "main-node" DESCONECTADO
+2026-04-07T07:13:13.452Z [WARN ] Código: 1006 | Razón: Socket got terminated due to no ping connection
+2026-04-07T07:13:13.452Z [WARN ] El bot no podrá reproducir música hasta que se reconecte.
+2026-04-07T07:13:13.356Z [ERROR] Lavalink nodo "main-node" ERROR:
+[LAVA]   Error: connect ECONNREFUSED 127.0.0.1:2333
+[LAVA]     at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+2026-04-07T07:13:13.452Z [WARN ] Lavalink nodo "main-node" DESCONECTADO
+2026-04-07T07:13:13.452Z [WARN ] Código: 1006 | Razón: Socket got terminated due to no ping connection
+2026-04-07T07:13:13.452Z [WARN ] El bot no podrá reproducir música hasta que se reconecte.
+^[[I2026-04-07T07:13:18.546Z [INFO ] Lavalink nodo "main-node" reconectando...
+2026-04-07T07:13:18.546Z [INFO ] Lavalink nodo "main-node" reconectando...
+2026-04-07T07:13:18.549Z [ERROR] Lavalink nodo "main-node" ERROR:
+[LAVA]   Error: connect ECONNREFUSED 127.0.0.1:2333
+[LAVA]     at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+2026-04-07T07:13:18.549Z [ERROR] Lavalink nodo "main-node" ERROR:
+[LAVA]   Error: connect ECONNREFUSED 127.0.0.1:2333
+[LAVA]     at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+2026-04-07T07:13:18.549Z [WARN ] Lavalink nodo "main-node" DESCONECTADO
+2026-04-07T07:13:18.549Z [WARN ] Código: 1006 | Razón: Socket got terminated due to no ping connection
+2026-04-07T07:13:18.549Z [WARN ] El bot no podrá reproducir música hasta que se reconecte.
+2026-04-07T07:13:18.549Z [WARN ] Lavalink nodo "main-node" DESCONECTADO
+2026-04-07T07:13:18.549Z [WARN ] Código: 1006 | Razón: Socket got terminated due to no ping connection
+2026-04-07T07:13:18.549Z [WARN ] El bot no podrá reproducir música hasta que se reconecte.
+2026-04-07T07:13:23.549Z [INFO ] Lavalink nodo "main-node" reconectando...
+2026-04-07T07:13:23.549Z [INFO ] Lavalink nodo "main-node" reconectando...
+2026-04-07T07:13:23.554Z [ERROR] Lavalink nodo "main-node" ERROR:
+[LAVA]   Error: connect ECONNREFUSED 127.0.0.1:2333
+[LAVA]     at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+2026-04-07T07:13:23.554Z [ERROR] Lavalink nodo "main-node" ERROR:
+[LAVA]   Error: connect ECONNREFUSED 127.0.0.1:2333
+[LAVA]     at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+2026-04-07T07:13:23.555Z [WARN ] Lavalink nodo "main-node" DESCONECTADO
+2026-04-07T07:13:23.555Z [WARN ] Código: 1006 | Razón: Socket got terminated due to no ping connection
+2026-04-07T07:13:23.555Z [WARN ] El bot no podrá reproducir música hasta que se reconecte.
+2026-04-07T07:13:23.555Z [WARN ] Lavalink nodo "main-node" DESCONECTADO
+2026-04-07T07:13:23.555Z [WARN ] Código: 1006 | Razón: Socket got terminated due to no ping connection
+2026-04-07T07:13:23.555Z [WARN ] El bot no podrá reproducir música hasta que se reconecte.
+2026-04-07T07:13:28.646Z [INFO ] Lavalink nodo "main-node" reconectando...
+2026-04-07T07:13:28.646Z [INFO ] Lavalink nodo "main-node" reconectando...
+2026-04-07T07:13:28.648Z [ERROR] Lavalink nodo "main-node" ERROR:

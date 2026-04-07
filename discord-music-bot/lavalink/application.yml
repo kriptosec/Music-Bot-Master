@@ -16,9 +16,7 @@ plugins:
       - TV_EMBEDDED
       - WEB
     oauth:
-      enabled: true
-      refreshToken: "${YOUTUBE_OAUTH_REFRESH_TOKEN}"
-      skipInitialization: false
+      enabled: false
 
 lavalink:
   plugins:
