@@ -1,0 +1,27 @@
+2026-04-07T09:42:24.750Z  INFO 1852283 --- [Lavalink] [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/k3mbuld48x9txy1h/players/998076829980164187?trace=true, client=127.0.0.1, payload={"track":{"encoded":"QAAArAMAE0VtaW5lbSAtIE5vdCBBZnJhaWQAC0VtaW5lbU11c2ljAAAAAAAD87gAC2o1LXlLaERkNjRzAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9ajUteUtoRGQ2NHMBADBodHRwczovL2kueXRpbWcuY29tL3ZpL2o1LXlLaERkNjRzL21xZGVmYXVsdC5qcGcAAAd5b3V0dWJlAAAAAAAAAAA=","userData":{"requester":{"id":"770282914579218433","bot":false,"system":false,"flags":0,"username":"kaito1703","globalName":"Kaito","discriminator":"0","avatar":"6123d2d575c9cad2375db9890639b081","banner":null,"accentColor":null,"avatarDecoration":null,"avatarDecorationData":null,"collectibles":null,"primaryGuild":null,"createdTimestamp":1603720158000,"defaultAvatarURL":"https://cdn.discordapp.com/embed/avatars/0.png","hexAccentColor":null,"tag":"kaito1703","avatarURL":"https://cdn.discordapp.com/avatars/770282914579218433/6123d2d575c9cad2375db9890639b081.webp","displayAvatarURL":"https://cdn.discordapp.com/avatars/770282914579218433/6123d2d575c9cad2375db9890639b081.webp","bannerURL":null,"guildTagBadgeURL":null}}},"volume":60,"position":0,"paused":false}
+2026-04-07T09:42:25.352Z  WARN 1852283 --- [Lavalink] [back-1-thread-1] c.s.d.l.t.p.LocalAudioTrackExecutor      : Suspicious exception for playback of j5-yKhDd64s
+
+dev.lavalink.youtube.AllClientsFailedException: (yts.version: 1.18.0) All clients failed to load the item.
+
+Client [WEB] failed: This video requires login.This video requires login.
+        at dev.lavalink.youtube.clients.skeleton.Client.getPlayabilityStatus(Client.java:94)
+        at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadTrackInfoFromInnertube(NonMusicClient.java:163)
+        at dev.lavalink.youtube.clients.skeleton.StreamingNonMusicClient.loadFormats(StreamingNonMusicClient.java:35)
+        at dev.lavalink.youtube.track.YoutubeAudioTrack.loadBestFormatWithUrl(YoutubeAudioTrack.java:197)
+        at dev.lavalink.youtube.track.YoutubeAudioTrack.processWithClient(YoutubeAudioTrack.java:134)
+
+Client [ANDROID_MUSIC] failed: This video requires login.This video requires login.
+        at dev.lavalink.youtube.clients.skeleton.Client.getPlayabilityStatus(Client.java:94)
+        at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadTrackInfoFromInnertube(NonMusicClient.java:163)
+        at dev.lavalink.youtube.clients.skeleton.StreamingNonMusicClient.loadFormats(StreamingNonMusicClient.java:35)
+        at dev.lavalink.youtube.track.YoutubeAudioTrack.loadBestFormatWithUrl(YoutubeAudioTrack.java:197)
+        at dev.lavalink.youtube.track.YoutubeAudioTrack.processWithClient(YoutubeAudioTrack.java:134)
+        at dev.lavalink.youtube.track.YoutubeAudioTrack.process(YoutubeAudioTrack.java:123) ~[youtube-plugin-1.18.0.jar!/:na]
+        at com.sedmelluq.discord.lavaplayer.track.playback.LocalAudioTrackExecutor.execute(LocalAudioTrackExecutor.java:109) ~[lavaplayer-2.2.6.jar!/:na]
+        at com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager.lambda$executeTrack$2(DefaultAudioPlayerManager.java:339) ~[lavaplayer-2.2.6.jar!/:na]
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+        at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2026-04-07T09:45:20.955Z  INFO 1852283 --- [Lavalink] [ce-token-poller] d.l.youtube.http.YoutubeOauth2Handler    : OAUTH INTEGRATION: Token retrieved successfully. Store your refresh token as this can be reused. (1//0gliZc6SaJ5qRCgYIARAAGBASNwF-L9Ir009GEGlMiOcHy8SR-sYr8-hNtPguCLUaQXp2EwMt7Fui3NxAnkp427zHhFi8O7TRJU4)
+2026-04-07T09:45:55.051Z  WARN 1852283 --- [Lavalink] [ager-3-thread-1] c.s.d.l.tools.GarbageCollectionMonitor   : Suspicious GC results for the last 2 minutes: [Bucket 0 = 0] [Bucket 20 = 0] [Bucket 50 = 0] [Bucket 200 = 0] [Bucket 500 = 1] [Bucket 2000 = 0]
