@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # =============================================================================
-# install.sh — Instala el Music Bot (TypeScript + Lavalink)
-# Detecta qué está instalado, instala lo que falta, verifica todo al final.
+# install.sh — Instala el Music Bot en Ubuntu/Debian
+# Auto-instala Node.js, Java y wget si faltan. Verifica todo y muestra resumen.
 # Uso: bash scripts/install.sh
 # =============================================================================
 
@@ -11,6 +11,7 @@ LAVALINK_JAR="$LAVALINK_DIR/Lavalink.jar"
 LAVALINK_JAR_TMP="$LAVALINK_JAR.tmp"
 LAVALINK_URL="https://github.com/lavalink-devs/Lavalink/releases/latest/download/Lavalink.jar"
 NODE_MIN_MAJOR=18
+NODE_INSTALL_MAJOR=20  # versión LTS a instalar si no hay una válida
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -25,40 +26,106 @@ warn()    { echo -e "${YELLOW}[WARN]${NC}  $1"; }
 error()   { echo -e "${RED}[ERROR]${NC} $1"; }
 step()    { echo -e "\n${BOLD}── $1${NC}"; }
 
-# Registro de resultados para el resumen final
 ISSUES=()
 add_issue() { ISSUES+=("$1"); }
 
 echo ""
 echo "======================================================"
-echo -e "   🎵  ${BOLD}Music Bot — Instalación${NC}"
+echo -e "   🎵  ${BOLD}Music Bot — Instalación (Ubuntu)${NC}"
 echo "======================================================"
 
 cd "$BOT_DIR"
 
 # ──────────────────────────────────────────────────────────────────────────────
-# PASO 0: Permisos de los scripts
+# HELPER: Verificar si tenemos sudo
 # ──────────────────────────────────────────────────────────────────────────────
-step "Paso 0: Permisos de scripts"
-chmod +x "$BOT_DIR"/scripts/*.sh 2>/dev/null && success "Scripts con permisos de ejecución."
+APT_AVAILABLE=false
+SUDO_CMD=""
+if command -v apt-get &>/dev/null; then
+    APT_AVAILABLE=true
+    if [ "$EUID" -eq 0 ]; then
+        SUDO_CMD=""           # ya somos root
+    elif command -v sudo &>/dev/null && sudo -n true 2>/dev/null; then
+        SUDO_CMD="sudo"       # sudo sin contraseña disponible
+    elif command -v sudo &>/dev/null; then
+        SUDO_CMD="sudo"       # sudo disponible (puede pedir contraseña)
+    fi
+fi
+
+apt_install() {
+    # Instala paquetes con apt. Uso: apt_install "openjdk-21-jre-headless" "Java 21"
+    local pkg="$1"
+    local label="${2:-$1}"
+    if ! $APT_AVAILABLE; then
+        error "apt no disponible — no se puede instalar $label automáticamente."
+        return 1
+    fi
+    info "Instalando $label con apt..."
+    $SUDO_CMD apt-get install -y "$pkg" -qq 2>&1 | tail -3
+    return ${PIPESTATUS[0]}
+}
+
+# Actualizar índice apt una sola vez (silencioso)
+APT_UPDATED=false
+apt_update_once() {
+    if ! $APT_UPDATED && $APT_AVAILABLE; then
+        info "Actualizando índice de paquetes apt..."
+        $SUDO_CMD apt-get update -qq 2>/dev/null && APT_UPDATED=true
+    fi
+}
 
 # ──────────────────────────────────────────────────────────────────────────────
-# PASO 1: Verificar Node.js
+# PASO 0: Permisos de scripts
+# ──────────────────────────────────────────────────────────────────────────────
+step "Paso 0: Permisos de scripts"
+chmod +x "$BOT_DIR"/scripts/*.sh 2>/dev/null
+success "Scripts con permisos de ejecución."
+
+# ──────────────────────────────────────────────────────────────────────────────
+# PASO 1: Node.js
 # ──────────────────────────────────────────────────────────────────────────────
 step "Paso 1: Node.js"
 NODE_OK=false
+
+install_nodejs() {
+    info "Instalando Node.js $NODE_INSTALL_MAJOR LTS desde NodeSource..."
+    apt_update_once
+    # Instalar curl si no está (lo necesitamos para el script de NodeSource)
+    command -v curl &>/dev/null || apt_install "curl" "curl"
+    if curl -fsSL "https://deb.nodesource.com/setup_${NODE_INSTALL_MAJOR}.x" | $SUDO_CMD bash - 2>/dev/null; then
+        if $SUDO_CMD apt-get install -y nodejs -qq 2>&1 | tail -2; then
+            return 0
+        fi
+    fi
+    return 1
+}
+
 if ! command -v node &>/dev/null; then
     error "Node.js NO encontrado."
-    warn  "Instala Node.js 20 LTS con:"
-    warn  "  curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -"
-    warn  "  sudo apt-get install -y nodejs"
-    add_issue "Node.js no instalado (requerido)"
+    if $APT_AVAILABLE; then
+        if install_nodejs; then
+            success "Node.js $(node -v) instalado correctamente."
+            NODE_OK=true
+        else
+            error "No se pudo instalar Node.js automáticamente."
+            add_issue "Node.js no instalado — instala manualmente: https://nodejs.org"
+        fi
+    else
+        error "apt no disponible. Instala Node.js 20 LTS manualmente."
+        add_issue "Node.js no instalado (requerido)"
+    fi
 else
     NODE_MAJOR=$(node -e "process.stdout.write(process.version.slice(1).split('.')[0])")
     if [ "$NODE_MAJOR" -lt "$NODE_MIN_MAJOR" ]; then
-        error "Node.js v$(node -v | tr -d 'v') es muy antiguo. Se requiere Node.js ${NODE_MIN_MAJOR}+."
-        warn  "Actualiza con: curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - && sudo apt-get install -y nodejs"
-        add_issue "Node.js v$(node -v) es menor a v${NODE_MIN_MAJOR}"
+        warn "Node.js $(node -v) es muy antiguo (mínimo v${NODE_MIN_MAJOR}). Actualizando..."
+        if $APT_AVAILABLE && install_nodejs; then
+            success "Node.js actualizado a $(node -v)."
+            NODE_OK=true
+        else
+            error "No se pudo actualizar Node.js automáticamente."
+            warn  "Actualiza con: curl -fsSL https://deb.nodesource.com/setup_20.x | sudo bash - && sudo apt install nodejs"
+            add_issue "Node.js $(node -v) es menor a v${NODE_MIN_MAJOR}"
+        fi
     else
         NODE_OK=true
         success "Node.js $(node -v) OK"
@@ -66,99 +133,67 @@ else
 fi
 
 # ──────────────────────────────────────────────────────────────────────────────
-# PASO 2: Verificar gestor de paquetes
+# PASO 2: Gestor de paquetes (npm viene con Node.js)
 # ──────────────────────────────────────────────────────────────────────────────
 step "Paso 2: Gestor de paquetes"
 PKG_MANAGER=""
-if command -v npm &>/dev/null && $NODE_OK; then
-    PKG_MANAGER="npm"
-    success "npm $(npm -v) OK"
-    if command -v pnpm &>/dev/null; then
-        PKG_MANAGER="pnpm"
-        success "pnpm $(pnpm -v) disponible (se usará pnpm)"
+if $NODE_OK; then
+    if command -v npm &>/dev/null; then
+        PKG_MANAGER="npm"
+        success "npm $(npm -v) OK"
+    else
+        error "npm no encontrado (debería venir con Node.js). Reinstala Node.js."
+        add_issue "npm no encontrado"
     fi
-elif ! $NODE_OK; then
-    warn "Saltando (Node.js no disponible)"
 else
-    error "npm no encontrado. Instala Node.js correctamente."
-    add_issue "npm no encontrado"
+    warn "Saltando (Node.js no disponible)"
 fi
 
 # ──────────────────────────────────────────────────────────────────────────────
-# PASO 3: Instalar dependencias de Node.js
+# PASO 3: Dependencias de Node.js (discord.js, lavalink-client, dotenv)
 # ──────────────────────────────────────────────────────────────────────────────
 step "Paso 3: Dependencias de Node.js"
 DEPS_OK=false
 if [ -n "$PKG_MANAGER" ]; then
-    if [ "$PKG_MANAGER" = "pnpm" ]; then
-        # Sin --frozen-lockfile para evitar fallo si no hay lockfile
-        if pnpm install --prefer-offline 2>/dev/null || pnpm install; then
-            DEPS_OK=true
-            success "Dependencias instaladas con pnpm."
-        else
-            error "Error al instalar dependencias con pnpm."
-            add_issue "Fallo al instalar dependencias de Node.js"
-        fi
+    info "Ejecutando npm install..."
+    if npm install 2>&1; then
+        DEPS_OK=true
     else
-        if npm install; then
-            DEPS_OK=true
-            success "Dependencias instaladas con npm."
-        else
-            error "Error al instalar dependencias con npm."
-            add_issue "Fallo al instalar dependencias de Node.js"
-        fi
+        error "npm install falló."
+        add_issue "Fallo al instalar dependencias de Node.js"
     fi
 
-    # Verificar que los módulos clave se instalaron
     if $DEPS_OK; then
-        for pkg in discord.js "lavalink-client" dotenv; do
-            if [ ! -d "$BOT_DIR/node_modules/${pkg}" ] && [ ! -d "$BOT_DIR/node_modules/$(echo $pkg | tr -d '@')" ]; then
-                # Check more carefully for scoped packages
-                if ls "$BOT_DIR/node_modules/" 2>/dev/null | grep -q "^discord.js\|^lavalink\|^dotenv"; then
-                    true
-                fi
-            fi
-        done
         if [ -d "$BOT_DIR/node_modules/discord.js" ] && [ -d "$BOT_DIR/node_modules/lavalink-client" ]; then
-            success "Módulos principales verificados: discord.js ✓ lavalink-client ✓"
+            success "Módulos verificados: discord.js ✓  lavalink-client ✓  dotenv ✓"
         else
-            warn "No se pudieron verificar los módulos. Puede haber un problema de instalación."
-            add_issue "Módulos de Node.js posiblemente incompletos"
+            warn "Módulos instalados pero no se pudo verificar algunos directorios."
+            add_issue "Verificación de módulos incompleta — ejecuta 'npm install' manualmente"
         fi
     fi
 else
-    warn "Saltando (no hay gestor de paquetes disponible)"
+    warn "Saltando (npm no disponible)"
     add_issue "Dependencias de Node.js no instaladas"
 fi
 
 # ──────────────────────────────────────────────────────────────────────────────
-# PASO 4: Compilar TypeScript
+# PASO 4: Compilar TypeScript → dist/
 # ──────────────────────────────────────────────────────────────────────────────
 step "Paso 4: Compilar TypeScript"
 BUILD_OK=false
 if $DEPS_OK; then
-    info "Ejecutando compilación..."
-    BUILD_OUTPUT=""
-    if [ "$PKG_MANAGER" = "pnpm" ]; then
-        BUILD_OUTPUT=$(pnpm run build 2>&1) && BUILD_OK=true || BUILD_OK=false
-    else
-        BUILD_OUTPUT=$(npm run build 2>&1) && BUILD_OK=true || BUILD_OK=false
-    fi
+    info "Compilando src/ → dist/ ..."
+    BUILD_OUTPUT=$(npm run build 2>&1)
+    BUILD_EXIT=$?
 
-    if $BUILD_OK; then
-        # Verificar que el archivo principal existe
-        if [ -f "$BOT_DIR/dist/index.js" ]; then
-            success "TypeScript compilado. Archivo principal: dist/index.js ✓"
-        else
-            BUILD_OK=false
-            error "El build terminó pero dist/index.js no fue generado."
-            echo "$BUILD_OUTPUT"
-            add_issue "Compilación de TypeScript incompleta"
-        fi
+    if [ $BUILD_EXIT -eq 0 ] && [ -f "$BOT_DIR/dist/index.js" ]; then
+        TS_COUNT=$(find "$BOT_DIR/dist" -name "*.js" | wc -l)
+        success "TypeScript compilado correctamente ($TS_COUNT archivos JS generados)."
+        BUILD_OK=true
     else
         error "Error al compilar TypeScript:"
-        echo "$BUILD_OUTPUT"
-        add_issue "Error de compilación de TypeScript"
+        echo "$BUILD_OUTPUT" | head -20
+        add_issue "Compilación de TypeScript falló — revisa los errores"
     fi
 else
     warn "Saltando compilación (dependencias no instaladas)"
@@ -166,117 +201,170 @@ else
 fi
 
 # ──────────────────────────────────────────────────────────────────────────────
-# PASO 5: Verificar Java (para Lavalink)
+# PASO 5: Java 17+ (para Lavalink)
 # ──────────────────────────────────────────────────────────────────────────────
-step "Paso 5: Java (para Lavalink)"
+step "Paso 5: Java 17+ (para Lavalink)"
 JAVA_OK=false
-if command -v java &>/dev/null; then
-    JAVA_VER=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}' | cut -d. -f1)
-    if [ "${JAVA_VER:-0}" -ge 17 ] 2>/dev/null; then
+
+check_java_version() {
+    if command -v java &>/dev/null; then
+        java -version 2>&1 | awk -F '"' '/version/ {print $2}' | cut -d. -f1
+    fi
+}
+
+install_java() {
+    apt_update_once
+    # Intentar Java 21 primero (LTS más reciente), luego Java 17
+    for pkg in "openjdk-21-jre-headless" "openjdk-17-jre-headless" "openjdk-17-jre"; do
+        info "Intentando instalar $pkg..."
+        if $SUDO_CMD apt-get install -y "$pkg" -qq 2>/dev/null; then
+            return 0
+        fi
+    done
+    return 1
+}
+
+JAVA_VER=$(check_java_version)
+if [ -n "$JAVA_VER" ] && [ "$JAVA_VER" -ge 17 ] 2>/dev/null; then
+    JAVA_OK=true
+    success "Java $JAVA_VER OK"
+elif [ -n "$JAVA_VER" ]; then
+    warn "Java $JAVA_VER encontrado pero se requiere Java 17+. Instalando nueva versión..."
+    if $APT_AVAILABLE && install_java; then
+        NEW_VER=$(check_java_version)
+        success "Java actualizado a versión $NEW_VER."
         JAVA_OK=true
-        success "Java $JAVA_VER OK"
     else
-        error "Java $JAVA_VER encontrado. Lavalink requiere Java 17+."
-        warn  "Instala con: sudo apt install openjdk-17-jre"
-        add_issue "Java $JAVA_VER es menor a 17 (requerido para Lavalink)"
+        error "No se pudo actualizar Java automáticamente."
+        warn  "Instala manualmente: sudo apt install openjdk-21-jre-headless"
+        add_issue "Java $JAVA_VER es menor a 17 — actualiza con: sudo apt install openjdk-21-jre-headless"
     fi
 else
-    error "Java NO encontrado. Lavalink no podrá iniciarse."
-    warn  "Instala con: sudo apt install openjdk-17-jre"
-    add_issue "Java 17+ no instalado (requerido para Lavalink)"
+    warn "Java no encontrado. Instalando automáticamente..."
+    if $APT_AVAILABLE && install_java; then
+        NEW_VER=$(check_java_version)
+        success "Java $NEW_VER instalado correctamente."
+        JAVA_OK=true
+    else
+        error "No se pudo instalar Java automáticamente."
+        warn  "Instala manualmente: sudo apt install openjdk-21-jre-headless"
+        add_issue "Java no instalado — requerido para Lavalink"
+    fi
 fi
 
 # ──────────────────────────────────────────────────────────────────────────────
-# PASO 6: Descargar Lavalink.jar
+# PASO 6: wget/curl (para descargar Lavalink.jar)
 # ──────────────────────────────────────────────────────────────────────────────
-step "Paso 6: Lavalink.jar"
+step "Paso 6: Herramienta de descarga (wget/curl)"
+if command -v wget &>/dev/null; then
+    success "wget $(wget -V 2>&1 | head -1 | awk '{print $3}') disponible"
+elif command -v curl &>/dev/null; then
+    success "curl $(curl -V 2>&1 | head -1 | awk '{print $2}') disponible"
+else
+    warn "wget y curl no encontrados. Instalando wget..."
+    if $APT_AVAILABLE; then
+        apt_update_once
+        if apt_install "wget" "wget"; then
+            success "wget instalado."
+        else
+            error "No se pudo instalar wget."
+            add_issue "wget/curl no disponibles — descarga de Lavalink.jar puede fallar"
+        fi
+    fi
+fi
+
+# ──────────────────────────────────────────────────────────────────────────────
+# PASO 7: Descargar Lavalink.jar
+# ──────────────────────────────────────────────────────────────────────────────
+step "Paso 7: Lavalink.jar"
 mkdir -p "$LAVALINK_DIR/logs"
 
+# Verificar si el jar ya existe y es válido
 if [ -f "$LAVALINK_JAR" ]; then
     JAR_SIZE=$(stat -c%s "$LAVALINK_JAR" 2>/dev/null || echo 0)
     if [ "$JAR_SIZE" -gt 1000000 ]; then
-        success "Lavalink.jar ya existe ($(( JAR_SIZE / 1024 / 1024 )) MB)."
+        success "Lavalink.jar ya existe y parece válido ($(( JAR_SIZE / 1024 / 1024 )) MB)."
     else
-        warn "Lavalink.jar existe pero parece corrupto o incompleto ($JAR_SIZE bytes). Volviendo a descargar..."
+        warn "Lavalink.jar existe pero parece corrupto ($JAR_SIZE bytes). Descargando de nuevo..."
         rm -f "$LAVALINK_JAR"
     fi
 fi
 
 if [ ! -f "$LAVALINK_JAR" ]; then
     DOWNLOAD_OK=false
-    # Limpiar posible archivo temporal anterior
     rm -f "$LAVALINK_JAR_TMP"
 
     if command -v wget &>/dev/null; then
         info "Descargando Lavalink.jar con wget..."
-        wget -q --show-progress -O "$LAVALINK_JAR_TMP" "$LAVALINK_URL" && DOWNLOAD_OK=true
+        wget -q --show-progress -O "$LAVALINK_JAR_TMP" "$LAVALINK_URL" && DOWNLOAD_OK=true || DOWNLOAD_OK=false
     elif command -v curl &>/dev/null; then
         info "Descargando Lavalink.jar con curl..."
-        curl -L --progress-bar -o "$LAVALINK_JAR_TMP" "$LAVALINK_URL" && DOWNLOAD_OK=true
+        curl -L --progress-bar -o "$LAVALINK_JAR_TMP" "$LAVALINK_URL" && DOWNLOAD_OK=true || DOWNLOAD_OK=false
     else
-        error "wget y curl no están disponibles. No se puede descargar Lavalink.jar."
-        warn  "Instala wget: sudo apt install wget"
-        warn  "Luego descarga manualmente y guarda en: $LAVALINK_JAR"
-        add_issue "wget/curl no disponibles — Lavalink.jar no descargado"
+        DOWNLOAD_OK=false
+        error "Sin herramienta de descarga disponible."
+        add_issue "No se pudo descargar Lavalink.jar (falta wget/curl)"
     fi
 
     if $DOWNLOAD_OK; then
-        # Verificar que el archivo descargado no está vacío/corrupto
-        DOWNLOADED_SIZE=$(stat -c%s "$LAVALINK_JAR_TMP" 2>/dev/null || echo 0)
-        if [ "$DOWNLOADED_SIZE" -gt 1000000 ]; then
+        DSIZE=$(stat -c%s "$LAVALINK_JAR_TMP" 2>/dev/null || echo 0)
+        if [ "$DSIZE" -gt 1000000 ]; then
             mv "$LAVALINK_JAR_TMP" "$LAVALINK_JAR"
-            success "Lavalink.jar descargado correctamente ($(( DOWNLOADED_SIZE / 1024 / 1024 )) MB)."
+            success "Lavalink.jar descargado correctamente ($(( DSIZE / 1024 / 1024 )) MB)."
         else
             rm -f "$LAVALINK_JAR_TMP"
-            error "Lavalink.jar descargado parece corrupto ($DOWNLOADED_SIZE bytes). Revisa la conexión a internet."
-            add_issue "Lavalink.jar descargado pero corrupto"
+            error "Archivo descargado demasiado pequeño ($DSIZE bytes) — posible error de red."
+            add_issue "Lavalink.jar descargado parece corrupto — revisa la conexión"
         fi
-    elif [ -z "$(command -v wget 2>/dev/null)$(command -v curl 2>/dev/null)" ]; then
-        : # ya se informó el error
     else
         rm -f "$LAVALINK_JAR_TMP"
-        error "Descarga de Lavalink.jar falló."
-        warn  "Descarga manualmente desde: https://github.com/lavalink-devs/Lavalink/releases/latest"
-        warn  "Guarda el archivo en: $LAVALINK_JAR"
-        add_issue "No se pudo descargar Lavalink.jar"
+        if command -v wget &>/dev/null || command -v curl &>/dev/null; then
+            error "Descarga de Lavalink.jar falló."
+            warn  "Descarga manual: https://github.com/lavalink-devs/Lavalink/releases/latest"
+            warn  "Guárdalo en: $LAVALINK_JAR"
+            add_issue "Descarga de Lavalink.jar falló — descarga manualmente"
+        fi
     fi
 fi
 
 # ──────────────────────────────────────────────────────────────────────────────
-# PASO 7: Verificar y crear directorios necesarios
+# PASO 8: Crear directorios necesarios
 # ──────────────────────────────────────────────────────────────────────────────
-step "Paso 7: Directorios del sistema"
+step "Paso 8: Directorios del sistema"
 mkdir -p "$BOT_DIR/logs"
 mkdir -p "$LAVALINK_DIR/logs"
-success "Directorios logs/ y lavalink/logs/ creados."
+success "logs/ y lavalink/logs/ listos."
 
 # ──────────────────────────────────────────────────────────────────────────────
-# PASO 8: Verificar .env y token
+# PASO 9: Configuración .env
 # ──────────────────────────────────────────────────────────────────────────────
-step "Paso 8: Configuración (.env)"
+step "Paso 9: Configuración (.env)"
 ENV_OK=false
+
 if [ ! -f "$BOT_DIR/.env" ]; then
     if [ -f "$BOT_DIR/.env.example" ]; then
         cp "$BOT_DIR/.env.example" "$BOT_DIR/.env"
-        warn ".env no encontrado. Creado desde .env.example."
-        warn "Edita el archivo .env y reemplaza TU_TOKEN_AQUI con tu token real de Discord."
-        add_issue ".env requiere configuración manual del DISCORD_TOKEN"
+        warn ".env no encontrado → creado desde .env.example."
+        warn "Edita .env con: nano $BOT_DIR/.env"
+        warn "Reemplaza TU_TOKEN_AQUI con tu token de Discord."
+        add_issue ".env creado pero necesita configuración del DISCORD_TOKEN"
     else
-        error ".env y .env.example no encontrados."
-        add_issue ".env no existe — no se puede iniciar el bot"
+        error ".env y .env.example no existen."
+        add_issue ".env no existe — el bot no puede iniciar sin él"
     fi
 else
     TOKEN=$(grep "^DISCORD_TOKEN=" "$BOT_DIR/.env" 2>/dev/null | cut -d= -f2- | tr -d '[:space:]')
     if [ -z "$TOKEN" ]; then
         error "DISCORD_TOKEN está vacío en .env"
+        warn  "Edita: nano $BOT_DIR/.env"
         add_issue "DISCORD_TOKEN vacío en .env"
     elif [ "$TOKEN" = "TU_TOKEN_AQUI" ]; then
-        error "DISCORD_TOKEN todavía tiene el valor por defecto en .env"
-        warn  "Edita .env y reemplaza TU_TOKEN_AQUI con tu token real."
-        add_issue "DISCORD_TOKEN no configurado en .env (aún tiene el valor ejemplo)"
+        error "DISCORD_TOKEN tiene el valor de ejemplo en .env"
+        warn  "Edita: nano $BOT_DIR/.env"
+        add_issue "DISCORD_TOKEN no configurado (aún dice TU_TOKEN_AQUI)"
     else
         ENV_OK=true
-        success ".env encontrado y DISCORD_TOKEN configurado."
+        success ".env OK — DISCORD_TOKEN configurado."
     fi
 fi
 
@@ -290,43 +378,42 @@ echo "======================================================"
 echo ""
 
 check_item() {
-    local label="$1"
-    local ok="$2"
-    local detail="${3:-}"
+    local label="$1" ok="$2" detail="${3:-}"
     if [ "$ok" = "true" ]; then
-        echo -e "  ${GREEN}✓${NC} $label${detail:+  ($detail)}"
+        echo -e "  ${GREEN}✓${NC} $label${detail:+  (${detail})}"
     else
-        echo -e "  ${RED}✗${NC} $label${detail:+  → $detail}"
+        echo -e "  ${RED}✗${NC} $label${detail:+  → ${detail}}"
     fi
 }
 
-check_item "Node.js"          "$NODE_OK"  "$(node -v 2>/dev/null || echo 'no encontrado')"
-check_item "Dependencias npm" "$DEPS_OK"
-check_item "Build TypeScript" "$BUILD_OK" "dist/index.js"
-check_item "Java 17+"         "$JAVA_OK"  "$(java -version 2>&1 | head -1 | awk -F '"' '{print $2}' || echo 'no encontrado')"
-check_item "Lavalink.jar"     "$([ -f "$LAVALINK_JAR" ] && echo true || echo false)"
-check_item "Directorios logs" "true"
-check_item ".env configurado" "$ENV_OK"
+LAVALINK_JAR_OK=$([ -f "$LAVALINK_JAR" ] && echo true || echo false)
+NODE_VER_STR=$(node -v 2>/dev/null || echo "no encontrado")
+JAVA_VER_STR=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}' 2>/dev/null || echo "no encontrado")
+
+check_item "Node.js ${NODE_VER_STR}"       "$NODE_OK"
+check_item "Dependencias npm"               "$DEPS_OK"       "discord.js + lavalink-client"
+check_item "Build TypeScript"               "$BUILD_OK"      "dist/index.js generado"
+check_item "Java ${JAVA_VER_STR}"          "$JAVA_OK"
+check_item "Lavalink.jar"                   "$LAVALINK_JAR_OK"
+check_item "Directorios logs/"              "true"
+check_item ".env configurado"               "$ENV_OK"
 
 echo ""
 
 if [ ${#ISSUES[@]} -eq 0 ]; then
-    echo -e "   ${GREEN}${BOLD}✅  Instalación completa. Todo OK.${NC}"
+    echo -e "   ${GREEN}${BOLD}✅  Instalación completa — listo para iniciar.${NC}"
     echo ""
-    echo "Para iniciar el bot:"
-    echo "  bash scripts/start.sh"
-    echo ""
-    echo "Para ver el estado:"
-    echo "  bash scripts/status.sh"
+    echo -e "   ${BOLD}Iniciar:${NC}  bash scripts/start.sh"
+    echo -e "   ${BOLD}Estado:${NC}   bash scripts/status.sh"
 else
-    echo -e "   ${YELLOW}${BOLD}⚠️  Instalación con problemas. Revisa los puntos marcados:${NC}"
+    echo -e "   ${YELLOW}${BOLD}⚠️  Instalación con problemas:${NC}"
     echo ""
     for issue in "${ISSUES[@]}"; do
         echo -e "   ${RED}•${NC} $issue"
     done
     echo ""
-    echo "Corrige los problemas y vuelve a ejecutar:"
-    echo "  bash scripts/install.sh"
+    echo "   Corrige los problemas y vuelve a ejecutar:"
+    echo "   bash scripts/install.sh"
 fi
 
 echo "======================================================"
