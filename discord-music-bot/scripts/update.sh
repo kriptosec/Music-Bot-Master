@@ -98,15 +98,40 @@ fi
 # ──────────────────────────────────────────────────────────────────────────────
 step "Paso 3: Actualizando yt-dlp"
 
+_YTDLP_URL="https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp"
+_YTDLP_DEST="/usr/local/bin/yt-dlp"
+
+update_ytdlp_binary() {
+    if command -v wget &>/dev/null; then
+        wget -q -O "$_YTDLP_DEST" "$_YTDLP_URL" && chmod a+rx "$_YTDLP_DEST" && return 0
+    elif command -v curl &>/dev/null; then
+        curl -sL -o "$_YTDLP_DEST" "$_YTDLP_URL" && chmod a+rx "$_YTDLP_DEST" && return 0
+    fi
+    return 1
+}
+
 if command -v yt-dlp &>/dev/null; then
-    if pip3 install -q --upgrade yt-dlp 2>/dev/null || yt-dlp -U 2>/dev/null; then
-        success "yt-dlp $(yt-dlp --version) actualizado."
+    # Try self-update first (works if installed as binary with -U support)
+    if yt-dlp -U 2>/dev/null | grep -q "up to date\|Updated"; then
+        success "yt-dlp $(yt-dlp --version) al día."
     else
-        warn "No se pudo actualizar yt-dlp automáticamente."
-        warn "Actualiza manualmente: pip3 install --upgrade yt-dlp"
+        # Re-download binary (most reliable for standalone binary installs)
+        if update_ytdlp_binary; then
+            success "yt-dlp $(yt-dlp --version) actualizado."
+        else
+            warn "No se pudo actualizar yt-dlp. Usa:"
+            warn "  sudo wget -O /usr/local/bin/yt-dlp $YTDLP_BINARY_URL"
+        fi
     fi
 else
-    warn "yt-dlp no encontrado. Instala con: pip3 install yt-dlp"
+    warn "yt-dlp no encontrado. Instalando..."
+    if update_ytdlp_binary; then
+        success "yt-dlp $(yt-dlp --version) instalado."
+    else
+        warn "Instala manualmente:"
+        warn "  sudo wget -O /usr/local/bin/yt-dlp $_YTDLP_URL"
+        warn "  sudo chmod a+rx /usr/local/bin/yt-dlp"
+    fi
 fi
 
 # ──────────────────────────────────────────────────────────────────────────────

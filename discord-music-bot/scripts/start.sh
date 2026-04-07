@@ -158,11 +158,22 @@ else
     if [ -f "$PROXY_SCRIPT" ] && command -v node &>/dev/null; then
         # Verificar que yt-dlp esté instalado
         if ! command -v yt-dlp &>/dev/null; then
-            warn "yt-dlp no encontrado. Instalando con pip3..."
-            if command -v pip3 &>/dev/null; then
-                pip3 install -q yt-dlp && success "yt-dlp instalado." || warn "No se pudo instalar yt-dlp automáticamente. YouTube podría no funcionar."
+            warn "yt-dlp no encontrado. Instalando binario..."
+            _YTDLP_DEST="/usr/local/bin/yt-dlp"
+            _YTDLP_URL="https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp"
+            _INSTALLED=false
+            if command -v wget &>/dev/null; then
+                wget -q -O "$_YTDLP_DEST" "$_YTDLP_URL" && chmod a+rx "$_YTDLP_DEST" && _INSTALLED=true
+            elif command -v curl &>/dev/null; then
+                curl -sL -o "$_YTDLP_DEST" "$_YTDLP_URL" && chmod a+rx "$_YTDLP_DEST" && _INSTALLED=true
+            fi
+            if $_INSTALLED; then
+                success "yt-dlp instalado en $_YTDLP_DEST."
             else
-                warn "pip3 no disponible. Instala yt-dlp: sudo pip3 install yt-dlp"
+                warn "No se pudo instalar yt-dlp automáticamente."
+                warn "Instala manualmente:"
+                warn "  sudo wget -O /usr/local/bin/yt-dlp https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp"
+                warn "  sudo chmod a+rx /usr/local/bin/yt-dlp"
             fi
         else
             success "yt-dlp $(yt-dlp --version) encontrado."

@@ -333,26 +333,27 @@ fi
 step "Paso 8: yt-dlp (audio de YouTube)"
 YTDLP_OK=false
 
-install_ytdlp_pip() {
-    if command -v pip3 &>/dev/null; then
-        info "Instalando yt-dlp con pip3..."
-        pip3 install -q --upgrade yt-dlp && return 0
-    fi
-    if command -v pip &>/dev/null; then
-        pip install -q --upgrade yt-dlp && return 0
+YTDLP_BINARY_URL="https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp"
+YTDLP_DEST="/usr/local/bin/yt-dlp"
+
+install_ytdlp_binary() {
+    # Preferred: standalone binary (no Python, no venv, works on PEP 668 systems)
+    info "Descargando binario de yt-dlp..."
+    if command -v wget &>/dev/null; then
+        $SUDO_CMD wget -q -O "$YTDLP_DEST" "$YTDLP_BINARY_URL" \
+            && $SUDO_CMD chmod a+rx "$YTDLP_DEST" && return 0
+    elif command -v curl &>/dev/null; then
+        $SUDO_CMD curl -sL -o "$YTDLP_DEST" "$YTDLP_BINARY_URL" \
+            && $SUDO_CMD chmod a+rx "$YTDLP_DEST" && return 0
     fi
     return 1
 }
 
-install_ytdlp_binary() {
-    info "Instalando yt-dlp como binario directo..."
-    local dest="/usr/local/bin/yt-dlp"
-    if command -v wget &>/dev/null; then
-        $SUDO_CMD wget -q -O "$dest" "https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp" \
-            && $SUDO_CMD chmod a+rx "$dest" && return 0
-    elif command -v curl &>/dev/null; then
-        $SUDO_CMD curl -sL -o "$dest" "https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp" \
-            && $SUDO_CMD chmod a+rx "$dest" && return 0
+install_ytdlp_pip_break() {
+    # Fallback: pip with --break-system-packages (Ubuntu 22.04+/PEP 668)
+    if command -v pip3 &>/dev/null; then
+        info "Instalando yt-dlp con pip3 --break-system-packages..."
+        pip3 install -q --upgrade --break-system-packages yt-dlp && return 0
     fi
     return 1
 }
@@ -362,17 +363,20 @@ if command -v yt-dlp &>/dev/null; then
     success "yt-dlp $YTDLP_VER ya instalado."
     YTDLP_OK=true
 else
-    warn "yt-dlp no encontrado. Instalando..."
-    if install_ytdlp_pip; then
+    warn "yt-dlp no encontrado. Instalando como binario autónomo..."
+    if install_ytdlp_binary; then
+        YTDLP_VER=$(yt-dlp --version 2>/dev/null || echo "OK")
+        success "yt-dlp $YTDLP_VER instalado en $YTDLP_DEST."
+        YTDLP_OK=true
+    elif install_ytdlp_pip_break; then
         YTDLP_VER=$(yt-dlp --version 2>/dev/null || echo "OK")
         success "yt-dlp $YTDLP_VER instalado con pip3."
         YTDLP_OK=true
-    elif install_ytdlp_binary; then
-        success "yt-dlp instalado como binario."
-        YTDLP_OK=true
     else
         error "No se pudo instalar yt-dlp."
-        warn "Instala manualmente: pip3 install yt-dlp"
+        warn "Instala manualmente:"
+        warn "  sudo wget -O /usr/local/bin/yt-dlp https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp"
+        warn "  sudo chmod a+rx /usr/local/bin/yt-dlp"
         add_issue "yt-dlp no instalado — YouTube no funcionará"
     fi
 fi
