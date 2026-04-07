@@ -1,0 +1,115 @@
+=====================================================
+   🎵  Music Bot — Logs en tiempo real
+======================================================
+   Mostrando: Bot + Lavalink
+   Últimas líneas al inicio: 50
+   Ctrl+C para salir
+------------------------------------------------------
+
+
+── BOT LOG ──────────────────────────────────────────
+2026-04-07T11:41:57.455Z [INFO ] Iniciando Music Bot...
+2026-04-07T11:41:57.455Z [INFO ] Lavalink: 127.0.0.1:2333
+2026-04-07T11:41:57.455Z [INFO ] Prefijo: !
+2026-04-07T11:41:57.355Z [INFO ] 21 comandos registrados.
+2026-04-07T11:41:57.455Z [INFO ] Iniciando Music Bot...
+2026-04-07T11:41:57.455Z [INFO ] Lavalink: 127.0.0.1:2333
+2026-04-07T11:41:57.455Z [INFO ] Prefijo: !
+2026-04-07T11:41:59.952Z [INFO ] ──────────────────────────────────────────────────
+[LAVA]   BOT CONECTADO A DISCORD
+[LAVA] ──────────────────────────────────────────────────
+2026-04-07T11:41:59.952Z [INFO ] Tag:          DJ_r2d2#3319
+2026-04-07T11:41:59.952Z [INFO ] ID:           1490704582412603493
+2026-04-07T11:41:59.952Z [INFO ] Servidores:   1
+2026-04-07T11:41:59.952Z [INFO ] Prefijo:      !
+2026-04-07T11:41:59.952Z [INFO ] Comandos:     21
+2026-04-07T11:41:59.952Z [INFO ] Lavalink:     127.0.0.1:2333
+2026-04-07T11:41:59.952Z [INFO ] ──────────────────────────────────────────────────
+[LAVA]   BOT CONECTADO A DISCORD
+[LAVA] ──────────────────────────────────────────────────
+[LAVA] (node:2068415) DeprecationWarning: The ready event has been renamed to clientReady to distinguish it from the gateway READY event and will only emit under that name in v15. Please use clientReady instead.
+[LAVA] (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-04-07T11:41:59.952Z [INFO ] Tag:          DJ_r2d2#3319
+2026-04-07T11:41:59.952Z [INFO ] ID:           1490704582412603493
+2026-04-07T11:41:59.952Z [INFO ] Servidores:   1
+2026-04-07T11:41:59.952Z [INFO ] Prefijo:      !
+2026-04-07T11:41:59.952Z [INFO ] Comandos:     21
+2026-04-07T11:41:59.952Z [INFO ] Lavalink:     127.0.0.1:2333
+2026-04-07T11:42:00.448Z [INFO ] 7 slash commands registrados globalmente.
+2026-04-07T11:42:00.448Z [INFO ] 7 slash commands registrados globalmente.
+2026-04-07T11:42:00.448Z [INFO ] Iniciando conexión con Lavalink...
+2026-04-07T11:42:00.449Z [INFO ] LavalinkManager iniciado. Esperando conexión del nodo...
+2026-04-07T11:42:00.448Z [INFO ] Iniciando conexión con Lavalink...
+2026-04-07T11:42:00.449Z [INFO ] LavalinkManager iniciado. Esperando conexión del nodo...
+2026-04-07T11:42:12.053Z [INFO ] ──────────────────────────────────────────────────
+[LAVA]   LAVALINK CONECTADO — nodo "main-node"
+[LAVA] ──────────────────────────────────────────────────
+2026-04-07T11:42:12.053Z [INFO ] Host: 127.0.0.1:2333
+2026-04-07T11:42:12.053Z [INFO ] El bot ya puede reproducir música.
+2026-04-07T11:42:12.053Z [INFO ] ──────────────────────────────────────────────────
+[LAVA]   LAVALINK CONECTADO — nodo "main-node"
+[LAVA] ──────────────────────────────────────────────────
+2026-04-07T11:42:12.053Z [INFO ] Host: 127.0.0.1:2333
+2026-04-07T11:42:12.053Z [INFO ] El bot ya puede reproducir música.
+2026-04-07T11:42:17.948Z [INFO ] Slash /play — kaito1703 en Gamelead
+2026-04-07T11:42:17.948Z [INFO ] Slash /play — kaito1703 en Gamelead
+2026-04-07T11:42:25.253Z [INFO ] Player destruido | Guild: 998076829980164187 | Razón: desconocida
+2026-04-07T11:42:25.253Z [INFO ] Player destruido | Guild: 998076829980164187 | Razón: desconocida
+2026-04-07T11:42:40.247Z [INFO ] Slash /play — kaito1703 en Gamelead
+2026-04-07T11:42:40.247Z [INFO ] Slash /play — kaito1703 en Gamelead
+2026-04-07T11:42:47.251Z [INFO ] Player destruido | Guild: 998076829980164187 | Razón: desconocida
+2026-04-07T11:42:47.251Z [INFO ] Player destruido | Guild: 998076829980164187 | Razón: desconocida
+[LAVA]
+
+── LAVALINK LOG ─────────────────────────────────────
+[LAVA]  at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.security.handlers.AbstractConfidentialityHandler.handleRequest(AbstractConfidentialityHandler.java:46) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.security.ServletConfidentialityConstraintHandler.handleRequest(ServletConfidentialityConstraintHandler.java:64) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.security.handlers.AuthenticationMechanismsHandler.handleRequest(AuthenticationMechanismsHandler.java:60) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.security.CachedAuthenticatedSessionHandler.handleRequest(CachedAuthenticatedSessionHandler.java:77) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.security.handlers.AbstractSecurityContextAssociationHandler.handleRequest(AbstractSecurityContextAssociationHandler.java:43) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.SendErrorPageHandler.handleRequest(SendErrorPageHandler.java:52) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.ServletInitialHandler.handleFirstRequest(ServletInitialHandler.java:276) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.ServletInitialHandler$2.call(ServletInitialHandler.java:135) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.ServletInitialHandler$2.call(ServletInitialHandler.java:132) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.core.ServletRequestContextThreadSetupAction$1.call(ServletRequestContextThreadSetupAction.java:48) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.core.ContextClassLoaderSetupAction$1.call(ContextClassLoaderSetupAction.java:43) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.ServletInitialHandler.dispatchRequest(ServletInitialHandler.java:256) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.ServletInitialHandler$1.handleRequest(ServletInitialHandler.java:101) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.server.Connectors.executeRootHandler(Connectors.java:393) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.server.HttpServerExchange$1.run(HttpServerExchange.java:859) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at org.jboss.threads.ContextHandler$1.runWith(ContextHandler.java:18) ~[jboss-threads-3.5.0.Final.jar!/:3.5.0.Final]
+[LAVA]  at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2513) ~[jboss-threads-3.5.0.Final.jar!/:3.5.0.Final]
+[LAVA]  at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1538) ~[jboss-threads-3.5.0.Final.jar!/:3.5.0.Final]
+[LAVA]  at org.xnio.XnioWorker$WorkerThreadFactory$1$1.run(XnioWorker.java:1282) ~[xnio-api-3.8.8.Final.jar!/:3.8.8.Final]
+[LAVA]  at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+[LAVA] Caused by: com.sedmelluq.discord.lavaplayer.tools.FriendlyException: Loading information for a YouTube track failed.
+[LAVA]  at com.sedmelluq.discord.lavaplayer.tools.ExceptionTools.wrapUnfriendlyExceptions(ExceptionTools.java:45) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager.loadTrackWithVideoId(YoutubeAudioSourceManager.java:253) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager$LoadingRoutes.track(YoutubeAudioSourceManager.java:265) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager$LoadingRoutes.track(YoutubeAudioSourceManager.java:261) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.source.youtube.DefaultYoutubeLinkRouter.routeFromUrlWithVideoId(DefaultYoutubeLinkRouter.java:103) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.source.youtube.DefaultYoutubeLinkRouter.routeFromShortDomain(DefaultYoutubeLinkRouter.java:109) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.source.youtube.DefaultYoutubeLinkRouter.route(DefaultYoutubeLinkRouter.java:46) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager.loadItemOnce(YoutubeAudioSourceManager.java:229) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager.loadItem(YoutubeAudioSourceManager.java:160) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager.checkSourcesForItemOnce(DefaultAudioPlayerManager.java:442) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager.checkSourcesForItem(DefaultAudioPlayerManager.java:423) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager.loadItemSync(DefaultAudioPlayerManager.java:154) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager.loadItemSync(AudioPlayerManager.java:127) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at lavalink.server.util.LoadingKt.loadAudioItem(loading.kt:15) ~[classes!/:4.2.2]
+[LAVA]  ... 67 common frames omitted
+[LAVA] Caused by: java.lang.IllegalStateException: Must find action functions from script: /s/player/8c83ec2e/player_embed.vflset/ms_MY/base.js
+[LAVA]  at com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeSignatureCipherManager.extractFromScript(YoutubeSignatureCipherManager.java:216) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeSignatureCipherManager.getExtractedScript(YoutubeSignatureCipherManager.java:167) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.source.youtube.DefaultYoutubeTrackDetailsLoader.loadTrackInfoFromInnertube(DefaultYoutubeTrackDetailsLoader.java:204) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.source.youtube.DefaultYoutubeTrackDetailsLoader.load(DefaultYoutubeTrackDetailsLoader.java:48) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.source.youtube.DefaultYoutubeTrackDetailsLoader.loadDetails(DefaultYoutubeTrackDetailsLoader.java:36) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager.loadTrackWithVideoId(YoutubeAudioSourceManager.java:241) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  ... 79 common frames omitted
+[LAVA]
+[LAVA] 2026-04-07T11:42:46.149Z  INFO 2067208 --- [Lavalink] [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=https%3A%2F%2Fyoutu.be%2F9ux9OuukokM&trace=true, client=127.0.0.1
+[LAVA] 2026-04-07T11:42:46.952Z  INFO 2067208 --- [Lavalink] [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : DELETE /v4/sessions/0bbchpvjp6p9ol4l/players/998076829980164187?trace=true, client=127.0.0.1
+[LAVA] 2026-04-07T11:43:04.054Z  WARN 2067208 --- [Lavalink] [ager-3-thread-1] c.s.d.l.tools.GarbageCollectionMonitor   : Suspicious GC results for the last 2 minutes: [Bucket 0 = 2] [Bucket 20 = 0] [Bucket 50 = 5] [Bucket 200 = 5] [Bucket 500 = 2] [Bucket 2000 = 0]
