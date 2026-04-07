@@ -10,19 +10,10 @@ plugins:
     allowSearch: true
     allowDirectVideoIds: true
     allowDirectPlaylistIds: true
-    clients:
-      - MUSIC
-      - WEB
-      - TVHTML5EMBEDDED
-      - ANDROID_MUSIC
     oauth:
       enabled: true
       skipInitialization: true
       refreshToken: ${YOUTUBE_OAUTH_REFRESH_TOKEN:}
-      clients:
-        - WEB
-        - ANDROID
-        - IOS
 
 lavalink:
   plugins:
