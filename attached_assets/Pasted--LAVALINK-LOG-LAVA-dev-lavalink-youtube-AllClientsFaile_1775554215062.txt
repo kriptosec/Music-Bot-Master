@@ -1,0 +1,29 @@
+
+── LAVALINK LOG ─────────────────────────────────────
+[LAVA] dev.lavalink.youtube.AllClientsFailedException: (yts.version: 1.18.0) All clients failed to load the item.
+[LAVA]
+[LAVA] Client [WEB] failed: This video requires login.This video requires login.
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.Client.getPlayabilityStatus(Client.java:94)
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadTrackInfoFromInnertube(NonMusicClient.java:163)
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.StreamingNonMusicClient.loadFormats(StreamingNonMusicClient.java:35)
+^[[O[LAVA]      at dev.lavalink.youtube.track.YoutubeAudioTrack.loadBestFormatWithUrl(YoutubeAudioTrack.java:197)
+[LAVA]  at dev.lavalink.youtube.track.YoutubeAudioTrack.processWithClient(YoutubeAudioTrack.java:134)
+[LAVA]
+[LAVA] Client [ANDROID_MUSIC] failed: This video requires login.This video requires login.
+^[[I[LAVA]      at dev.lavalink.youtube.clients.skeleton.Client.getPlayabilityStatus(Client.java:94)
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadTrackInfoFromInnertube(NonMusicClient.java:163)
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.StreamingNonMusicClient.loadFormats(StreamingNonMusicClient.java:35)
+[LAVA]  at dev.lavalink.youtube.track.YoutubeAudioTrack.loadBestFormatWithUrl(YoutubeAudioTrack.java:197)
+[LAVA]  at dev.lavalink.youtube.track.YoutubeAudioTrack.processWithClient(YoutubeAudioTrack.java:134)
+[LAVA]  at dev.lavalink.youtube.track.YoutubeAudioTrack.process(YoutubeAudioTrack.java:123) ~[youtube-plugin-1.18.0.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.track.playback.LocalAudioTrackExecutor.execute(LocalAudioTrackExecutor.java:109) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager.lambda$executeTrack$2(DefaultAudioPlayerManager.java:339) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+[LAVA]  at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+[LAVA]  at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+[LAVA]
+[LAVA] 2026-04-07T09:26:34.055Z  INFO 1751373 --- [Lavalink] [   XNIO-1 I/O-1] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:54224 with id jd6uyh2lbpii09md -- CloseStatus[code=1006, reason=]
+[LAVA] 2026-04-07T09:26:34.057Z  INFO 1751373 --- [Lavalink] [   XNIO-1 I/O-1] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+[LAVA] 2026-04-07T09:26:35.655Z  INFO 1751373 --- [Lavalink] [ionShutdownHook] io.undertow                              : stopping server: Undertow - 2.3.13.Final
+[LAVA] 2026-04-07T09:26:35.755Z  INFO 1751373 --- [Lavalink] [ionShutdownHook] io.undertow.servlet                      : Destroying Spring FrameworkServlet 'dispatcherServlet'
+[LAVA] 2026-04-07T09:26:36.052Z  INFO 1751373 --- [Lavalink] [ionShutdownHook] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring disabled.
