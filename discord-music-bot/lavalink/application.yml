@@ -10,6 +10,11 @@ plugins:
     allowSearch: true
     allowDirectVideoIds: true
     allowDirectPlaylistIds: true
+    clients:
+      - MUSIC
+      - WEB
+      - ANDROID
+      - IOS
     oauth:
       enabled: true
       skipInitialization: true

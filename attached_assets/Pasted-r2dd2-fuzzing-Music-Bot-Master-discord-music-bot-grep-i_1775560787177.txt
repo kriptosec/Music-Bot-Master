@@ -1,0 +1,27 @@
+r2dd2@fuzzing:~/Music-Bot-Master/discord-music-bot$ grep -i "oauth\|compatible\|client" /home/r2dd2/Music-Bot-Master/discord-music-bot/logs/lavalink.log | head -500
+2026-04-07T11:09:28.150Z  WARN 2017201 --- [Lavalink] [           main] d.l.youtube.plugin.YoutubePluginLoader   : Missing "youtube.clients" or ClientProvider not initialised! Default clients will be used.
+2026-04-07T11:09:30.347Z  INFO 2017201 --- [Lavalink] [           main] d.l.youtube.http.YoutubeOauth2Handler    : YouTube access token refreshed successfully
+2026-04-07T11:09:30.349Z  WARN 2017201 --- [Lavalink] [           main] d.l.youtube.YoutubeAudioSourceManager    : OAuth has been enabled without registering any OAuth-compatible clients. Please consult https://github.com/lavalink-devs/youtube-source?tab=readme-ov-file#available-clients for a list of OAuth-compatible clients.
+2026-04-07T11:09:30.350Z  INFO 2017201 --- [Lavalink] [           main] d.l.youtube.plugin.YoutubePluginLoader   : YouTube source initialised with clients: WEB_REMIX, ANDROID_VR, WEB, WEB_EMBEDDED_PLAYER
+2026-04-07T11:10:11.852Z  INFO 2017201 --- [Lavalink] [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/websocket, client=127.0.0.1
+2026-04-07T11:10:17.756Z  INFO 2017201 --- [Lavalink] [  XNIO-1 task-3] l.server.io.RequestLoggingFilter         : GET /v4/info?trace=true, client=127.0.0.1
+2026-04-07T11:11:09.954Z  INFO 2017201 --- [Lavalink] [  XNIO-1 task-3] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=ytsearch%3Ailan+Bluestone+%26+Jerome+Isma-Ae+-+Tension&trace=true, client=127.0.0.1
+2026-04-07T11:11:13.849Z  INFO 2017201 --- [Lavalink] [  XNIO-1 task-3] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/4iiut91k5yett89l/players/998076829980164187?trace=true, client=127.0.0.1, payload={"track":{"encoded":"QAAAkAMAKWlsYW4gQmx1ZXN0b25lICYgSmVyb21lIElzbWEtQWUgLSBUZW5zaW9uAAtBbmp1bmFiZWF0cwAAAAAABdQwAAtfLUFBVEVralVyNAABACtodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PV8tQUFURWtqVXI0AAAAB3lvdXR1YmUAAAAAAAAAAA==","userData":{"requester":{"id":"770282914579218433","bot":false,"system":false,"flags":0,"username":"kaito1703","globalName":"Kaito","discriminator":"0","avatar":"6123d2d575c9cad2375db9890639b081","banner":null,"accentColor":null,"avatarDecoration":null,"avatarDecorationData":null,"collectibles":null,"primaryGuild":null,"createdTimestamp":1603720158000,"defaultAvatarURL":"https://cdn.discordapp.com/embed/avatars/0.png","hexAccentColor":null,"tag":"kaito1703","avatarURL":"https://cdn.discordapp.com/avatars/770282914579218433/6123d2d575c9cad2375db9890639b081.webp","displayAvatarURL":"https://cdn.discordapp.com/avatars/770282914579218433/6123d2d575c9cad2375db9890639b081.webp","bannerURL":null,"guildTagBadgeURL":null}}},"volume":60,"position":0,"paused":false}
+dev.lavalink.youtube.AllClientsFailedException: (yts.version: 1.18.0) All clients failed to load the item.
+Client [ANDROID_VR] failed: This video requires login.This video requires login.
+        at dev.lavalink.youtube.clients.skeleton.Client.getPlayabilityStatus(Client.java:94)
+        at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadTrackInfoFromInnertube(NonMusicClient.java:163)
+        at dev.lavalink.youtube.clients.skeleton.StreamingNonMusicClient.loadFormats(StreamingNonMusicClient.java:35)
+        at dev.lavalink.youtube.track.YoutubeAudioTrack.processWithClient(YoutubeAudioTrack.java:134)
+Client [WEB] failed: This video requires login.This video requires login.
+        at dev.lavalink.youtube.clients.skeleton.Client.getPlayabilityStatus(Client.java:94)
+        at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadTrackInfoFromInnertube(NonMusicClient.java:163)
+        at dev.lavalink.youtube.clients.skeleton.StreamingNonMusicClient.loadFormats(StreamingNonMusicClient.java:35)
+        at dev.lavalink.youtube.track.YoutubeAudioTrack.processWithClient(YoutubeAudioTrack.java:134)
+Client [WEB_EMBEDDED_PLAYER] failed: Video player configuration errorVideo player configuration error
+        at dev.lavalink.youtube.clients.skeleton.Client.getPlayabilityStatus(Client.java:64)
+        at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadTrackInfoFromInnertube(NonMusicClient.java:163)
+        at dev.lavalink.youtube.clients.skeleton.StreamingNonMusicClient.loadFormats(StreamingNonMusicClient.java:35)
+        at dev.lavalink.youtube.track.YoutubeAudioTrack.processWithClient(YoutubeAudioTrack.java:134)
+2026-04-07T11:11:23.556Z  INFO 2017201 --- [Lavalink] [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/4iiut91k5yett89l/players/998076829980164187?trace=true, client=127.0.0.1, payload={"voice":{"token":"74c37aae8ef01819","endpoint":"japan13004.discord.media:443","sessionId":"9654f817daa32404ad79493916db1fe7","channelId":"998076829980164192"}}
+2026-04-07T11:16:25.847Z  INFO 2017201 --- [Lavalink] [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : DELETE /v4/sessions/4iiut91k5yett89l/players/998076829980164187?trace=true, client=127.0.0.1
