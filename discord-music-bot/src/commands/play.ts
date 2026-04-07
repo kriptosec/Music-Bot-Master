@@ -1,7 +1,7 @@
 import type { Track } from "lavalink-client";
 import type { Command, CommandContext } from "../types.js";
 import { errorEmbed, trackAddedEmbed, playlistAddedEmbed } from "../utils/embeds.js";
-import { cleanQuery } from "../utils/format.js";
+import { cleanQuery, parseLoadError } from "../utils/format.js";
 import { logger } from "../utils/logger.js";
 
 export const play: Command = {
@@ -61,11 +61,16 @@ export const play: Command = {
         message.author
       );
 
-      if (result.loadType === "empty" || result.loadType === "error") {
-        await loadingMsg.edit({ content: "", embeds: [errorEmbed(`No encontré resultados para: \`${query}\``)] });
-        if (!player.playing && player.queue.tracks.length === 0) {
-          await player.destroy();
-        }
+      if (result.loadType === "empty") {
+        await loadingMsg.edit({ content: "", embeds: [errorEmbed(`🔍 **No se encontraron resultados** para: \`${query}\``)] });
+        if (!player.playing && player.queue.tracks.length === 0) await player.destroy();
+        return;
+      }
+
+      if (result.loadType === "error") {
+        const errMsg = (result as { exception?: { message?: string } }).exception?.message;
+        await loadingMsg.edit({ content: "", embeds: [errorEmbed(parseLoadError(errMsg))] });
+        if (!player.playing && player.queue.tracks.length === 0) await player.destroy();
         return;
       }
 
@@ -87,7 +92,7 @@ export const play: Command = {
       }
     } catch (error) {
       logger.error("Error en !play:", error);
-      await loadingMsg.edit({ content: "", embeds: [errorEmbed(`Error al buscar: \`${(error as Error).message}\``)] });
+      await loadingMsg.edit({ content: "", embeds: [errorEmbed(parseLoadError((error as Error).message))] });
       if (!player.playing && player.queue.tracks.length === 0) {
         await player.destroy().catch(() => null);
       }

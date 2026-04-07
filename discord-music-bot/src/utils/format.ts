@@ -39,6 +39,39 @@ export function truncate(str: string, maxLength: number): string {
 }
 
 /**
+ * Parses a Lavalink/YouTube error and returns a user-friendly Discord message.
+ */
+export function parseLoadError(rawMessage: string | undefined | null): string {
+  const msg = (rawMessage ?? "").toLowerCase();
+
+  if (msg.includes("requires login") || msg.includes("allclientsfailed") || msg.includes("all clients failed")) {
+    return "🔒 **Este video requiere inicio de sesión en YouTube.**\nEl bot aún no tiene una cuenta vinculada. Pedile al dueño del servidor que configure el OAuth (ver logs de Lavalink al arrancar). Por ahora probá con otro video o buscá por nombre.";
+  }
+  if (msg.includes("age restricted") || msg.includes("age-restricted")) {
+    return "🔞 **Este video tiene restricción de edad** y no se puede reproducir sin login.";
+  }
+  if (msg.includes("not available") || msg.includes("video unavailable") || msg.includes("unavailable")) {
+    return "❌ **Este video no está disponible** (puede estar eliminado, privado o bloqueado en tu región).";
+  }
+  if (msg.includes("private video") || msg.includes("private")) {
+    return "🔒 **Este video es privado** y no se puede reproducir.";
+  }
+  if (msg.includes("country") || msg.includes("region") || msg.includes("geo")) {
+    return "🌍 **Este video no está disponible en la región del servidor.**";
+  }
+  if (msg.includes("copyright") || msg.includes("blocked")) {
+    return "⛔ **Este video fue bloqueado por derechos de autor.**";
+  }
+  if (msg.includes("no matches") || msg.includes("no results")) {
+    return "🔍 **No se encontraron resultados.** Intentá con otro nombre o URL.";
+  }
+
+  // Fallback: show the raw message trimmed
+  const display = (rawMessage ?? "Error desconocido").slice(0, 200);
+  return `❌ **Error de Lavalink:** \`${display}\``;
+}
+
+/**
  * Cleans a YouTube URL by removing Mix/Radio playlist parameters (list=RD...).
  * The old Lavaplayer built-in source can't handle YouTube Radio mixes.
  * Returns { query, stripped } where stripped=true means it was a mix URL.

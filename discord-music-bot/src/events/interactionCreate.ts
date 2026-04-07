@@ -13,7 +13,7 @@ import {
   trackAddedEmbed,
   playlistAddedEmbed,
 } from "../utils/embeds.js";
-import { formatDuration, chunkArray, getSourceEmoji, truncate, cleanQuery } from "../utils/format.js";
+import { formatDuration, chunkArray, getSourceEmoji, truncate, cleanQuery, parseLoadError } from "../utils/format.js";
 
 // ─── Helper: reply to an interaction (deferred) ───────────────────────────────
 async function reply(
@@ -79,8 +79,15 @@ async function handlePlay(interaction: ChatInputCommandInteraction, client: Clie
       interaction.user
     );
 
-    if (result.loadType === "empty" || result.loadType === "error") {
-      await reply(interaction, { content: "", embeds: [errorEmbed(`No encontré resultados para: \`${query}\``)] });
+    if (result.loadType === "empty") {
+      await reply(interaction, { content: "", embeds: [errorEmbed(`🔍 **No se encontraron resultados** para: \`${query}\``)] });
+      if (!player.playing && player.queue.tracks.length === 0) await player.destroy();
+      return;
+    }
+
+    if (result.loadType === "error") {
+      const errMsg = (result as { exception?: { message?: string } }).exception?.message;
+      await reply(interaction, { content: "", embeds: [errorEmbed(parseLoadError(errMsg))] });
       if (!player.playing && player.queue.tracks.length === 0) await player.destroy();
       return;
     }
@@ -101,7 +108,7 @@ async function handlePlay(interaction: ChatInputCommandInteraction, client: Clie
     if (!player.playing) await player.play({ paused: false });
   } catch (err) {
     logger.error("Error en /play:", err);
-    await reply(interaction, { content: "", embeds: [errorEmbed(`Error al buscar: \`${(err as Error).message}\``)] });
+    await reply(interaction, { content: "", embeds: [errorEmbed(parseLoadError((err as Error).message))] });
     if (!player.playing && player.queue.tracks.length === 0) await player.destroy().catch(() => null);
   }
 }

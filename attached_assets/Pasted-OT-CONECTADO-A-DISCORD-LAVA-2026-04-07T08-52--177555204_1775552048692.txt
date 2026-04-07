@@ -1,0 +1,94 @@
+OT CONECTADO A DISCORD
+[LAVA] ──────────────────────────────────────────────────
+2026-04-07T08:52:18.557Z [INFO ] Tag:          DJ_r2d2#3319
+2026-04-07T08:52:18.557Z [INFO ] ID:           1490704582412603493
+2026-04-07T08:52:18.557Z [INFO ] Servidores:   1
+2026-04-07T08:52:18.557Z [INFO ] Prefijo:      !
+2026-04-07T08:52:18.557Z [INFO ] Comandos:     21
+2026-04-07T08:52:18.557Z [INFO ] Lavalink:     127.0.0.1:2333
+2026-04-07T08:52:18.557Z [INFO ] ──────────────────────────────────────────────────
+[LAVA]   BOT CONECTADO A DISCORD
+[LAVA] ──────────────────────────────────────────────────
+[LAVA] (node:1724692) DeprecationWarning: The ready event has been renamed to clientReady to distinguish it from the gateway READY event and will only emit under that name in v15. Please use clientReady instead.
+[LAVA] (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-04-07T08:52:18.557Z [INFO ] Tag:          DJ_r2d2#3319
+2026-04-07T08:52:18.557Z [INFO ] ID:           1490704582412603493
+2026-04-07T08:52:18.557Z [INFO ] Servidores:   1
+2026-04-07T08:52:18.557Z [INFO ] Prefijo:      !
+2026-04-07T08:52:18.557Z [INFO ] Comandos:     21
+2026-04-07T08:52:18.557Z [INFO ] Lavalink:     127.0.0.1:2333
+2026-04-07T08:52:19.251Z [INFO ] 7 slash commands registrados globalmente.
+2026-04-07T08:52:19.251Z [INFO ] 7 slash commands registrados globalmente.
+2026-04-07T08:52:19.251Z [INFO ] Iniciando conexión con Lavalink...
+2026-04-07T08:52:19.254Z [INFO ] LavalinkManager iniciado. Esperando conexión del nodo...
+2026-04-07T08:52:19.251Z [INFO ] Iniciando conexión con Lavalink...
+2026-04-07T08:52:19.254Z [INFO ] LavalinkManager iniciado. Esperando conexión del nodo...
+2026-04-07T08:52:27.853Z [INFO ] ──────────────────────────────────────────────────
+[LAVA]   LAVALINK CONECTADO — nodo "main-node"
+[LAVA] ──────────────────────────────────────────────────
+2026-04-07T08:52:27.853Z [INFO ] Host: 127.0.0.1:2333
+2026-04-07T08:52:27.853Z [INFO ] El bot ya puede reproducir música.
+2026-04-07T08:52:27.853Z [INFO ] ──────────────────────────────────────────────────
+[LAVA]   LAVALINK CONECTADO — nodo "main-node"
+[LAVA] ──────────────────────────────────────────────────
+2026-04-07T08:52:27.853Z [INFO ] Host: 127.0.0.1:2333
+2026-04-07T08:52:27.853Z [INFO ] El bot ya puede reproducir música.
+2026-04-07T08:52:28.652Z [INFO ] Slash /play — kaito1703 en Gamelead
+2026-04-07T08:52:28.652Z [INFO ] Slash /play — kaito1703 en Gamelead
+2026-04-07T08:52:45.556Z [INFO ] Player destruido | Guild: 998076829980164187 | Razón: desconocida
+2026-04-07T08:52:45.556Z [INFO ] Player destruido | Guild: 998076829980164187 | Razón: desconocida
+[LAVA]
+
+── LAVALINK LOG ─────────────────────────────────────
+[LAVA]  at io.undertow.servlet.handlers.security.ServletAuthenticationCallHandler.handleRequest(ServletAuthenticationCallHandler.java:57) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.security.handlers.AbstractConfidentialityHandler.handleRequest(AbstractConfidentialityHandler.java:46) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.security.ServletConfidentialityConstraintHandler.handleRequest(ServletConfidentialityConstraintHandler.java:64) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.security.handlers.AuthenticationMechanismsHandler.handleRequest(AuthenticationMechanismsHandler.java:60) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.security.CachedAuthenticatedSessionHandler.handleRequest(CachedAuthenticatedSessionHandler.java:77) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.security.handlers.AbstractSecurityContextAssociationHandler.handleRequest(AbstractSecurityContextAssociationHandler.java:43) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.SendErrorPageHandler.handleRequest(SendErrorPageHandler.java:52) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.ServletInitialHandler.handleFirstRequest(ServletInitialHandler.java:276) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.ServletInitialHandler$2.call(ServletInitialHandler.java:135) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.ServletInitialHandler$2.call(ServletInitialHandler.java:132) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.core.ServletRequestContextThreadSetupAction$1.call(ServletRequestContextThreadSetupAction.java:48) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.core.ContextClassLoaderSetupAction$1.call(ContextClassLoaderSetupAction.java:43) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.ServletInitialHandler.dispatchRequest(ServletInitialHandler.java:256) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.servlet.handlers.ServletInitialHandler$1.handleRequest(ServletInitialHandler.java:101) ~[undertow-servlet-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.server.Connectors.executeRootHandler(Connectors.java:393) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at io.undertow.server.HttpServerExchange$1.run(HttpServerExchange.java:859) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+[LAVA]  at org.jboss.threads.ContextHandler$1.runWith(ContextHandler.java:18) ~[jboss-threads-3.5.0.Final.jar!/:3.5.0.Final]
+[LAVA]  at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2513) ~[jboss-threads-3.5.0.Final.jar!/:3.5.0.Final]
+[LAVA]  at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1538) ~[jboss-threads-3.5.0.Final.jar!/:3.5.0.Final]
+[LAVA]  at org.xnio.XnioWorker$WorkerThreadFactory$1$1.run(XnioWorker.java:1282) ~[xnio-api-3.8.8.Final.jar!/:3.8.8.Final]
+[LAVA]  at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+[LAVA] Caused by: dev.lavalink.youtube.AllClientsFailedException: (yts.version: 1.18.0) All clients failed to load the item.
+[LAVA]
+[LAVA] Client [WEB] failed: This video requires login.This video requires login.
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.Client.getPlayabilityStatus(Client.java:94)
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadTrackInfoFromInnertube(NonMusicClient.java:163)
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadVideo(NonMusicClient.java:432)
+[LAVA]  at dev.lavalink.youtube.YoutubeAudioSourceManager.lambda$routeFromVideoId$7(YoutubeAudioSourceManager.java:386)
+[LAVA]  at dev.lavalink.youtube.YoutubeAudioSourceManager.loadItemOnce(YoutubeAudioSourceManager.java:249)
+[LAVA]
+[LAVA] Client [ANDROID_MUSIC] failed: This video requires login.This video requires login.
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.Client.getPlayabilityStatus(Client.java:94)
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadTrackInfoFromInnertube(NonMusicClient.java:163)
+[LAVA]  at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadVideo(NonMusicClient.java:432)
+[LAVA]  at dev.lavalink.youtube.YoutubeAudioSourceManager.lambda$routeFromVideoId$7(YoutubeAudioSourceManager.java:386)
+[LAVA]  at dev.lavalink.youtube.YoutubeAudioSourceManager.loadItemOnce(YoutubeAudioSourceManager.java:249)
+[LAVA]  at dev.lavalink.youtube.YoutubeAudioSourceManager.loadItemOnce(YoutubeAudioSourceManager.java:267) ~[youtube-plugin-1.18.0.jar!/:na]
+[LAVA]  at dev.lavalink.youtube.YoutubeAudioSourceManager.loadItem(YoutubeAudioSourceManager.java:205) ~[youtube-plugin-1.18.0.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager.checkSourcesForItemOnce(DefaultAudioPlayerManager.java:442) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager.checkSourcesForItem(DefaultAudioPlayerManager.java:423) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager.loadItemSync(DefaultAudioPlayerManager.java:154) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager.loadItemSync(AudioPlayerManager.java:127) ~[lavaplayer-2.2.6.jar!/:na]
+[LAVA]  at lavalink.server.util.LoadingKt.loadAudioItem(loading.kt:15) ~[classes!/:4.2.2]
+[LAVA]  ... 67 common frames omitted
+[LAVA]
+[LAVA] 2026-04-07T08:52:43.648Z  INFO 1717323 --- [Lavalink] [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D_-AATEkjUr4&trace=true, client=127.0.0.1
+[LAVA] 2026-04-07T08:52:45.456Z  INFO 1717323 --- [Lavalink] [  XNIO-1 task-2] l.server.io.RequestLoggingFilter         : DELETE /v4/sessions/y0n3xqj9gd5uvlyb/players/998076829980164187?trace=true, client=127.0.0.1
+[LAVA] 2026-04-07T08:52:52.556Z  INFO 1717323 --- [Lavalink] [  XNIO-1 task-3] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/y0n3xqj9gd5uvlyb/players/998076829980164187?trace=true, client=127.0.0.1, payload={"voice":{"token":"184d6e28cc334fb1","endpoint":"japan13004.discord.media:443","sessionId":"11428ae6c9ce8b8b51d83303c15a0d95","channelId":"998076829980164192"}}
+[LAVA] 2026-04-07T08:53:26.854Z  WARN 1717323 --- [Lavalink] [ager-3-thread-1] c.s.d.l.tools.GarbageCollectionMonitor   : Suspicious GC results for the last 2 minutes: [Bucket 0 = 1] [Bucket 20 = 0] [Bucket 50 = 3] [Bucket 200 = 6] [Bucket 500 = 1] [Bucket 2000 = 0]

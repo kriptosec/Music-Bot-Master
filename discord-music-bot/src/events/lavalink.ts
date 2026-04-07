@@ -2,6 +2,7 @@ import type { Client, TextChannel } from "discord.js";
 import type { Player, Track } from "lavalink-client";
 import { logger } from "../utils/logger.js";
 import { trackStartEmbed } from "../utils/embeds.js";
+import { parseLoadError } from "../utils/format.js";
 import { EmbedBuilder } from "discord.js";
 
 export function registerLavalinkEvents(client: Client): void {
@@ -66,12 +67,17 @@ export function registerLavalinkEvents(client: Client): void {
   });
 
   lavalink.on("trackError", async (player, track, payload) => {
-    logger.error(`❌ Error en canción "${track?.info?.title ?? "desconocida"}" | Guild: ${player.guildId}`, payload);
+    const rawMsg = (payload as { exception?: { message?: string } })?.exception?.message
+      ?? (payload as { error?: string })?.error
+      ?? String(payload);
+    logger.error(`❌ Error en canción "${track?.info?.title ?? "desconocida"}" | Guild: ${player.guildId} | ${rawMsg}`);
     const channel = getTextChannel(client, player);
     if (!channel) return;
+    const friendlyMsg = parseLoadError(rawMsg);
     const embed = new EmbedBuilder()
       .setColor(0xf04747)
-      .setDescription(`❌ Error al reproducir **${track?.info?.title ?? "canción desconocida"}**.\nSe salta automáticamente.`);
+      .setTitle(`❌ Error al reproducir: ${track?.info?.title ?? "canción desconocida"}`)
+      .setDescription(`${friendlyMsg}\n\n*Se salta automáticamente.*`);
     await channel.send({ embeds: [embed] }).catch(() => null);
   });
 
