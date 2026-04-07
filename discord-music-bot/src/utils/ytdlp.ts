@@ -98,7 +98,7 @@ function baseArgs(): string[] {
  * Uses `-j` (JSON dump) with `-f bestaudio` to get the selected format URL.
  */
 export async function ytdlpSearch(query: string): Promise<YtDlpInfo | null> {
-  const searchArg = query.startsWith("http") ? query : `ytsearch:${query}`;
+  const searchArg = query.startsWith("http") ? query : `ytsearch1:${query}`;
   const args = [...baseArgs(), "-j", searchArg];
 
   try {
