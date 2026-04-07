@@ -17,7 +17,7 @@ plugins:
       - WEB
     oauth:
       enabled: true
-      refreshToken: "1//0glGhPDp9V00fCgYIARAAGBASNwF-L9Irq9UJQGNqLXFIVbdBGQav2wZRtuFYoAwai19u7mTNIY0xSg4Rz82HhdSf71OuSlD1RZU"
+      refreshToken: "${YOUTUBE_OAUTH_REFRESH_TOKEN}"
       skipInitialization: false
 
 lavalink:
