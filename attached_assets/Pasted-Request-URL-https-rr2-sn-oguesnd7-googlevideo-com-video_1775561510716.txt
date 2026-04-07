@@ -1,0 +1,90 @@
+Request URL
+https://rr2---sn-oguesnd7.googlevideo.com/videoplayback?expire=1775583037&ei=3erUac3LD_mNvcAP2IvquAk&ip=106.184.139.146&id=o-AFVXSNzy8LRSyFM9x1UhG9LaCJBNohsTrN7OT_7wa7Vp&source=youtube&requiressl=yes&xpc=EgVo2aDSNQ%3D%3D&cps=176&met=1775561437%2C&mh=qg&mm=31%2C29&mn=sn-oguesnd7%2Csn-oguelnsk&ms=au%2Crdu&mv=m&mvi=2&pl=21&rms=au%2Cau&initcwndbps=2840000&siu=1&spc=jlWavb58s_PfEjYdu47gnm7YOe3-vUJ-pvQhyoCdJiLgnR6O1K3dJsw2xN__1TfCRvLIHQ&svpuc=1&ns=q-nwgwXSntR9IAHHcDR2HvkU&sabr=1&rqh=1&mt=1775560901&fvip=4&keepalive=yes&fexp=51565116%2C51565681&c=WEB&n=l0zfeEK0eurItA&sparams=expire%2Cei%2Cip%2Cid%2Csource%2Crequiressl%2Cxpc%2Csiu%2Cspc%2Csvpuc%2Cns%2Csabr%2Crqh&sig=AHEqNM4wRgIhAPNued73ip7LHPkHuxrhfHdY147USn6Saqnxw-2UkYEIAiEA3FUqXHKZ30bjTSu9q3eL7cLSDid-B2uHFHSjay5-4yY%3D&lsparams=cps%2Cmet%2Cmh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Crms%2Cinitcwndbps&lsig=APaTxxMwRAIgUB4fLDvOKbxtUXj8lv763qV9_lHYyI0yfK-Z6HOe3XECIAdy5ISasSURUlb86eKlIZ6tUJaUPlmt0LCjWr3ePjcT&cpn=P3VXbxK341uWtdq0&cver=2.20260406.01.00&rn=3&alr=yes
+Request Method
+POST
+Status Code
+200 OK
+Remote Address
+172.217.137.103:443
+Referrer Policy
+strict-origin-when-cross-origin
+access-control-allow-credentials
+true
+access-control-allow-origin
+https://www.youtube.com
+access-control-expose-headers
+Client-Protocol, Content-Length, Content-Type, X-Bandwidth-Est, X-Bandwidth-Est2, X-Bandwidth-Est3, X-Bandwidth-App-Limited, X-Bandwidth-Est-App-Limited, X-Bandwidth-Est-Comp, X-Bandwidth-Avg, X-Head-Time-Millis, X-Head-Time-Sec, X-Head-Seqnum, X-Response-Itag, X-Restrict-Formats-Hint, X-Sequence-Num, X-Segment-Lmt, X-Walltime-Ms
+alt-svc
+h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,quic=":443"; ma=2592000; v="46"
+cache-control
+private, max-age=21273
+client-protocol
+quic
+content-type
+application/vnd.yt-ump
+cross-origin-resource-policy
+cross-origin
+date
+Tue, 07 Apr 2026 11:31:04 GMT
+expires
+Tue, 07 Apr 2026 11:31:04 GMT
+server
+gvs 1.0
+timing-allow-origin
+https://www.youtube.com
+vary
+Origin
+x-content-type-options
+nosniff
+:authority
+rr2---sn-oguesnd7.googlevideo.com
+:method
+POST
+:path
+/videoplayback?expire=1775583037&ei=3erUac3LD_mNvcAP2IvquAk&ip=106.184.139.146&id=o-AFVXSNzy8LRSyFM9x1UhG9LaCJBNohsTrN7OT_7wa7Vp&source=youtube&requiressl=yes&xpc=EgVo2aDSNQ%3D%3D&cps=176&met=1775561437%2C&mh=qg&mm=31%2C29&mn=sn-oguesnd7%2Csn-oguelnsk&ms=au%2Crdu&mv=m&mvi=2&pl=21&rms=au%2Cau&initcwndbps=2840000&siu=1&spc=jlWavb58s_PfEjYdu47gnm7YOe3-vUJ-pvQhyoCdJiLgnR6O1K3dJsw2xN__1TfCRvLIHQ&svpuc=1&ns=q-nwgwXSntR9IAHHcDR2HvkU&sabr=1&rqh=1&mt=1775560901&fvip=4&keepalive=yes&fexp=51565116%2C51565681&c=WEB&n=l0zfeEK0eurItA&sparams=expire%2Cei%2Cip%2Cid%2Csource%2Crequiressl%2Cxpc%2Csiu%2Cspc%2Csvpuc%2Cns%2Csabr%2Crqh&sig=AHEqNM4wRgIhAPNued73ip7LHPkHuxrhfHdY147USn6Saqnxw-2UkYEIAiEA3FUqXHKZ30bjTSu9q3eL7cLSDid-B2uHFHSjay5-4yY%3D&lsparams=cps%2Cmet%2Cmh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Crms%2Cinitcwndbps&lsig=APaTxxMwRAIgUB4fLDvOKbxtUXj8lv763qV9_lHYyI0yfK-Z6HOe3XECIAdy5ISasSURUlb86eKlIZ6tUJaUPlmt0LCjWr3ePjcT&cpn=P3VXbxK341uWtdq0&cver=2.20260406.01.00&rn=3&alr=yes
+:scheme
+https
+accept
+*/*
+accept-encoding
+gzip, deflate, br, zstd
+accept-language
+en-US,en;q=0.9
+content-length
+2015
+origin
+https://www.youtube.com
+priority
+u=1, i
+referer
+https://www.youtube.com/
+sec-ch-ua
+"Chromium";v="146", "Not-A.Brand";v="24", "Google Chrome";v="146"
+sec-ch-ua-arch
+"x86"
+sec-ch-ua-bitness
+"64"
+sec-ch-ua-full-version-list
+"Chromium";v="146.0.0.0", "Not-A.Brand";v="24.0.0.0", "Google Chrome";v="146.0.0.0"
+sec-ch-ua-mobile
+?0
+sec-ch-ua-model
+""
+sec-ch-ua-platform
+"Windows"
+sec-ch-ua-platform-version
+"19.0.0"
+sec-ch-ua-wow64
+?0
+sec-fetch-dest
+empty
+sec-fetch-mode
+cors
+sec-fetch-site
+cross-site
+sec-fetch-storage-access
+none
+sec-gpc
+1
+user-agent
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36

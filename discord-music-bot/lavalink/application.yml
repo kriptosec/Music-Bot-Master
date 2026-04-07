@@ -4,30 +4,11 @@ server:
   http2:
     enabled: false
 
-plugins:
-  youtube:
-    enabled: true
-    allowSearch: true
-    allowDirectVideoIds: true
-    allowDirectPlaylistIds: true
-    clients:
-      - MUSIC
-      - WEB
-      - ANDROID
-      - IOS
-    oauth:
-      enabled: true
-      skipInitialization: true
-      refreshToken: ${YOUTUBE_OAUTH_REFRESH_TOKEN:}
-
 lavalink:
-  plugins:
-    - dependency: "dev.lavalink.youtube:youtube-plugin:1.18.0"
-      repository: "https://maven.lavalink.dev/releases"
   server:
     password: "r2dd2pass"
     sources:
-      youtube: false
+      youtube: true
       bandcamp: true
       soundcloud: true
       twitch: true
