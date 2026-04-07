@@ -1,0 +1,62 @@
+===============================
+   🔄  Music Bot — Actualización
+======================================================
+
+── Paso 1: Trayendo cambios desde GitHub
+remote: Enumerating objects: 24, done.
+remote: Counting objects: 100% (24/24), done.
+remote: Compressing objects: 100% (3/3), done.
+Unpacking objects: 100% (16/16), 4.13 KiB | 40.00 KiB/s, done.
+remote: Total 16 (delta 13), reused 16 (delta 13), pack-reused 0 (from 0)
+From github.com:kriptosec/Music-Bot-Master
+   aac41d7..e3afbc9  main       -> origin/main
+Updating aac41d7..e3afbc9
+Fast-forward
+ attached_assets/Pasted-2026-04-07T12-43-12-351Z-INFO-Prefijo-2026-04-07T12-43-_1775567211931.txt | 84 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ discord-music-bot/scripts/ytdlp-proxy.cjs                                                        |  7 ++++++-
+ discord-music-bot/src/utils/ytdlp.ts                                                             | 21 ++++++++++++++++---
+ 3 files changed, 108 insertions(+), 4 deletions(-)
+ create mode 100644 attached_assets/Pasted-2026-04-07T12-43-12-351Z-INFO-Prefijo-2026-04-07T12-43-_1775567211931.txt
+[OK]    Código actualizado. Cambios:
+     • e3afbc9 Improve video fetching by using Node.js and iOS client
+     • bf1726c Improve YouTube music playback by adjusting timeouts and error handling
+
+── Paso 2: Deteniendo servicios
+
+======================================================
+   🎵  Music Bot — Deteniendo
+======================================================
+
+[INFO] Deteniendo proxy yt-dlp (PID: 2090006)...
+[OK] Proxy yt-dlp detenido.
+[INFO] Deteniendo bot (PID: 2090014)...
+[OK] Bot detenido.
+[INFO] Deteniendo Lavalink (PID: 2088337)...
+[OK] Lavalink detenido.
+
+   ✅  Todo detenido.
+
+[OK]    Servicios detenidos.
+
+── Paso 3: Actualizando yt-dlp
+^[[O[OK]    yt-dlp 2026.03.17 al día.
+
+── Paso 4: Recompilando
+^[[I^[[O^[[I[OK]    Compilación exitosa.
+
+── Paso 5: Reiniciando servicios
+
+======================================================
+   ✅  Actualización completa
+======================================================
+
+[INFO]  Reiniciando bot...
+
+======================================================
+   🎵  Music Bot — Iniciando
+======================================================
+
+[INFO] Cargando variables de entorno desde .env...
+[OK]   Variables de entorno cargadas (YOUTUBE_OAUTH_REFRESH_TOKEN, DISCORD_TOKEN, etc.).
+[INFO] Iniciando Lavalink...
+[OK]   Lavalink iniciado (PID 2210615)
