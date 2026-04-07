@@ -25,7 +25,7 @@ lavalink:
   server:
     password: "r2dd2pass"
     sources:
-      youtube: false
+      youtube: true
       bandcamp: true
       soundcloud: true
       twitch: true
