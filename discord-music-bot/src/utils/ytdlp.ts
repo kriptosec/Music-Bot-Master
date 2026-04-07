@@ -72,9 +72,17 @@ function baseArgs(): string[] {
     "-f", "bestaudio[ext=webm]/bestaudio[ext=m4a]/bestaudio/best",
   ];
 
+  // Priority 1: extract cookies directly from an installed browser (PC/local use)
+  const browser = process.env.COOKIES_FROM_BROWSER;
+  if (browser) {
+    args.push("--cookies-from-browser", browser);
+    return args;
+  }
+
+  // Priority 2: use a cookies.txt file (VPS/server use — recommended)
   if (existsSync(COOKIES_FILE)) {
     args.push("--cookies", COOKIES_FILE);
-    console.log(`[ytdlp] Using cookies: ${COOKIES_FILE}`);
+    console.log(`[ytdlp] Using cookies file: ${COOKIES_FILE}`);
   }
 
   return args;

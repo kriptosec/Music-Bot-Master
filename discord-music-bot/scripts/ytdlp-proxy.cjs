@@ -43,7 +43,12 @@ function fetchAudioUrl(videoId, cb) {
     `https://www.youtube.com/watch?v=${videoId}`,
   ];
 
-  if (existsSync(COOKIES_FILE)) {
+  // Priority 1: extract cookies from an installed browser (PC/local)
+  const browser = process.env.COOKIES_FROM_BROWSER;
+  if (browser) {
+    args.push('--cookies-from-browser', browser);
+  } else if (existsSync(COOKIES_FILE)) {
+    // Priority 2: cookies.txt file (VPS/server — recommended)
     args.push('--cookies', COOKIES_FILE);
   }
 
