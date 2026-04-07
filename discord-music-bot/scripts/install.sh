@@ -328,17 +328,67 @@ if [ ! -f "$LAVALINK_JAR" ]; then
 fi
 
 # ──────────────────────────────────────────────────────────────────────────────
-# PASO 8: Crear directorios necesarios
+# PASO 8: yt-dlp (motor de audio de YouTube)
 # ──────────────────────────────────────────────────────────────────────────────
-step "Paso 8: Directorios del sistema"
+step "Paso 8: yt-dlp (audio de YouTube)"
+YTDLP_OK=false
+
+install_ytdlp_pip() {
+    if command -v pip3 &>/dev/null; then
+        info "Instalando yt-dlp con pip3..."
+        pip3 install -q --upgrade yt-dlp && return 0
+    fi
+    if command -v pip &>/dev/null; then
+        pip install -q --upgrade yt-dlp && return 0
+    fi
+    return 1
+}
+
+install_ytdlp_binary() {
+    info "Instalando yt-dlp como binario directo..."
+    local dest="/usr/local/bin/yt-dlp"
+    if command -v wget &>/dev/null; then
+        $SUDO_CMD wget -q -O "$dest" "https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp" \
+            && $SUDO_CMD chmod a+rx "$dest" && return 0
+    elif command -v curl &>/dev/null; then
+        $SUDO_CMD curl -sL -o "$dest" "https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp" \
+            && $SUDO_CMD chmod a+rx "$dest" && return 0
+    fi
+    return 1
+}
+
+if command -v yt-dlp &>/dev/null; then
+    YTDLP_VER=$(yt-dlp --version 2>/dev/null || echo "desconocida")
+    success "yt-dlp $YTDLP_VER ya instalado."
+    YTDLP_OK=true
+else
+    warn "yt-dlp no encontrado. Instalando..."
+    if install_ytdlp_pip; then
+        YTDLP_VER=$(yt-dlp --version 2>/dev/null || echo "OK")
+        success "yt-dlp $YTDLP_VER instalado con pip3."
+        YTDLP_OK=true
+    elif install_ytdlp_binary; then
+        success "yt-dlp instalado como binario."
+        YTDLP_OK=true
+    else
+        error "No se pudo instalar yt-dlp."
+        warn "Instala manualmente: pip3 install yt-dlp"
+        add_issue "yt-dlp no instalado — YouTube no funcionará"
+    fi
+fi
+
+# ──────────────────────────────────────────────────────────────────────────────
+# PASO 9: Crear directorios necesarios
+# ──────────────────────────────────────────────────────────────────────────────
+step "Paso 9: Directorios del sistema"
 mkdir -p "$BOT_DIR/logs"
 mkdir -p "$LAVALINK_DIR/logs"
 success "logs/ y lavalink/logs/ listos."
 
 # ──────────────────────────────────────────────────────────────────────────────
-# PASO 9: Configuración .env
+# PASO 10: Configuración .env
 # ──────────────────────────────────────────────────────────────────────────────
-step "Paso 9: Configuración (.env)"
+step "Paso 10: Configuración (.env)"
 ENV_OK=false
 
 if [ ! -f "$BOT_DIR/.env" ]; then
@@ -389,14 +439,16 @@ check_item() {
 LAVALINK_JAR_OK=$([ -f "$LAVALINK_JAR" ] && echo true || echo false)
 NODE_VER_STR=$(node -v 2>/dev/null || echo "no encontrado")
 JAVA_VER_STR=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}' 2>/dev/null || echo "no encontrado")
+YTDLP_VER_STR=$(yt-dlp --version 2>/dev/null || echo "no encontrado")
 
-check_item "Node.js ${NODE_VER_STR}"       "$NODE_OK"
-check_item "Dependencias npm"               "$DEPS_OK"       "discord.js + lavalink-client"
-check_item "Build TypeScript"               "$BUILD_OK"      "dist/index.js generado"
-check_item "Java ${JAVA_VER_STR}"          "$JAVA_OK"
-check_item "Lavalink.jar"                   "$LAVALINK_JAR_OK"
-check_item "Directorios logs/"              "true"
-check_item ".env configurado"               "$ENV_OK"
+check_item "Node.js ${NODE_VER_STR}"            "$NODE_OK"
+check_item "Dependencias npm"                    "$DEPS_OK"      "discord.js + lavalink-client"
+check_item "Build TypeScript"                    "$BUILD_OK"     "dist/index.js generado"
+check_item "Java ${JAVA_VER_STR}"               "$JAVA_OK"
+check_item "Lavalink.jar"                        "$LAVALINK_JAR_OK"
+check_item "yt-dlp ${YTDLP_VER_STR}"           "$YTDLP_OK"     "motor de audio YouTube"
+check_item "Directorios logs/"                   "true"
+check_item ".env configurado"                    "$ENV_OK"
 
 echo ""
 

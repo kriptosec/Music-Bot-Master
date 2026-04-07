@@ -14,6 +14,21 @@ import {
   playlistAddedEmbed,
 } from "../utils/embeds.js";
 import { formatDuration, chunkArray, getSourceEmoji, truncate, cleanQuery, parseLoadError } from "../utils/format.js";
+import { ytdlpSearch, isYouTubeQuery } from "../utils/ytdlp.js";
+
+// ─── Helper: patch HTTP track with YouTube metadata ───────────────────────────
+function applyYtMeta(
+  httpTrack: Track,
+  meta: { title: string; author: string; uri: string; thumbnail: string; duration: number }
+): Track {
+  httpTrack.info.title      = meta.title;
+  httpTrack.info.author     = meta.author;
+  httpTrack.info.uri        = meta.uri;
+  httpTrack.info.artworkUrl = meta.thumbnail;
+  httpTrack.info.duration   = meta.duration;
+  httpTrack.info.isStream   = false;
+  return httpTrack;
+}
 
 // ─── Helper: reply to an interaction (deferred) ───────────────────────────────
 async function reply(
@@ -74,8 +89,49 @@ async function handlePlay(interaction: ChatInputCommandInteraction, client: Clie
   });
 
   try {
+    // ── YouTube path: yt-dlp audio URL ───────────────────────────────────────
+    if (isYouTubeQuery(query)) {
+      logger.debug(`[/play] yt-dlp search: ${query}`);
+      const info = await ytdlpSearch(query);
+
+      if (!info) {
+        await reply(interaction, { content: "", embeds: [errorEmbed("🔍 **No se encontraron resultados.** Intentá con otro nombre.")] });
+        if (!player.playing && player.queue.tracks.length === 0) await player.destroy();
+        return;
+      }
+
+      const audioIdentifier = info.proxyUrl || info.audioUrl;
+      if (!audioIdentifier) {
+        await reply(interaction, { content: "", embeds: [errorEmbed("❌ yt-dlp no pudo obtener la URL de audio.")] });
+        if (!player.playing && player.queue.tracks.length === 0) await player.destroy();
+        return;
+      }
+
+      const httpResult = await player.search({ query: audioIdentifier }, interaction.user);
+
+      if (httpResult.loadType === "empty" || httpResult.loadType === "error") {
+        const rawErr = (httpResult as { exception?: { message?: string } }).exception?.message;
+        await reply(interaction, { content: "", embeds: [errorEmbed(parseLoadError(rawErr ?? "No se pudo cargar el audio de YouTube."))] });
+        if (!player.playing && player.queue.tracks.length === 0) await player.destroy();
+        return;
+      }
+
+      const track = applyYtMeta(httpResult.tracks[0] as Track, info);
+      await player.queue.add(track);
+
+      if (player.playing) {
+        await reply(interaction, { content: "", embeds: [trackAddedEmbed(track, player.queue.tracks.length)] });
+      } else {
+        await reply(interaction, { content: "▶️ Reproduciendo..." });
+      }
+
+      if (!player.playing) await player.play({ paused: false });
+      return;
+    }
+
+    // ── SoundCloud / Spotify / direct URL ────────────────────────────────────
     const result = await player.search(
-      { query, source: query.startsWith("http") ? undefined : "ytsearch" },
+      { query, source: query.startsWith("http") ? undefined : "scsearch" },
       interaction.user
     );
 

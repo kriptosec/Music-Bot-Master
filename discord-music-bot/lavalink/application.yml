@@ -5,6 +5,8 @@ server:
     enabled: false
 
 plugins:
+  # youtube-source: used only for SoundCloud compatibility check; YouTube audio
+  # is now handled by yt-dlp via the local HTTP proxy (scripts/ytdlp-proxy.cjs).
   youtube:
     enabled: true
     allowSearch: true
@@ -13,11 +15,8 @@ plugins:
     clients:
       - MUSIC
       - WEB
-      - ANDROID
-      - IOS
     oauth:
-      enabled: true
-      refreshToken: ${YOUTUBE_OAUTH_REFRESH_TOKEN:}
+      enabled: false
 
 lavalink:
   plugins:
@@ -26,12 +25,12 @@ lavalink:
   server:
     password: "r2dd2pass"
     sources:
-      youtube: false
+      youtube: false      # handled by yt-dlp bridge
       bandcamp: true
       soundcloud: true
       twitch: true
       vimeo: true
-      http: true
+      http: true          # required for yt-dlp audio stream URLs
       local: false
     filters:
       volume: true

@@ -3,6 +3,21 @@ import type { Command, CommandContext } from "../types.js";
 import { errorEmbed, trackAddedEmbed, playlistAddedEmbed } from "../utils/embeds.js";
 import { cleanQuery, parseLoadError } from "../utils/format.js";
 import { logger } from "../utils/logger.js";
+import { ytdlpSearch, isYouTubeQuery } from "../utils/ytdlp.js";
+
+// ── Utility: patch a Lavalink HTTP track with YouTube metadata ────────────────
+function applyYtMeta(
+  httpTrack: Track,
+  meta: { title: string; author: string; uri: string; thumbnail: string; duration: number }
+): Track {
+  httpTrack.info.title     = meta.title;
+  httpTrack.info.author    = meta.author;
+  httpTrack.info.uri       = meta.uri;
+  httpTrack.info.artworkUrl = meta.thumbnail;
+  httpTrack.info.duration  = meta.duration;
+  httpTrack.info.isStream  = false;
+  return httpTrack;
+}
 
 export const play: Command = {
   name: "play",
@@ -12,14 +27,14 @@ export const play: Command = {
   category: "music",
   requiresVoice: true,
 
-  async execute({ client, message, args }) {
+  async execute({ client, message, args }: CommandContext) {
     if (!args.length) {
       await message.reply({ embeds: [errorEmbed("Debes especificar una canción o URL.")] });
       return;
     }
 
     const { query, stripped } = cleanQuery(args.join(" "));
-    const guild = message.guild!;
+    const guild  = message.guild!;
     const member = message.member!;
     const voiceChannel = member.voice.channel!;
 
@@ -28,14 +43,14 @@ export const play: Command = {
     if (!player) {
       try {
         player = await client.lavalink.createPlayer({
-          guildId: guild.id,
+          guildId:       guild.id,
           voiceChannelId: voiceChannel.id,
-          textChannelId: message.channel.id,
-          selfDeaf: true,
-          selfMute: false,
-          volume: 80,
+          textChannelId:  message.channel.id,
+          selfDeaf:  true,
+          selfMute:  false,
+          volume:    80,
           instaUpdateFiltersFix: true,
-          applyVolumeAsFilter: false,
+          applyVolumeAsFilter:   false,
         });
       } catch {
         await message.reply({ embeds: [errorEmbed("⏳ Lavalink aún está iniciando. Espera unos segundos e intentá de nuevo.")] });
@@ -43,10 +58,7 @@ export const play: Command = {
       }
     }
 
-    if (!player.connected) {
-      await player.connect();
-    }
-
+    if (!player.connected) await player.connect();
     player.textChannelId = message.channel.id;
 
     const loadingMsg = await message.reply({
@@ -56,21 +68,65 @@ export const play: Command = {
     });
 
     try {
+      // ── YouTube path: use yt-dlp to get audio URL ──────────────────────────
+      if (isYouTubeQuery(query)) {
+        logger.debug(`[play] yt-dlp search: ${query}`);
+        const info = await ytdlpSearch(query);
+
+        if (!info) {
+          await loadingMsg.edit({ content: "", embeds: [errorEmbed("🔍 **No se encontraron resultados.** Intentá con otro nombre.")] });
+          if (!player.playing && !player.queue.tracks.length) await player.destroy();
+          return;
+        }
+
+        // Prefer proxy URL so token never expires mid-queue;
+        // fall back to direct CDN URL if proxy unavailable.
+        const audioIdentifier = info.proxyUrl || info.audioUrl;
+
+        if (!audioIdentifier) {
+          await loadingMsg.edit({ content: "", embeds: [errorEmbed("❌ yt-dlp no pudo obtener la URL de audio.")] });
+          if (!player.playing && !player.queue.tracks.length) await player.destroy();
+          return;
+        }
+
+        const httpResult = await player.search({ query: audioIdentifier }, message.author);
+
+        if (httpResult.loadType === "empty" || httpResult.loadType === "error") {
+          const rawErr = (httpResult as { exception?: { message?: string } }).exception?.message;
+          await loadingMsg.edit({ content: "", embeds: [errorEmbed(parseLoadError(rawErr ?? "No se pudo cargar el audio de YouTube."))] });
+          if (!player.playing && !player.queue.tracks.length) await player.destroy();
+          return;
+        }
+
+        const track = applyYtMeta(httpResult.tracks[0] as Track, info);
+        await player.queue.add(track);
+
+        if (player.playing) {
+          await loadingMsg.edit({ content: "", embeds: [trackAddedEmbed(track, player.queue.tracks.length)] });
+        } else {
+          await loadingMsg.delete().catch(() => null);
+        }
+
+        if (!player.playing) await player.play({ paused: false });
+        return;
+      }
+
+      // ── SoundCloud / Spotify / direct URL path: use Lavalink directly ───────
       const result = await player.search(
-        { query, source: query.startsWith("http") ? undefined : "ytsearch" },
+        { query, source: query.startsWith("http") ? undefined : "scsearch" },
         message.author
       );
 
       if (result.loadType === "empty") {
         await loadingMsg.edit({ content: "", embeds: [errorEmbed(`🔍 **No se encontraron resultados** para: \`${query}\``)] });
-        if (!player.playing && player.queue.tracks.length === 0) await player.destroy();
+        if (!player.playing && !player.queue.tracks.length) await player.destroy();
         return;
       }
 
       if (result.loadType === "error") {
         const errMsg = (result as { exception?: { message?: string } }).exception?.message;
         await loadingMsg.edit({ content: "", embeds: [errorEmbed(parseLoadError(errMsg))] });
-        if (!player.playing && player.queue.tracks.length === 0) await player.destroy();
+        if (!player.playing && !player.queue.tracks.length) await player.destroy();
         return;
       }
 
@@ -87,13 +143,12 @@ export const play: Command = {
         }
       }
 
-      if (!player.playing) {
-        await player.play({ paused: false });
-      }
+      if (!player.playing) await player.play({ paused: false });
+
     } catch (error) {
       logger.error("Error en !play:", error);
       await loadingMsg.edit({ content: "", embeds: [errorEmbed(parseLoadError((error as Error).message))] });
-      if (!player.playing && player.queue.tracks.length === 0) {
+      if (!player.playing && !player.queue.tracks.length) {
         await player.destroy().catch(() => null);
       }
     }

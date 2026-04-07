@@ -66,6 +66,10 @@ export function parseLoadError(rawMessage: string | undefined | null): string {
     return "🔍 **No se encontraron resultados.** Intentá con otro nombre o URL.";
   }
 
+  if (msg.includes("something went wrong") || msg.includes("loading information")) {
+    return "⚠️ **YouTube bloqueó la reproducción.**\nEl plugin de YouTube no pudo cargar el audio. Revisá los logs de Lavalink para el error exacto. Intentá con SoundCloud: `!play scsearch:nombre cancion`";
+  }
+
   // Fallback: show the raw message trimmed
   const display = (rawMessage ?? "Error desconocido").slice(0, 200);
   return `❌ **Error de Lavalink:** \`${display}\``;

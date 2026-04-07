@@ -94,9 +94,25 @@ else
 fi
 
 # ──────────────────────────────────────────────────────────────────────────────
-# PASO 3: Recompilar TypeScript
+# PASO 3: Actualizar yt-dlp (crítico — YouTube cambia frecuentemente)
 # ──────────────────────────────────────────────────────────────────────────────
-step "Paso 3: Recompilando"
+step "Paso 3: Actualizando yt-dlp"
+
+if command -v yt-dlp &>/dev/null; then
+    if pip3 install -q --upgrade yt-dlp 2>/dev/null || yt-dlp -U 2>/dev/null; then
+        success "yt-dlp $(yt-dlp --version) actualizado."
+    else
+        warn "No se pudo actualizar yt-dlp automáticamente."
+        warn "Actualiza manualmente: pip3 install --upgrade yt-dlp"
+    fi
+else
+    warn "yt-dlp no encontrado. Instala con: pip3 install yt-dlp"
+fi
+
+# ──────────────────────────────────────────────────────────────────────────────
+# PASO 4: Recompilar TypeScript
+# ──────────────────────────────────────────────────────────────────────────────
+step "Paso 4: Recompilando"
 
 rm -rf "$BOT_DIR/dist"
 
@@ -111,9 +127,9 @@ else
 fi
 
 # ──────────────────────────────────────────────────────────────────────────────
-# PASO 4: Reiniciar lo que estaba corriendo
+# PASO 5: Reiniciar lo que estaba corriendo
 # ──────────────────────────────────────────────────────────────────────────────
-step "Paso 4: Reiniciando servicios"
+step "Paso 5: Reiniciando servicios"
 
 echo ""
 echo "======================================================"

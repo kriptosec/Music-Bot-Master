@@ -7,6 +7,7 @@
 BOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 LAVALINK_PID_FILE="$BOT_DIR/.lavalink.pid"
 BOT_PID_FILE="$BOT_DIR/.bot.pid"
+PROXY_PID_FILE="$BOT_DIR/.proxy.pid"
 BOT_LOG="$BOT_DIR/logs/bot.log"
 LAVALINK_LOG="$BOT_DIR/logs/lavalink.log"
 
@@ -45,6 +46,28 @@ fi
 
 echo ""
 
+# Proxy yt-dlp
+echo -n "Proxy yt-dlp:   "
+if [ -f "$PROXY_PID_FILE" ]; then
+    pid=$(cat "$PROXY_PID_FILE")
+    if kill -0 "$pid" 2>/dev/null; then
+        running
+        echo "   PID: $pid | Puerto: 9001"
+        # Health check
+        if command -v curl &>/dev/null; then
+            HEALTH=$(curl -s "http://127.0.0.1:9001/health" 2>/dev/null)
+            [ -n "$HEALTH" ] && echo "   Health: $HEALTH"
+        fi
+    else
+        stopped
+        echo "   (PID $pid ya no existe)"
+    fi
+else
+    stopped
+fi
+
+echo ""
+
 # Lavalink
 echo -n "Lavalink:        "
 if [ -f "$LAVALINK_PID_FILE" ]; then
@@ -72,6 +95,7 @@ echo "Archivos del sistema:"
 [ -d "$BOT_DIR/node_modules" ]          && echo -e "  node_modules:     ${GREEN}✓${NC}" || echo -e "  node_modules:     ${RED}✗ Ejecuta install.sh${NC}"
 [ -d "$BOT_DIR/dist" ]                  && echo -e "  dist (compilado): ${GREEN}✓${NC}" || echo -e "  dist (compilado): ${YELLOW}✗ Ejecuta install.sh${NC}"
 [ -f "$BOT_DIR/lavalink/Lavalink.jar" ] && echo -e "  Lavalink.jar:     ${GREEN}✓${NC}" || echo -e "  Lavalink.jar:     ${YELLOW}✗ Descarga pendiente${NC}"
+command -v yt-dlp &>/dev/null           && echo -e "  yt-dlp:           ${GREEN}✓ $(yt-dlp --version 2>/dev/null)${NC}" || echo -e "  yt-dlp:           ${RED}✗ Instala: pip3 install yt-dlp${NC}"
 
 echo ""
 

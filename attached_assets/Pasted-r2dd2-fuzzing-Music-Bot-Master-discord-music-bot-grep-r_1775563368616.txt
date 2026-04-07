@@ -1,0 +1,24 @@
+r2dd2@fuzzing:~/Music-Bot-Master/discord-music-bot$ grep -rE "OAuth|oauth|clients|compatible" lavalink/logs/ | tail -20
+lavalink/logs/lavalink.log/spring.log:  at dev.lavalink.youtube.clients.skeleton.StreamingNonMusicClient.loadFormats(StreamingNonMusicClient.java:35)
+lavalink/logs/lavalink.log/spring.log:  at dev.lavalink.youtube.clients.skeleton.Client.getPlayabilityStatus(Client.java:94)
+lavalink/logs/lavalink.log/spring.log:  at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadTrackInfoFromInnertube(NonMusicClient.java:163)
+lavalink/logs/lavalink.log/spring.log:  at dev.lavalink.youtube.clients.skeleton.StreamingNonMusicClient.loadFormats(StreamingNonMusicClient.java:35)
+lavalink/logs/lavalink.log/spring.log:  at dev.lavalink.youtube.clients.skeleton.Client.getPlayabilityStatus(Client.java:64)
+lavalink/logs/lavalink.log/spring.log:  at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadTrackInfoFromInnertube(NonMusicClient.java:163)
+lavalink/logs/lavalink.log/spring.log:  at dev.lavalink.youtube.clients.skeleton.StreamingNonMusicClient.loadFormats(StreamingNonMusicClient.java:35)
+lavalink/logs/lavalink.log/spring.log:2026-04-07T11:52:35.957Z  WARN 2072217 --- [Lavalink] [main] dev.lavalink.youtube.clients.Android     : ANDROID is broken with no known fix. It is no longer advised to use this client.
+lavalink/logs/lavalink.log/spring.log:2026-04-07T11:52:39.254Z  WARN 2072217 --- [Lavalink] [main] d.l.youtube.YoutubeAudioSourceManager    : OAuth has been enabled without registering any OAuth-compatible clients. Please consult https://github.com/lavalink-devs/youtube-source?tab=readme-ov-file#available-clients for a list of OAuth-compatible clients.
+lavalink/logs/lavalink.log/spring.log:2026-04-07T11:52:39.255Z  INFO 2072217 --- [Lavalink] [main] d.l.youtube.plugin.YoutubePluginLoader   : YouTube source initialised with clients: WEB_REMIX, WEB, ANDROID, IOS
+lavalink/logs/lavalink.log/spring.log:Caused by: dev.lavalink.youtube.AllClientsFailedException: (yts.version: 1.18.0) All clients failed to load the item.
+lavalink/logs/lavalink.log/spring.log:  at dev.lavalink.youtube.clients.skeleton.Client.getPlayabilityStatus(Client.java:94)
+lavalink/logs/lavalink.log/spring.log:  at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadTrackInfoFromInnertube(NonMusicClient.java:163)
+lavalink/logs/lavalink.log/spring.log:  at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadVideo(NonMusicClient.java:432)
+lavalink/logs/lavalink.log/spring.log:  at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadJsonResponse(NonMusicClient.java:72)
+lavalink/logs/lavalink.log/spring.log:  at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadTrackInfoFromInnertube(NonMusicClient.java:155)
+lavalink/logs/lavalink.log/spring.log:  at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadVideo(NonMusicClient.java:432)
+lavalink/logs/lavalink.log/spring.log:  at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadJsonResponse(NonMusicClient.java:72)
+lavalink/logs/lavalink.log/spring.log:  at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadTrackInfoFromInnertube(NonMusicClient.java:155)
+lavalink/logs/lavalink.log/spring.log:  at dev.lavalink.youtube.clients.skeleton.NonMusicClient.loadVideo(NonMusicClient.java:432)
+r2dd2@fuzzing:~/Music-Bot-Master/discord-music-bot$ grep -i "error\|exception\|youtube\|track" lavalink/logs/lavalink.log | tail -30
+grep: lavalink/logs/lavalink.log: Is a directory
+r2dd2@fuzzing:~/Music-Bot-Master/discord-music-bot$

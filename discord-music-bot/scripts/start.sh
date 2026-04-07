@@ -9,8 +9,10 @@ LAVALINK_DIR="$BOT_DIR/lavalink"
 LAVALINK_JAR="$LAVALINK_DIR/Lavalink.jar"
 LAVALINK_PID_FILE="$BOT_DIR/.lavalink.pid"
 BOT_PID_FILE="$BOT_DIR/.bot.pid"
+PROXY_PID_FILE="$BOT_DIR/.proxy.pid"
 LAVALINK_LOG="$BOT_DIR/logs/lavalink.log"
 BOT_LOG="$BOT_DIR/logs/bot.log"
+PROXY_LOG="$BOT_DIR/logs/proxy.log"
 ENV_FILE="$BOT_DIR/.env"
 
 RED='\033[0;31m'
@@ -138,7 +140,51 @@ else
 fi
 
 # ──────────────────────────────────────────────────────────────────────────────
-# 5. Iniciar el bot de Discord
+# 5. Iniciar el proxy yt-dlp (YouTube audio bridge)
+# ──────────────────────────────────────────────────────────────────────────────
+proxy_pid=""
+if [ -f "$PROXY_PID_FILE" ]; then
+    proxy_pid=$(cat "$PROXY_PID_FILE")
+    if ! kill -0 "$proxy_pid" 2>/dev/null; then
+        rm -f "$PROXY_PID_FILE"
+        proxy_pid=""
+    fi
+fi
+
+if [ -n "$proxy_pid" ]; then
+    success "Proxy yt-dlp ya está corriendo (PID $proxy_pid)"
+else
+    PROXY_SCRIPT="$BOT_DIR/scripts/ytdlp-proxy.cjs"
+    if [ -f "$PROXY_SCRIPT" ] && command -v node &>/dev/null; then
+        # Verificar que yt-dlp esté instalado
+        if ! command -v yt-dlp &>/dev/null; then
+            warn "yt-dlp no encontrado. Instalando con pip3..."
+            if command -v pip3 &>/dev/null; then
+                pip3 install -q yt-dlp && success "yt-dlp instalado." || warn "No se pudo instalar yt-dlp automáticamente. YouTube podría no funcionar."
+            else
+                warn "pip3 no disponible. Instala yt-dlp: sudo pip3 install yt-dlp"
+            fi
+        else
+            success "yt-dlp $(yt-dlp --version) encontrado."
+        fi
+
+        info "Iniciando proxy yt-dlp..."
+        nohup node "$PROXY_SCRIPT" >> "$PROXY_LOG" 2>&1 &
+        PROXY_PID=$!
+        echo $PROXY_PID > "$PROXY_PID_FILE"
+        sleep 1
+        if kill -0 "$PROXY_PID" 2>/dev/null; then
+            success "Proxy yt-dlp iniciado (PID $PROXY_PID)"
+        else
+            warn "Proxy yt-dlp no pudo iniciar. YouTube puede no funcionar."
+        fi
+    else
+        warn "Proxy yt-dlp no encontrado. YouTube puede no funcionar."
+    fi
+fi
+
+# ──────────────────────────────────────────────────────────────────────────────
+# 6. Iniciar el bot de Discord
 # ──────────────────────────────────────────────────────────────────────────────
 info "Iniciando bot de Discord..."
 nohup node "$BOT_DIR/dist/index.js" >> "$BOT_LOG" 2>&1 &

@@ -7,6 +7,7 @@
 BOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 LAVALINK_PID_FILE="$BOT_DIR/.lavalink.pid"
 BOT_PID_FILE="$BOT_DIR/.bot.pid"
+PROXY_PID_FILE="$BOT_DIR/.proxy.pid"
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -23,6 +24,23 @@ echo "======================================================"
 echo "   🎵  Music Bot — Deteniendo"
 echo "======================================================"
 echo ""
+
+# Detener proxy yt-dlp
+if [ -f "$PROXY_PID_FILE" ]; then
+    pid=$(cat "$PROXY_PID_FILE")
+    if kill -0 "$pid" 2>/dev/null; then
+        info "Deteniendo proxy yt-dlp (PID: $pid)..."
+        kill -TERM "$pid" 2>/dev/null
+        sleep 1
+        kill -0 "$pid" 2>/dev/null && kill -9 "$pid" 2>/dev/null
+        success "Proxy yt-dlp detenido."
+    else
+        warn "Proxy yt-dlp no está corriendo (PID $pid no existe)."
+    fi
+    rm -f "$PROXY_PID_FILE"
+else
+    warn "Proxy yt-dlp no está corriendo (sin archivo PID)."
+fi
 
 # Detener bot de Discord
 if [ -f "$BOT_PID_FILE" ]; then
