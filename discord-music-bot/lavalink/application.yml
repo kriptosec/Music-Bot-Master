@@ -13,8 +13,8 @@ plugins:
     clients:
       - MUSIC
       - WEB
+      - TVHTML5EMBEDDED
       - ANDROID_MUSIC
-      - IOS
     oauth:
       enabled: false
 
