@@ -27,8 +27,13 @@ function fetchAudioUrl(videoId, cb) {
   if (cached) return cb(null, cached);
 
   const args = [
+    '--no-playlist',
+    '--no-warnings',
+    '--no-config',
+    '--js-runtimes', 'node',
+    '--extractor-args', 'youtube:player_client=ios',
     '-f', 'bestaudio[ext=webm]/bestaudio[ext=m4a]/bestaudio/best',
-    '--get-url', '--no-playlist', '--no-warnings',
+    '--get-url',
     `https://www.youtube.com/watch?v=${videoId}`,
   ];
 

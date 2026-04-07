@@ -63,6 +63,8 @@ export async function ytdlpSearch(query: string): Promise<YtDlpInfo | null> {
     "--no-playlist",
     "--no-warnings",
     "--no-config",
+    "--js-runtimes", "node",
+    "--extractor-args", "youtube:player_client=ios",
     "-f", "bestaudio[ext=webm]/bestaudio[ext=m4a]/bestaudio/best",
     "-j",
     searchArg,
